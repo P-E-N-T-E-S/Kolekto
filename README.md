@@ -21,6 +21,7 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 - **Banco de Dados:** Utilizamos um banco de dados para armazenar informações de usuários, produtos, transações e outros dados relevante, usando o padrão do Django o SQLite.
 - **Framework de Desenvolvimento:** Utilizamos o Django, para acelerar o desenvolvimento.
 - **Frontend:** A interface do usuário é desenvolvida utilizando tecnologias como HTML, CSS usando Boostrap.
+- **Organização:** Para nos organizar e seguir os principios de desenvolvimento de software vamos usar o jira: https://pentes.atlassian.net/jira/software/projects/PEN/boards/2
 
 ## Equipe
 
