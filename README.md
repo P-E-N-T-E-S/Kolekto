@@ -17,7 +17,7 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 
 ## Tecnologias Utilizadas
 
-- **Linguagem de Programação:** O aplicativo é desenvolvido usando o Python e CSS.
+- **Linguagem de Programação:** O aplicativo é desenvolvido usando o Python, HMTL e CSS.
 - **Banco de Dados:** Utilizamos um banco de dados para armazenar informações de usuários, produtos, transações e outros dados relevante, usando o padrão do Django o SQLite.
 - **Framework de Desenvolvimento:** Utilizamos o Django, para acelerar o desenvolvimento.
 - **Frontend:** A interface do usuário é desenvolvida utilizando tecnologias como HTML, CSS usando Boostrap.
