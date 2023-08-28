@@ -14,11 +14,11 @@ Atualizações para o Futuro
 
 Bem-vindo ao repositório do projeto Kolekto! Este é um aplicativo desenvolvido como parte da disciplina de Fundamentos de Software (FDS). O objetivo do Kolekto é facilitar a compra e venda de produtos colecionáveis, proporcionando uma plataforma intuitiva e amigável para colecionadores e entusiastas.
 
-## Visão Geral
+## 🗪 Visão Geral
 
 O Kolekto é uma plataforma que conecta compradores e vendedores de produtos colecionáveis, como quadrinhos, cards, brinquedos e outros itens de valor sentimental. O aplicativo oferece recursos que simplificam o processo de encontrar, adquirir e vender itens colecionáveis, enquanto cria uma comunidade vibrante de colecionadores.
 
-## Funcionalidades Principais
+## 🔧 Funcionalidades Principais
 
 - **Cadastro de Usuário:** Os usuários podem criar contas pessoais, permitindo que eles acessem todas as funcionalidades do aplicativo.
 - **Listagem de Itens:** Os vendedores podem criar anúncios para os itens que desejam vender. Eles podem adicionar imagens, descrições, categorias e preços aos produtos.
@@ -27,7 +27,7 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 - **Avaliações e Comentários:** Os usuários podem deixar avaliações e comentários sobre vendedores e produtos, fornecendo informações adicionais para a comunidade.
 - **Gerenciamento de Transações:** O aplicativo suporta um sistema de acompanhamento de transações, ajudando os usuários a manterem o controle de suas compras e vendas.
 
-## Tecnologias Utilizadas
+## ⚙ Tecnologias Utilizadas
 
 - **Linguagem de Programação:** O aplicativo é desenvolvido usando o Python, HMTL e CSS.
 - **Banco de Dados:** Utilizamos um banco de dados para armazenar informações de usuários, produtos, transações e outros dados relevante, usando o padrão do Django o SQLite.
