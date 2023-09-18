@@ -39,7 +39,8 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 - **Frontend:** A interface do usuário é desenvolvida utilizando tecnologias como HTML, CSS usando Boostrap.
 - **Organização:** Para nos organizar e seguir os principios de desenvolvimento de software vamos usar o jira: https://pentes.atlassian.net/jira/software/projects/KLK/boards/4
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/97982032/17ebe381-331c-4a14-a301-bf759606be34)
-  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/97982032/958b5a14-850e-44dd-8911-325f33d63219)
+  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/97982032/0ca05b14-d2e3-4591-8f8f-7c3b4aff0365)
+
 
 
 - **Prototipação:** Para o processo de prototipação foi utilizado o aplicativo Figma, onde será possível acessar as telas prototipadas com o storyboard: https://www.figma.com/file/jOfywNY7puA1jQq3IbesyK/Kolekto?type=design&node-id=0-1&mode=design&t=yxEkCr1ZZESIiozu-0
