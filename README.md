@@ -44,6 +44,7 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 
 
 - **Prototipação:** Para o processo de prototipação foi utilizado o aplicativo Figma, onde será possível acessar as telas prototipadas com o storyboard: https://www.figma.com/file/jOfywNY7puA1jQq3IbesyK/Kolekto?type=design&node-id=0-1&mode=design&t=yxEkCr1ZZESIiozu-0
+- Link do vídeo de apresentação do protótipo: https://youtu.be/gdpRbjAJmQc
 
 ## 🤝 Membros
 
