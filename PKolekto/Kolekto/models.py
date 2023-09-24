@@ -10,4 +10,4 @@ class Loja(models.Model):
     NomeVendedor = models.CharField(max_length=50)
     Cpf = CPFField("cpf")
     DataNascimento = models.DateTimeField()
-    Localizacao = Cep()
+    #Localizacao = Cep()
