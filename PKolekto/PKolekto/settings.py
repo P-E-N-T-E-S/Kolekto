@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "cpf_field",
     "cep",
-    "Kolekto",
+    "Kolekto.app.KolektoConfig",
 ]
 
 MIDDLEWARE = [
