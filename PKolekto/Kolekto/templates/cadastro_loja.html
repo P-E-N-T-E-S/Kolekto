@@ -3,16 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cadastro Loja</title>
 </head>
 <body>
-    <h1>
-        Cadastro loja
-    </h1>
-    <form action="." method="post">
+    <h1>Cadastro de loja</h1>
+    <form action="{% url 'nova_loja' %}" method="post">
         {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" value="Salvar">
+        <label for="nome">Foto de perfil da loja</label>
+        <br />
+        <input type="file" id="perfil" name="perfil">
+        <br /><br />
+        <label for="banner">Banner da loja</label>
+        <br />
+        <input type="file" name="banner" id="banner">
+        <br /><br />
+        <label for="nome_loja">Nome da loja</label>
+        <br />
+        <input type="text" name="nome_loja" id="nome_loja" >
+        <br /><br />
+        <label for="cpf">CPF</label>
+        <br />
+        <input type="text" name="cpf" id="cpf" \
+        pattern="\d{3}.?\d{3}.?\d{3}-?\d{2}">
+        <br /><br />
+        <label for="nascimento">Data de nascimento</label>
+        <br />
+        <input type="date" name="nascimento" id="nascimento">
+        <br /><br />
+        <label for="Localização">Localização</label>
+        <br />
+        <input type="text" name="local" id="local">
+        <br /><br />
     </form>
 </body>
 </html>
