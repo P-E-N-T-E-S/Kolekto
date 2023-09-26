@@ -11,3 +11,15 @@ class Loja(models.Model):
     Cpf = models.TextField(max_length=14)
     DataNascimento = models.DateTimeField()
     Localizacao = models.TextField(max_length=50)
+    
+class Produto(models.Model):
+    foto1 = models.ImageField(upload_to="fotos/")
+    foto2 = models.ImageField(upload_to="fotos/")
+    foto3 = models.ImageField(upload_to="fotos/")
+    foto4 = models.ImageField(upload_to="fotos/")
+    nome_produto = models.CharField(max_length=100)
+    descricao = models.CharField(max_length=500)
+    #Categoria = models.
+    #Subcategoria = models.
+    preco = models.DecimalField(max_digits=10,decimal_places=2)
+    qntd = models.PositiveSmallIntegerField()

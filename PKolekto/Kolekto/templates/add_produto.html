@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar produto</title>
+</head>
+<body>
+    <h1>Adicionar produto</h1>
+    <form action="{% url 'add_produto' %}" method="post">
+        {% csrf_token %}
+        <label for="nome">Fotos</label>
+        <br/>
+        <input type="file" id="foto1" name="foto1">
+        <br>
+        <input type="file" id="foto2" name="foto2">
+        <br>
+        <input type="file" id="foto3" name="foto3">
+        <br>
+        <input type="file" id="foto4" name="foto4">
+        <br>
+        <br>
+        <label for="Nome">Nome do produto</label>
+        <br>
+        <input type="text" name="nome_produto" id="nome_produto">
+        <br><br>
+        <button type="submit">Anunciar produto</button>
+    </form>
+</body>
+</html>
