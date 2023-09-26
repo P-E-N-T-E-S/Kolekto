@@ -3,8 +3,15 @@ from .models import Produto
 # Create your views here.
 
 def Cadastro_Loja(request):
-    contexto ={
-        "nome_vendedor": "marças"
+    if request.method == "POST":
+        data_nascimento = request.POST.get("nascimento", None)
+        print(data_nascimento)
+
+        perfil = request.POST["perfil"]
+        banner = request.POST["banner"]
+
+    contexto = {
+        "nome_vendedor": "Marcílio"
     }
     return render(request, "cadastro_loja.html", context=contexto)
 
