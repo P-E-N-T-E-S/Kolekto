@@ -8,6 +8,6 @@ class Loja(models.Model):
     Perfil = models.ImageField(upload_to="perf_imgs/")
     NomeLoja = models.CharField(max_length=30)
     NomeVendedor = models.CharField(max_length=50)
-    Cpf = models.IntegerField()
+    Cpf = models.TextField(max_length=14)
     DataNascimento = models.DateTimeField()
     Localizacao = models.TextField(max_length=50)
