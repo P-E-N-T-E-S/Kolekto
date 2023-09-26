@@ -19,7 +19,6 @@ class Produto(models.Model):
     foto4 = models.ImageField(upload_to="fotos/")
     nome_produto = models.CharField(max_length=100)
     descricao = models.CharField(max_length=500)
-    #Categoria = models.
-    #Subcategoria = models.
+    categoria = models.CharField(max_length=50)
     preco = models.DecimalField(max_digits=10,decimal_places=2)
     qntd = models.PositiveSmallIntegerField()

@@ -24,6 +24,28 @@
         <br>
         <input type="text" name="nome_produto" id="nome_produto">
         <br><br>
+        <label for="Nome">Descricao</label>
+        <br>
+        <input type="text" name="descricao" id="descricao">
+        <br><br>
+        <label for="Nome">Preco</label>
+        <br>
+        <input type="text" name="preco" id="preco">
+        <br><br>
+        <label for="Nome">Quantidade</label>
+        <br>
+        <input type="text" name="qntd" id="qntd">
+        <br><br>
+        <label for="Nome">Categoria</label>
+        <br>
+        <select id="categoria" name="select">
+            {% for categoria in categorias %}
+                <option value="{{ categoria }}">{{ categoria }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        {{ error_message }}
+        <br><br>
         <button type="submit">Anunciar produto</button>
     </form>
 </body>
