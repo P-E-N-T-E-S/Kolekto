@@ -4,7 +4,7 @@ from .models import Produto
 
 def Cadastro_Loja(request):
     if request.method == "POST":
-        cidade = request.POST.get("cidade", None)
+        cidade = request.POST["cidade"]
         print(cidade)
 
     contexto = {
