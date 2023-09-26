@@ -10,7 +10,8 @@
   <body>
   <h1>Cadastro de Loja</h1>
   <div class="container">
-    <form>
+    <form action="{% url 'nova_loja' %}" method="post">
+      {% csrf_token %}
       <div class="row row-cols-2">
       <fieldset disabled>
       <div class="col-md-6">

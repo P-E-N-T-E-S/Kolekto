@@ -4,11 +4,8 @@ from .models import Produto
 
 def Cadastro_Loja(request):
     if request.method == "POST":
-        data_nascimento = request.POST.get("nascimento", None)
-        print(data_nascimento)
-
-        perfil = request.POST["perfil"]
-        banner = request.POST["banner"]
+        cidade = request.POST.get("cidade", None)
+        print(cidade)
 
     contexto = {
         "nome_vendedor": "Marcílio"
