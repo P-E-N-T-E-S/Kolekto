@@ -10,7 +10,7 @@ class Loja(models.Model):
     NomeVendedor = models.CharField(max_length=50)
     Cpf = models.CharField(max_length=14)
     DataNascimento = models.DateTimeField()
-    cidade = models.CharField(max_length=50)
+    Localizacao = models.CharField(max_length=50)
     
 class Produto(models.Model):
     foto1 = models.ImageField(upload_to="fotos/")
