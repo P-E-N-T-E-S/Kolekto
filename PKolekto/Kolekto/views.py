@@ -86,15 +86,16 @@ def Add_Produto(request):
     return render(request, "add_produto.html", {"categorias": categorias})
 
 def product_list(request):
-    template_name = 'product/product_list.html'
-    object_list = Produto.objects.all()
 
-    search = request.GET.get('search')
+    contexto = {
+        "nome_pesquisado": "nome_pesquisado",
+    }
 
-    if search:
-        object_list = object_list.filter(
-            Q(title__icontains=search)
-            | Q(description__icontains=search)
-            | Q(category__title__icontains=search)
-        )
-        return render(request, "home.html")
+    if request.method == "GET":
+        nome_pesquisado = request.GET.get("nome_pesquisado")
+        lista_produtos = Produto.objects.filter(nome_produto=nome_pesquisado)
+        #  Q(nome_produto__icontains=nome_pesquisado)
+        # | Q(description__icontains=search)
+        # | Q(category__title__icontains=search))
+
+    return render(request, "home.html", context=contexto)
