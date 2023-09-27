@@ -31,6 +31,7 @@ def Cadastro_Loja(request):
             contexto["erros"] = erros
             contexto["data_nascimento"] = data_nascimento
             contexto["localizacao"] = request.POST.get("cidade")
+            contexto["estado"] = True
             contexto["cpf"] = cpf
             contexto["nome_loja"] = nome_loja
             contexto["banner"] = banner

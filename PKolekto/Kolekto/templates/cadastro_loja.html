@@ -21,13 +21,16 @@
       </fieldset>
       <div class="col-md-6">
       <label for="nascimento" class="form-label">Selecione sua data de nascimento</label>
-      <input type="date" class="form-control" id="nascimento" name="nascimento", placeholder="{{ data_nascimento }}">
+      <input type="date" class="form-control" id="nascimento" name="nascimento", value="{{ data_nascimento }}">
     </div>
         <div class="col-md-6">
           <label class="form-label">Selecione seu estado</label>
           <br />
           <div style="padding-left:-5%">
           <select class="form-select form-select-lg mb-3 pb-0" name="estado" style="padding-right:80%" >
+            {% if cidade %}
+            <option value="">Escolha seu estado novamente</option>
+            {% endif %}
             <option value="ac">AC</option>
             <option value="al">AL</option>
             <option value="ap">AP</option>
@@ -59,25 +62,25 @@
         </div>
         <div class="col-md-6">
           <label for="cidade" class="form-label">Digite sua cidade</label>
-          <input type="text" class="form-control" id="cidade" name="cidade" placeholder="{{ cidade }}">
+          <input type="text" class="form-control" id="cidade" name="cidade" value="{{ cidade }}">
         </div>
       <div class="col-md-6">
       <label for="cpf" class="form-label">Informe o seu CPF</label>
-      <input type="text" class="form-control" id="cpf" aria-describedby="cpf_" name="cpf" placeholder="{{ cpf }}">
+      <input type="text" class="form-control" id="cpf" aria-describedby="cpf_" name="cpf" value="{{ cpf }}">
         <div id="cpf_", class="form_text">Ex: 999.999.999-99</div>
     </div>
       <div class="col-md-6">
       <label for="nome_loja" class="form-label">Digite o nome da sua Loja</label>
-      <input type="text" class="form-control" id="nome_loja" name="nome_loja" placeholder="{{nome_loja}}">
+      <input type="text" class="form-control" id="nome_loja" name="nome_loja" value="{{nome_loja}}">
     </div>
     <div class="col-md-6">
       <label for="perfil" class="form-label">Imagem de perfil</label>
-      <input type="file" class="form-control" id="perfil" aria-describedby="perfil_" name="perfil" placeholder="{{ perfil }}">
+      <input type="file" class="form-control" id="perfil" aria-describedby="perfil_" name="perfil" value="{{ perfil }}">
       <div id="perfil_" class="form-text">Selecione uma imagem da sua galeria para ser sua foto de perfil da sua loja</div>
     </div>
         <div class="col-md-6">
       <label for="banner" class="form-label">Imagem de banner</label>
-      <input type="file" class="form-control" id="banner" aria-describedby="banner_" name="banner" placeholder="{{ banner }}">
+      <input type="file" class="form-control" id="banner" aria-describedby="banner_" name="banner" value="{{ banner }}">
       <div id="banner_" class="form-text">Selecione uma imagem da sua galeria para ser sua foto de perfil da sua loja</div>
     </div>
       </div><!--class="row"-->
