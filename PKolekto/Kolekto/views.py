@@ -1,16 +1,51 @@
 from django.shortcuts import render
-from .models import Produto
+from .models import Produto, Loja
 # Create your views here.
 
+'''def val_cpf(num):
+    num = num.split('.')
+    aux = num[2].split('-')
+    num.append(aux[0])
+    num.append(aux[1])
+    num'''
 def Cadastro_Loja(request):
-    if request.method == "POST":
-        cidade = request.POST.get("cidade", None)
-        print(cidade)
-
     contexto = {
         "nome_vendedor": "Marcílio"
     }
+    if request.method == "POST":
+
+        erros = {}
+
+        data_nascimento = request.POST.get("nascimento")
+        Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
+        cpf = request.POST.get(("cpf"))
+        nome_loja = request.POST.get("nome_loja")
+        banner = request.POST.get("banner")
+        perfil = request.POST.get("perfil")
+        nome_vendedor = contexto["nome_vendedor"]
+
+        if not (cpf.find('.') == 3 and cpf[4:] == 3 and cpf.find("-") == 11 and len(cpf) == 14):
+            erros["cpf_mask"] = "Digite o cpf corretamente"
+
+        if erros:
+            contexto["erros"] = erros
+            contexto["data_nascimento"] = data_nascimento
+            contexto["localizacao"] = request.POST.get("cidade")
+            contexto["estado"] = True
+            contexto["cpf"] = cpf
+            contexto["nome_loja"] = nome_loja
+            contexto["banner"] = banner
+            contexto["perfil"] = perfil
+
+            return render(request, "cadastro_loja.html", context=contexto)
+
+        else:
+            Loja.objects.create(Banner=banner, Perfil=perfil, NomeLoja=nome_loja, NomeVendedor=nome_vendedor, Cpf=cpf,
+                            DataNascimento=data_nascimento, Localizacao=Localizacao)
+
+
     return render(request, "cadastro_loja.html", context=contexto)
+
 
 def Add_Produto(request):
     categorias = [

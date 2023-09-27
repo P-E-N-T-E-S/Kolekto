@@ -8,9 +8,11 @@ class Loja(models.Model):
     Perfil = models.ImageField(upload_to="perf_imgs/")
     NomeLoja = models.CharField(max_length=30)
     NomeVendedor = models.CharField(max_length=50)
-    Cpf = models.TextField(max_length=14)
+    Cpf = models.CharField(max_length=14)
     DataNascimento = models.DateTimeField()
-    Localizacao = models.TextField(max_length=50)
+    Localizacao = models.CharField(max_length=50)
+    dados_contato = models.TextField(max_length=200, default="Sem dados de contato")
+
     
 class Produto(models.Model):
     foto1 = models.ImageField(upload_to="fotos/")
