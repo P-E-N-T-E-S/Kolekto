@@ -2,7 +2,13 @@ from django.db import models
 
 # Create your models here.
 
-
+class Usuario(models.Model):
+    login = models.CharField(max_length=20)
+    senha = models.CharField(max_length=20)
+    email = models.CharField(max_length=50)
+    nome = models.CharField(max_length=70)
+    
+    
 class Loja(models.Model):
     Banner = models.ImageField(upload_to="ban_imgs/")
     Perfil = models.ImageField(upload_to="perf_imgs/")
@@ -24,3 +30,4 @@ class Produto(models.Model):
     categoria = models.CharField(max_length=50)
     preco = models.DecimalField(max_digits=10,decimal_places=2)
     qntd = models.PositiveSmallIntegerField()
+    loja_id = models.IntegerField(null=None)
