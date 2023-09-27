@@ -44,7 +44,7 @@ def Add_Produto(request):
         try: 
             Produto.objects.create(foto1=foto1, foto2=foto2, foto3=foto3, foto4=foto4, nome_produto=nome_produto, descricao=descricao, preco=preco, categoria=categoria,qntd=qntd)
         finally:
-            return render(request, "cadastro_loja.html")
+            return render(request, "add_produto.html")
     
 
     return render(request, "add_produto.html", {"categorias": categorias})
