@@ -30,5 +30,5 @@ class Produto(models.Model):
     categoria = models.CharField(max_length=50)
     preco = models.DecimalField(max_digits=10,decimal_places=2)
     qntd = models.PositiveSmallIntegerField()
-    # id_loja = IntegerField()
+    #loja = models.ForeignKey(Loja, null=True)
 

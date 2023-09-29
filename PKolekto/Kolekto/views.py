@@ -122,12 +122,14 @@ def product_list(request):
 
 def pagina_loja(request, nome_loja):
     loja = Loja.objects.get(NomeLoja = nome_loja)
+    produtos = list(loja.produto_set.all())
     contexto = {
         "banner": loja.Banner,
         "perfil": loja.Perfil,
         "nome_loja": loja.NomeLoja,
         "localizacao": loja.Localizacao,
-        "descricao": loja.descricao
+        "descricao": loja.descricao,
+        "produto": produtos
     }
 
     return render(request, "pagina_loja.html", context=contexto)
