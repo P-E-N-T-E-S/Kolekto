@@ -98,7 +98,7 @@ def product_list(request):
     return render(request, "home.html", context=contexto)
 
 def pagina_loja(request, nome_loja):
-    loja = Loja.objects.get(name = nome_loja)
+    loja = Loja.objects.get(NomeLoja = nome_loja)
     contexto = {
         "banner": loja.Banner,
         "perfil": loja.Perfil,
