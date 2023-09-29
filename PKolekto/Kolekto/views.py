@@ -1,7 +1,30 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
 from .models import Produto, Loja, Usuario
 from django.db.models import Q
 # Create your views here.
+
+def Registro(request):
+    if request.method == 'POST':
+        username = request.POST['login']
+        nome = request.POST['login']
+        email = request.POST['email']
+        senha = request.POST['senha']
+        usuario = Usuario.objects.create_user(username=username, nome=nome, email=email, senha=senha)
+        login(request, usuario)
+        return redirect('home') 
+    return render(request, 'registro.html')
+
+def Login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        senha = request.POST['senha']
+        user = authenticate(request, username=username, senha=senha)
+        if user is not None:
+            login(request, user)
+            return redirect('home')  
+    return render(request, 'login.html')
+
 
 def Cadastro_Loja(request):
     contexto = {
