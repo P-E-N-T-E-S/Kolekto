@@ -17,7 +17,7 @@ class Loja(models.Model):
     Cpf = models.CharField(max_length=14)
     DataNascimento = models.DateTimeField()
     Localizacao = models.CharField(max_length=50)
-    dados_contato = models.TextField(max_length=200, default="Sem dados de contato")
+    descricao = models.TextField(max_length=200, default="Sem dados de contato")
 
     
 class Produto(models.Model):

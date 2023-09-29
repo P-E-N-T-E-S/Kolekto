@@ -1,17 +1,11 @@
 from django.shortcuts import render
-from .models import Produto, Loja
+from .models import Produto, Loja, Usuario
 from django.db.models import Q
 # Create your views here.
 
-'''def val_cpf(num):
-    num = num.split('.')
-    aux = num[2].split('-')
-    num.append(aux[0])
-    num.append(aux[1])
-    num'''
 def Cadastro_Loja(request):
     contexto = {
-        "nome_vendedor": "Marcílio"
+        "nome_vendedor": Usuario.objects.get(login=request.session["usuario"]).nome
     }
     if request.method == "POST":
 
@@ -24,6 +18,7 @@ def Cadastro_Loja(request):
         banner = request.POST.get("banner")
         perfil = request.POST.get("perfil")
         nome_vendedor = contexto["nome_vendedor"]
+        descricao = request.POST.get("descricao")
 
         if not (cpf.find('.') == 3 and cpf[4:] == 3 and cpf.find("-") == 11 and len(cpf) == 14):
             erros["cpf_mask"] = "Digite o cpf corretamente"
@@ -37,12 +32,13 @@ def Cadastro_Loja(request):
             contexto["nome_loja"] = nome_loja
             contexto["banner"] = banner
             contexto["perfil"] = perfil
+            contexto["descrito"] = descricao
 
             return render(request, "cadastro_loja.html", context=contexto)
 
         else:
             Loja.objects.create(Banner=banner, Perfil=perfil, NomeLoja=nome_loja, NomeVendedor=nome_vendedor, Cpf=cpf,
-                            DataNascimento=data_nascimento, Localizacao=Localizacao)
+                            DataNascimento=data_nascimento, Localizacao=Localizacao, descricao=descricao)
 
 
     return render(request, "cadastro_loja.html", context=contexto)
@@ -100,3 +96,15 @@ def product_list(request):
         # | Q(category__title__icontains=search))
 
     return render(request, "home.html", context=contexto)
+
+def pagina_loja(request, nome_loja):
+    loja = Loja.objects.get(name = nome_loja)
+    contexto = {
+        "banner": loja.Banner,
+        "perfil": loja.Perfil,
+        "nome_loja": loja.NomeLoja,
+        "localizacao": loja.Localizacao,
+        "descricao": loja.descricao
+    }
+
+    return render(request, "pagina_loja.html", context=contexto)

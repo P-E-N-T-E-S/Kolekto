@@ -67,7 +67,7 @@
       <div class="col-md-6">
       <label for="cpf" class="form-label">Informe o seu CPF</label>
       <input type="text" class="form-control" id="cpf" aria-describedby="cpf_" name="cpf" value="{{ cpf }}">
-        <div id="cpf_", class="form_text">Ex: 999.999.999-99</div>
+        <div id="cpf_" class="form_text">Ex: 999.999.999-99</div>
     </div>
       <div class="col-md-6">
       <label for="nome_loja" class="form-label">Digite o nome da sua Loja</label>
@@ -82,7 +82,13 @@
       <label for="banner" class="form-label">Imagem de banner</label>
       <input type="file" class="form-control" id="banner" aria-describedby="banner_" name="banner" value="{{ banner }}">
       <div id="banner_" class="form-text">Selecione uma imagem da sua galeria para ser sua foto de perfil da sua loja</div>
-    </div>
+          </div>
+        <div style="padding right: 100%">
+          <div class="col-md-12">
+            <label for="desc" class="form-label">Descrição da loja</label>
+            <input type="text" class="form-control" id="desc" name="descricao" value="{{ descrito }}">
+          </div>
+        </div>
       </div><!--class="row"-->
       <br />
       <button type="submit" class="btn btn-primary">Enviar</button>
