@@ -50,6 +50,7 @@ def Cadastro_Loja(request):
 
 def Add_Produto(request):
     categorias = [
+        "Selecione a categoria",
         "Móveis e Decoração",
         "Arte",
         "Joalheria",
@@ -74,13 +75,13 @@ def Add_Produto(request):
         categoria = request.POST["select"]  
         qntd = request.POST["qntd"]
         
-        if not nome_produto or not descricao or not preco or not qntd or not foto1:
+        if not nome_produto or not descricao or not preco or not qntd or not foto1 or categoria == "Selecione a categoria":
             return render(request, "add_produto.html", {'error_message': "Preencha os campos necessários", 'categorias': categorias})
 
         try: 
             Produto.objects.create(foto1=foto1, foto2=foto2, foto3=foto3, foto4=foto4, nome_produto=nome_produto, descricao=descricao, preco=preco, categoria=categoria,qntd=qntd)
         finally:
-            return render(request, "add_produto.html")
+            return render(request, "cadastro_loja.html")
     
 
     return render(request, "add_produto.html", {"categorias": categorias})

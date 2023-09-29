@@ -30,4 +30,5 @@ class Produto(models.Model):
     categoria = models.CharField(max_length=50)
     preco = models.DecimalField(max_digits=10,decimal_places=2)
     qntd = models.PositiveSmallIntegerField()
-    loja_id = models.IntegerField(null=None)
+    # id_loja = IntegerField()
+
