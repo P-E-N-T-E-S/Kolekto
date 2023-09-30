@@ -7,6 +7,9 @@
 </head>
 <body>
     <h1>Registro</h1>
+    <div class="alert alert-primary" role="alert">
+        {{ erro }}
+</div>
     <form method="post">
         {% csrf_token %}
         <label for="username">Nome de Usuário:</label>
