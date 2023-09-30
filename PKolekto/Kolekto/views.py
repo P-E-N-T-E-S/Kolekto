@@ -1,86 +1,145 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
 from .models import Produto, Loja, Usuario
-from django.db.models import Q
-# Create your views here.
+from django.http import Http404
+
+
+def Registro(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        nome = request.POST['nome']
+        email = request.POST['email']
+        senha = request.POST['senha']
+        try:
+            Usuario.objects.get(username=username)
+        except:
+            Usuario.objects.create(username=username, nome=nome, email=email, senha=senha)
+            request.session["usuario"] = username
+            return redirect('home')
+        else:
+            return render(request, 'registro.html', {"erro": "usuário já existe"})
+    return render(request, 'registro.html')
+
+def Login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        senha = request.POST['senha']
+        try:
+            usuario = Usuario.objects.get(username=username, senha=senha)
+        except:
+            return render(request, 'login.html', {"erro": "usuário não encontrado"})
+        else:
+            request.session["usuario"] = usuario.username
+            print(request.session["usuario"])
+            return redirect('home')  
+    return render(request, 'login.html')
+
 
 def Cadastro_Loja(request):
-    contexto = {
-        "nome_vendedor": Usuario.objects.get(login=request.session["usuario"]).nome
-    }
-    if request.method == "POST":
+    try:
+        usuario = Usuario.objects.get(username=request.session["usuario"])
 
-        erros = {}
+    except:
+        return redirect('login')
+    else:
+        contexto = {
+            "nome_vendedor": usuario.nome
+        }
+        if request.method == "POST":
 
-        data_nascimento = request.POST.get("nascimento")
-        Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
-        cpf = request.POST.get(("cpf"))
-        nome_loja = request.POST.get("nome_loja")
-        banner = request.POST.get("banner")
-        perfil = request.POST.get("perfil")
-        nome_vendedor = contexto["nome_vendedor"]
-        descricao = request.POST.get("descricao")
+            erros = {}
 
-        if not (cpf.find('.') == 3 and cpf[4:] == 3 and cpf.find("-") == 11 and len(cpf) == 14):
-            erros["cpf_mask"] = "Digite o cpf corretamente"
+            data_nascimento = request.POST.get("nascimento")
+            Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
+            cpf = request.POST.get("cpf")
+            nome_loja = request.POST.get("nome_loja")
+            banner = request.POST.get("banner")
+            perfil = request.POST.get("perfil")
+            associado = usuario
+            descricao = request.POST.get("descricao")
 
-        if erros:
-            contexto["erros"] = erros
-            contexto["data_nascimento"] = data_nascimento
-            contexto["localizacao"] = request.POST.get("cidade")
-            contexto["estado"] = True
-            contexto["cpf"] = cpf
-            contexto["nome_loja"] = nome_loja
-            contexto["banner"] = banner
-            contexto["perfil"] = perfil
-            contexto["descrito"] = descricao
+            if erros:
+                contexto["erros"] = erros
+                contexto["data_nascimento"] = data_nascimento
+                contexto["localizacao"] = request.POST.get("cidade")
+                contexto["estado"] = True
+                contexto["cpf"] = cpf
+                contexto["nome_loja"] = nome_loja
+                contexto["banner"] = banner
+                contexto["perfil"] = perfil
+                contexto["descrito"] = descricao
 
-            return render(request, "cadastro_loja.html", context=contexto)
+                return render(request, "cadastro_loja.html", context=contexto)
 
-        else:
-            Loja.objects.create(Banner=banner, Perfil=perfil, NomeLoja=nome_loja, NomeVendedor=nome_vendedor, Cpf=cpf,
-                            DataNascimento=data_nascimento, Localizacao=Localizacao, descricao=descricao)
+            else:
+                Loja.objects.create(Banner=banner, Perfil=perfil, NomeLoja=nome_loja, associado=associado, Cpf=cpf,
+                                DataNascimento=data_nascimento, Localizacao=Localizacao, descricao=descricao)
 
 
-    return render(request, "cadastro_loja.html", context=contexto)
-
+        return render(request, "cadastro_loja.html", context=contexto)
 
 def Add_Produto(request):
-    categorias = [
-        "Selecione a categoria",
-        "Móveis e Decoração",
-        "Arte",
-        "Joalheria",
-        "Livros",
-        "Relógios",
-        "Cartas",
-        "Brinquedos e Jogos",
-        "Vestuário",
-        "Fotografia",
-        "Instrumento Musical",
-        "Outro"
-    ]
+    try:
+        usuario = Usuario.objects.get(username=request.session["usuario"])
+    except:
+        return redirect(Login)
+    else:
+        loja = usuario.loja_set.all()
+        print(loja[0])
+        if len(list(loja)) == 0:
+            return redirect(Cadastro_Loja)
+        else:
+            categorias = [
+                "Selecione a categoria",
+                "Móveis e Decoração",
+                "Arte",
+                "Joalheria",
+                "Livros",
+                "Relógios",
+                "Cartas",
+                "Brinquedos e Jogos",
+                "Vestuário",
+                "Fotografia",
+                "Instrumento Musical",
+                "Outro"
+            ]
 
-    if request.method == "POST":
-        foto1 = request.POST["foto1"]
-        foto2 = request.POST["foto2"]
-        foto3 = request.POST["foto3"]
-        foto4 = request.POST["foto4"]
-        nome_produto = request.POST["nome_produto"]
-        descricao = request.POST["descricao"]
-        preco = request.POST["preco"]
-        categoria = request.POST["select"]  
-        qntd = request.POST["qntd"]
+            if request.method == "POST":
+                foto1 = request.POST["foto1"]
+                nome_produto = request.POST["nome_produto"]
+                descricao = request.POST["descricao"]
+                preco = request.POST["preco"]
+                categoria = request.POST["select"]
+                qntd = request.POST["qntd"]
+
+                if not nome_produto or not descricao or not preco or not qntd or not foto1 or categoria == "Selecione a categoria":
+                    return render(request, "add_produto.html", {'error_message': "Preencha os campos necessários", 'categorias': categorias})
+
+                try:
+                    Produto.objects.create(foto1=foto1, nome_produto=nome_produto, descricao=descricao, preco=preco, categoria=categoria,qntd=qntd, loja=loja[0])
+                finally:
+                    nome = loja[0].NomeLoja
+                    #return redirect('pagina_produto', id_produto=Produto.id)
+
+
+            return render(request, "add_produto.html", {"categorias": categorias})
         
-        if not nome_produto or not descricao or not preco or not qntd or not foto1 or categoria == "Selecione a categoria":
-            return render(request, "add_produto.html", {'error_message': "Preencha os campos necessários", 'categorias': categorias})
+def pagina_produto(request, id_produto):
+    id_produto = Produto.objects.get(id=id_produto)
+    print(id_produto)
+    if id_produto is not None:
 
-        try: 
-            Produto.objects.create(foto1=foto1, foto2=foto2, foto3=foto3, foto4=foto4, nome_produto=nome_produto, descricao=descricao, preco=preco, categoria=categoria,qntd=qntd)
-        finally:
-            return render(request, "cadastro_loja.html")
-    
-
-    return render(request, "add_produto.html", {"categorias": categorias})
+        contexto = {
+            "foto1": id_produto.foto1,
+            "nome_produto": id_produto.nome_produto,
+            "descricao": id_produto.descricao,
+            "preco": id_produto.preco,
+            "categoria":id_produto.categoria,
+            "qntd":id_produto.qntd       
+        }
+        return render(request, "pagina_produto.html", context=contexto)
+    else:
+        raise Http404("Produto não encontrado")
 
 def product_list(request):
 
@@ -113,13 +172,16 @@ def pesquisa(request):
     return render(request, "pesquisa.html", context=contexto)
 
 def pagina_loja(request, nome_loja):
-    loja = Loja.objects.get(name = nome_loja)
-    contexto = {
-        "banner": loja.Banner,
-        "perfil": loja.Perfil,
-        "nome_loja": loja.NomeLoja,
-        "localizacao": loja.Localizacao,
-        "descricao": loja.descricao
-    }
-
-    return render(request, "pagina_loja.html", context=contexto)
+    loja = Loja.objects.get(NomeLoja=nome_loja)
+    if loja is not None:
+        #produtos = list(loja.produto_set.all())
+        contexto = {
+            "banner": loja.Banner,
+            "perfil": loja.Perfil,
+            "nome_loja": loja.NomeLoja,
+            "localizacao": loja.Localizacao,
+            "descricao": loja.descricao,
+        }
+        return render(request, "pagina_loja.html", context=contexto)
+    else:
+        raise Http404("Loja não encontrada")
