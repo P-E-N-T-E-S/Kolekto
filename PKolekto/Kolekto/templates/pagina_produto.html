@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ nome_produto }}</title>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ nome_produto }}
+{% endblock %}
+
+{% block main %}
     <h1>{{ nome_produto }}</h1>
     <img src="{{ foto1.url }}" alt="{{ nome_produto }}">
 
@@ -15,5 +14,4 @@
     <p><strong>Quantidade Disponível:</strong> {{ qntd }}</p>
 
     <a href="{% url 'home' %}">Voltar para a página inicial</a>
-</body>
-</html>
+{% endblock %}

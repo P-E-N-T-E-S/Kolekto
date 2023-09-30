@@ -1,65 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/XbZUY01.png">
-    <title>Adicionar produto</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            text-align: center;
-        }
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-        input[type="text"],
-        select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #007BFF;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
+{% extends "layout.html" %}
+
+{% block title %}
+    Adicionar produto
+{% endblock %}
+
+{% block main %}
     <h1>Adicionar produto</h1>
     <form action="{% url 'add_produto' %}" method="post">
         {% csrf_token %}
         <label for="foto1">Fotos</label>
         <input type="file" id="foto1" name="foto1">
-        
+        <br>
         <label for="nome_produto">Nome do produto</label>
         <input type="text" name="nome_produto" id="nome_produto">
-        
+        <br>
         <label for="descricao">Descrição</label>
         <input type="text" name="descricao" id="descricao">
-        
+        <br>
         <label for="preco">Preço</label>
         <input type="text" name="preco" id="preco">
-        
+        <br>
         <label for="qntd">Quantidade</label>
         <input type="text" name="qntd" id="qntd">
-        
+        <br>
         <label for="categoria">Categoria</label>
         <select id="categoria" name="select">
             {% for categoria in categorias %}
@@ -72,5 +35,4 @@
         <br><br>
         <button type="submit">Anunciar produto</button>
     </form>
-</body>
-</html>
+{% endblock %}
