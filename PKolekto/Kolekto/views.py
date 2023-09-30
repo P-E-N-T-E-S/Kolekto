@@ -6,11 +6,11 @@ from django.db.models import Q
 
 def Registro(request):
     if request.method == 'POST':
-        username = request.POST['login']
-        nome = request.POST['login']
+        username = request.POST['username']
+        nome = request.POST['nome']
         email = request.POST['email']
         senha = request.POST['senha']
-        usuario = Usuario.objects.create_user(username=username, nome=nome, email=email, senha=senha)
+        usuario = Usuario.objects.create(username=username, nome=nome, email=email, senha=senha)
         login(request, usuario)
         return redirect('home') 
     return render(request, 'registro.html')
