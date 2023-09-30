@@ -106,9 +106,6 @@ def Add_Produto(request):
 
             if request.method == "POST":
                 foto1 = request.POST["foto1"]
-                foto2 = request.POST["foto2"]
-                foto3 = request.POST["foto3"]
-                foto4 = request.POST["foto4"]
                 nome_produto = request.POST["nome_produto"]
                 descricao = request.POST["descricao"]
                 preco = request.POST["preco"]
@@ -119,13 +116,30 @@ def Add_Produto(request):
                     return render(request, "add_produto.html", {'error_message': "Preencha os campos necessários", 'categorias': categorias})
 
                 try:
-                    Produto.objects.create(foto1=foto1, foto2=foto2, foto3=foto3, foto4=foto4, nome_produto=nome_produto, descricao=descricao, preco=preco, categoria=categoria,qntd=qntd, loja=loja[0])
+                    Produto.objects.create(foto1=foto1, nome_produto=nome_produto, descricao=descricao, preco=preco, categoria=categoria,qntd=qntd, loja=loja[0])
                 finally:
                     nome = loja[0].NomeLoja
-                    return redirect(pagina_loja)
+                    #return redirect('pagina_produto', id_produto=Produto.id)
 
 
             return render(request, "add_produto.html", {"categorias": categorias})
+        
+def pagina_produto(request, id_produto):
+    id_produto = Produto.objects.get(id=id_produto)
+    print(id_produto)
+    if id_produto is not None:
+
+        contexto = {
+            "foto1": id_produto.foto1,
+            "nome_produto": id_produto.nome_produto,
+            "descricao": id_produto.descricao,
+            "preco": id_produto.preco,
+            "categoria":id_produto.categoria,
+            "qntd":id_produto.qntd       
+        }
+        return render(request, "pagina_produto.html", context=contexto)
+    else:
+        raise Http404("Produto não encontrado")
 
 def product_list(request):
 
