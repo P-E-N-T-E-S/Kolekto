@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .models import Produto, Loja, Usuario
-from django.db.models import Q
-# Create your views here.
+from django.http import Http404
+
 
 def Registro(request):
     if request.method == 'POST':
@@ -121,13 +121,16 @@ def product_list(request):
     return render(request, "home.html", context=contexto)
 
 def pagina_loja(request, nome_loja):
-    loja = Loja.objects.get(NomeLoja = nome_loja)
-    contexto = {
-        "banner": loja.Banner,
-        "perfil": loja.Perfil,
-        "nome_loja": loja.NomeLoja,
-        "localizacao": loja.Localizacao,
-        "descricao": loja.descricao
-    }
-
-    return render(request, "pagina_loja.html", context=contexto)
+    loja = Loja.objects.get(NomeLoja=nome_loja)
+    if loja is not None:
+        #produtos = list(loja.produto_set.all())
+        contexto = {
+            "banner": loja.Banner,
+            "perfil": loja.Perfil,
+            "nome_loja": loja.NomeLoja,
+            "localizacao": loja.Localizacao,
+            "descricao": loja.descricao,
+        }
+        return render(request, "pagina_loja.html", context=contexto)
+    else:
+        raise Http404("Loja não encontrada")
