@@ -88,14 +88,29 @@ def product_list(request):
         "nome_pesquisado": "nome_pesquisado",
     }
 
-    if request.method == "GET":
-        nome_pesquisado = request.GET.get("nome_pesquisado")
-        lista_produtos = Produto.objects.filter(nome_produto=nome_pesquisado)
+
         #  Q(nome_produto__icontains=nome_pesquisado)
         # | Q(description__icontains=search)
         # | Q(category__title__icontains=search))
 
+
+
     return render(request, "home.html", context=contexto)
+
+def pesquisa(request):
+
+    if request.method == "GET":
+        nome_pesquisado = request.GET.get("nome_pesquisado")
+        lista_produtos = Produto.objects.filter(nome_produto= nome_pesquisado )
+
+    contexto = {
+        "nome_pesquisado": nome_pesquisado,
+    }
+    
+
+
+
+    return render(request, "pesquisa.html", context=contexto)
 
 def pagina_loja(request, nome_loja):
     loja = Loja.objects.get(name = nome_loja)
