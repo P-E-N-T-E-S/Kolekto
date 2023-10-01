@@ -4,6 +4,8 @@ from django.contrib.auth import login, authenticate
 from .models import Produto, Loja, Usuario
 from django.http import Http404
 from django.db.models import Q
+from django.conf import settings
+import os
 
 
 def Registro(request):
@@ -51,7 +53,6 @@ def Cadastro_Loja(request):
             erros = {}
 
             file = request.FILES
-            print(file)
 
             data_nascimento = request.POST.get("nascimento")
             Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
@@ -61,6 +62,12 @@ def Cadastro_Loja(request):
             perfil = request.FILES.get("perfil")
             associado = usuario
             descricao = request.POST.get("descricao")
+            try:
+                nome = Loja.objects.get(NomeLoja=nome_loja)
+            except:
+                pass
+            else:
+                erros["nomedaloja"] = "ja existe uma loja com esse nome"
 
             if erros:
                 contexto["erros"] = erros
@@ -95,6 +102,7 @@ def Cadastro_Loja(request):
                     return redirect(home)
         elif request.method == "GET":
             return render(request, "cadastro_loja.html", context=contexto)
+        print(request.headers)
 
 
 def Add_Produto(request):
