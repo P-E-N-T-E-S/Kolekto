@@ -6,8 +6,10 @@
 
 {% block main %}
     <h1>Registro</h1>
-    <div class="alert alert-primary" role="alert">
+        {%if erro %}
+        <div class="alert alert-primary" role="alert">
         {{ erro }}
+        {% endif %}
 </div>
     <form method="post">
         {% csrf_token %}

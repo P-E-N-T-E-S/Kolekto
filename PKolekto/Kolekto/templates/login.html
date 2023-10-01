@@ -6,8 +6,10 @@
 
 {% block main %}
     <h1>Login</h1>
+        {%if erro %}
         <div class="alert alert-primary" role="alert">
         {{ erro }}
+        {% endif %}
 </div>
     <form method="post">
         {% csrf_token %}
