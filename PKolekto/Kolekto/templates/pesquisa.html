@@ -8,7 +8,7 @@
     <h1> pesquisa por: {{ nome_pesquisado }}</h1>
     {% for produto in lista_produtos %}
     <div class="card text-center bg-light">
-        <img src="{{produto.foto1}}" alt="{{produto.nome_produto}}">
+        <img src="{{produto.foto1.url}}" alt="{{produto.nome_produto}}" width="100">
         <div class="card-header">
           {{produto.preco}}
         </div>
