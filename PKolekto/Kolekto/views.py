@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .models import Produto, Loja, Usuario
 from django.http import Http404
+from django.db.models import Q
 
 
 def Registro(request):
@@ -139,8 +140,23 @@ def pagina_produto(request, id_produto):
         raise Http404("Produto não encontrado")
 
 def home(request):
+    categorias = [
+                "Selecione a categoria",
+                "Móveis e Decoração",
+                "Arte",
+                "Joalheria",
+                "Livros",
+                "Relógios",
+                "Cartas",
+                "Brinquedos e Jogos",
+                "Vestuário",
+                "Fotografia",
+                "Instrumento Musical",
+                "Outro"
+            ]
     contexto = {
         "nome_pesquisado": "nome_pesquisado",
+        "categorias":categorias,
     }
 
         #  Q(nome_produto__icontains=nome_pesquisado)
@@ -149,16 +165,26 @@ def home(request):
 
     return render(request, "home.html", context=contexto)
 
-def pesquisa(request,nome_pesquisado):
-    if request.method == "GET":
-        nome_pesquisado = request.GET.get("nome_pesquisado")
-        lista_produtos = Produto.objects.filter(nome_produto=nome_pesquisado)
+def pesquisa(request):
+    nome_pesquisado = request.GET.get("nome_pesquisado")
+    categoria = request.GET.get("select")
+    if Q(categoria == "") & Q(nome_pesquisado != ''):
+        lista_produtos = Produto.objects.filter(Q(nome_produto__icontains=nome_pesquisado)
+        | Q(descricao__icontains=nome_pesquisado)
+        | Q(categoria__exact=categoria))
+    elif Q(nome_pesquisado == '') & Q(categoria == ""):
+        print("3")
+        return render(request, "{% url 'home' %}", {"erro": "Por Favor Digite um produto"})
+    else:
+        print("4")
+        lista_produtos = Produto.objects.filter(Q(nome_produto__icontains=nome_pesquisado)
+        |Q(descricao__icontains=nome_pesquisado)
+        |Q(categoria__icontains=categoria))
 
     contexto = {
         "nome_pesquisado":nome_pesquisado,
         "lista_produtos":lista_produtos,
     }
-
     return render(request, "pesquisa.html", context=contexto)
 
 

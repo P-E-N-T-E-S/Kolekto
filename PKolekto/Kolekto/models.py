@@ -25,10 +25,24 @@ class Loja(models.Model):
 
     
 class Produto(models.Model):
+    categorias = [
+        (None, "Selecione a categoria"),
+        ("moveis","Móveis e Decoração"),
+        ("arte","Arte"),
+        ("joias","Joalheria"),
+        ("livros","Livros"),
+        ("relogios","Relógios"),
+        ("cartas","Cartas"),
+        ("brinquedos","Brinquedos e Jogos"),
+        ("roupa","Vestuário"),
+        ("foto","Fotografia"),
+        ("musica","Instrumento Musical"),
+        ("outro","Outro")
+            ]
     foto1 = models.ImageField(upload_to="fotos/")
     nome_produto = models.CharField(max_length=100)
     descricao = models.CharField(max_length=500)
-    categoria = models.CharField(max_length=50)
+    categoria = models.CharField(choices=categorias,default=categorias[0],max_length=50)
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     qntd = models.PositiveSmallIntegerField()
     loja = models.ForeignKey(Loja, null=True, on_delete=models.CASCADE)

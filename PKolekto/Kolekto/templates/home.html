@@ -5,11 +5,23 @@
 {% endblock %}
 
 {% block main %}
-   <form action="{% url 'pesquisa' %}" method="post">
-    <div class="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0">
-      <input type="text" class="form-control" id="nome_pesquisado" aria-describedby="digite um nome" name="nome_pesquisado" value="{{ nome_pesquisado }}">
-        <button type="submit">pesquisar</button>
-    </form>
-    </div>
+<div class="alert alert-primary" role="alert">
+  {{ erro }}
+</div>
 
+<div class="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0">
+    <form action="{% url 'pesquisa' %}" method="get">
+      <input type="text" class="form-control" id="nome_pesquisado" aria-describedby="digite um nome" name="nome_pesquisado" placeholder="pesquisa" value="{{ nome_pesquisado }}">
+      <select id="categorias" name="select">
+        {% for categoria in categorias %}
+            <option value="{{ categoria }}">{{ categoria }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">pesquisar</button>
+    </form>
+</div>
+
+{% if error_message %}
+<p>{{ error_message }}</p>
+{% endif %}
 {% endblock %}
