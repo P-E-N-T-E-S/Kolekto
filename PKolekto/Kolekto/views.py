@@ -49,6 +49,10 @@ def Cadastro_Loja(request):
         if request.method == "POST":
 
             erros = {}
+
+            file = request.FILES
+            print(file)
+
             data_nascimento = request.POST.get("nascimento")
             Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
             cpf = request.POST.get("cpf")
@@ -87,7 +91,10 @@ def Cadastro_Loja(request):
                     contexto["perfil"] = perfil
                     contexto["descrito"] = descricao
                     return render(request, "cadastro_loja.html", context=contexto)
-        return render(request, "cadastro_loja.html", context=contexto)
+                else:
+                    return redirect(home)
+        elif request.method == "GET":
+            return render(request, "cadastro_loja.html", context=contexto)
 
 
 def Add_Produto(request):

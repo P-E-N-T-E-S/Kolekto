@@ -7,7 +7,7 @@
 {% block main %}
   <h1>Cadastro de Loja</h1>
   <div class="container">
-    <form action="{% url 'nova_loja' %}" method="post">
+    <form action="{% url 'nova_loja' %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="row row-cols-2">
       <fieldset disabled>
