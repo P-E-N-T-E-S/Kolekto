@@ -9,6 +9,6 @@ urlpatterns =[
     path("nova_loja", views.Cadastro_Loja, name='nova_loja'),
     path("add_produto", views.Add_Produto, name="add_produto"),
     path("Produto/<int:id_produto>/",views.pagina_produto, name="pagina_produto"),
-    path("/<str:nome_loja>/", views.pagina_loja, name="loja"),
+    path("<str:nome_loja>/", views.pagina_loja, name="loja"),
     path("pesquisa/<str:nome_pesquisado>/", views.pesquisa, name="pesquisa"),
 ]

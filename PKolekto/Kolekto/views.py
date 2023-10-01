@@ -1,3 +1,4 @@
+import django.core.exceptions
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .models import Produto, Loja, Usuario
@@ -15,7 +16,7 @@ def Registro(request):
         except:
             Usuario.objects.create(username=username, nome=nome, email=email, senha=senha)
             request.session["usuario"] = username
-            return redirect('home')
+            return redirect(home)
         else:
             return render(request, 'registro.html', {"erro": "usuário já existe"})
     return render(request, 'registro.html')
@@ -31,7 +32,7 @@ def Login(request):
         else:
             request.session["usuario"] = usuario.username
             print(request.session["usuario"])
-            return redirect('home')  
+            return redirect(home)
     return render(request, 'login.html')
 
 
@@ -47,7 +48,6 @@ def Cadastro_Loja(request):
         if request.method == "POST":
 
             erros = {}
-
             data_nascimento = request.POST.get("nascimento")
             Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
             cpf = request.POST.get("cpf")
@@ -71,8 +71,21 @@ def Cadastro_Loja(request):
                 return render(request, "cadastro_loja.html", context=contexto)
 
             else:
-                Loja.objects.create(Banner=banner, Perfil=perfil, NomeLoja=nome_loja, associado=associado, Cpf=cpf,
+                try:
+                    Loja.objects.create(Banner=banner, Perfil=perfil, NomeLoja=nome_loja, associado=associado, Cpf=cpf,
                                 DataNascimento=data_nascimento, Localizacao=Localizacao, descricao=descricao)
+
+                except:
+                    contexto["erros"] = "preencha todos os campos corretamente"
+                    contexto["data_nascimento"] = data_nascimento
+                    contexto["localizacao"] = request.POST.get("cidade")
+                    contexto["estado"] = True
+                    contexto["cpf"] = cpf
+                    contexto["nome_loja"] = nome_loja
+                    contexto["banner"] = banner
+                    contexto["perfil"] = perfil
+                    contexto["descrito"] = descricao
+                    return render(request, "cadastro_loja.html", context=contexto)
         return render(request, "cadastro_loja.html", context=contexto)
 
 
@@ -173,6 +186,7 @@ def pagina_loja(request, nome_loja):
             "localizacao": loja.Localizacao,
             "descricao": loja.descricao,
         }
+        print(contexto["perfil"].url)
         return render(request, "pagina_loja.html", context=contexto)
     else:
         raise Http404("Loja não encontrada")
