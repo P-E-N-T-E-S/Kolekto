@@ -20,6 +20,8 @@ class Loja(models.Model):
     Localizacao = models.CharField(max_length=50)
     descricao = models.TextField(max_length=200, default="Sem dados de contato")
     associado = models.ForeignKey(Usuario, null=True, on_delete=models.CASCADE)
+    def __str__(self):
+        return (self.NomeLoja)
 
     
 class Produto(models.Model):
@@ -30,4 +32,5 @@ class Produto(models.Model):
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     qntd = models.PositiveSmallIntegerField()
     loja = models.ForeignKey(Loja, null=True, on_delete=models.CASCADE)
-
+    def __str__(self):
+        return (self.nome_produto)

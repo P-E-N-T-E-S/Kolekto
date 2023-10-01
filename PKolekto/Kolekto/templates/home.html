@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block main %}
-   <form action="{% url 'pesquisa' %}" method="get">
+   <form action="{% url 'pesquisa' %}" method="post">
     <div class="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0">
       <input type="text" class="form-control" id="nome_pesquisado" aria-describedby="digite um nome" name="nome_pesquisado" value="{{ nome_pesquisado }}">
         <button type="submit">pesquisar</button>
-        </form>
+    </form>
     </div>
 
 {% endblock %}

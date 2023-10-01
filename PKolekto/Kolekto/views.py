@@ -38,7 +38,6 @@ def Login(request):
 def Cadastro_Loja(request):
     try:
         usuario = Usuario.objects.get(username=request.session["usuario"])
-
     except:
         return redirect('login')
     else:
@@ -74,9 +73,8 @@ def Cadastro_Loja(request):
             else:
                 Loja.objects.create(Banner=banner, Perfil=perfil, NomeLoja=nome_loja, associado=associado, Cpf=cpf,
                                 DataNascimento=data_nascimento, Localizacao=Localizacao, descricao=descricao)
-
-
         return render(request, "cadastro_loja.html", context=contexto)
+
 
 def Add_Produto(request):
     try:
@@ -120,10 +118,9 @@ def Add_Produto(request):
                 finally:
                     nome = loja[0].NomeLoja
                     #return redirect('pagina_produto', id_produto=Produto.id)
-
-
             return render(request, "add_produto.html", {"categorias": categorias})
-        
+
+       
 def pagina_produto(request, id_produto):
     id_produto = Produto.objects.get(id=id_produto)
     print(id_produto)
@@ -141,35 +138,29 @@ def pagina_produto(request, id_produto):
     else:
         raise Http404("Produto não encontrado")
 
-def product_list(request):
-
+def home(request):
     contexto = {
         "nome_pesquisado": "nome_pesquisado",
     }
-
 
         #  Q(nome_produto__icontains=nome_pesquisado)
         # | Q(description__icontains=search)
         # | Q(category__title__icontains=search))
 
-
-
     return render(request, "home.html", context=contexto)
 
-def pesquisa(request):
-
+def pesquisa(request,nome_pesquisado):
     if request.method == "GET":
         nome_pesquisado = request.GET.get("nome_pesquisado")
-        lista_produtos = Produto.objects.filter(nome_produto= nome_pesquisado )
+        lista_produtos = Produto.objects.filter(nome_produto=nome_pesquisado)
 
     contexto = {
-        "nome_pesquisado": nome_pesquisado,
+        "nome_pesquisado":nome_pesquisado,
+        "lista_produtos":lista_produtos,
     }
-    
-
-
 
     return render(request, "pesquisa.html", context=contexto)
+
 
 def pagina_loja(request, nome_loja):
     loja = Loja.objects.get(NomeLoja=nome_loja)
