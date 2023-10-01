@@ -60,5 +60,20 @@
       </div>
     </div>
     </div>
+    <h2>Produtos desta Loja:</h2>
+    <ul>
+        {% for produto in produtos %}
+            <li>
+                <h3>{{ produto.nome_produto }}</h3>
+                <img src="{{ produto.foto1.url }}" alt="{{ produto.nome_produto }}" width="100">
+                <p>Descrição: {{ produto.descricao }}</p>
+                <p>Categoria: {{ produto.categoria }}</p>
+                <p>Preço: ${{ produto.preco }}</p>
+                <p>Quantidade disponível: {{ produto.qntd }}</p>
+            </li>
+        {% empty %}
+            <li>Nenhum produto disponível nesta loja.</li>
+        {% endfor %}
+    </ul>
   </main>
 {% endblock %}
