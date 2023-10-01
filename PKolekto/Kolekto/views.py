@@ -1,6 +1,5 @@
 import django.core.exceptions
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
 from .models import Produto, Loja, Usuario
 from django.http import Http404
 from django.db.models import Q
@@ -132,7 +131,7 @@ def Add_Produto(request):
             ]
 
             if request.method == "POST":
-                foto1 = request.POST["foto1"]
+                foto1 = request.FILES.get("foto1")
                 nome_produto = request.POST["nome_produto"]
                 descricao = request.POST["descricao"]
                 preco = request.POST["preco"]
@@ -227,6 +226,7 @@ def pagina_loja(request, nome_loja):
             "localizacao": loja.Localizacao,
             "descricao": loja.descricao,
             "produtos": produtos
+            
         }
         print(contexto["perfil"].url)
         return render(request, "pagina_loja.html", context=contexto)
