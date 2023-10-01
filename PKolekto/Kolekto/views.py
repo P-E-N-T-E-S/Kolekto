@@ -1,10 +1,8 @@
-import django.core.exceptions
 from django.shortcuts import render, redirect
 from .models import Produto, Loja, Usuario
 from django.http import Http404
 from django.db.models import Q
-from django.conf import settings
-import os
+
 
 
 def Registro(request):
@@ -23,6 +21,7 @@ def Registro(request):
             return render(request, 'registro.html', {"erro": "usuário já existe"})
     return render(request, 'registro.html')
 
+
 def Login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -33,7 +32,6 @@ def Login(request):
             return render(request, 'login.html', {"erro": "usuário não encontrado"})
         else:
             request.session["usuario"] = usuario.username
-            print(request.session["usuario"])
             return redirect(home)
     return render(request, 'login.html')
 
@@ -50,8 +48,6 @@ def Cadastro_Loja(request):
         if request.method == "POST":
 
             erros = {}
-
-            file = request.FILES
 
             data_nascimento = request.POST.get("nascimento")
             Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
@@ -101,7 +97,6 @@ def Cadastro_Loja(request):
                     return redirect(home)
         elif request.method == "GET":
             return render(request, "cadastro_loja.html", context=contexto)
-        print(request.headers)
 
 
 def Add_Produto(request):
@@ -111,7 +106,6 @@ def Add_Produto(request):
         return redirect(Login)
     else:
         loja = usuario.loja_set.all()
-        print(loja[0])
         if len(list(loja)) == 0:
             return redirect(Cadastro_Loja)
         else:
@@ -145,14 +139,12 @@ def Add_Produto(request):
                     Produto.objects.create(foto1=foto1, nome_produto=nome_produto, descricao=descricao, preco=preco, categoria=categoria, qntd=qntd, loja=loja[0])
                 finally:
                     nome = loja[0].NomeLoja
-                    #return redirect('pagina_produto', id_produto=Produto.id)
             return render(request, "add_produto.html", {"categorias": categorias})
 
        
 def pagina_produto(request, id_produto):
     id_produto = Produto.objects.get(id=id_produto)
     if id_produto is not None:
-
         contexto = {
             "foto1": id_produto.foto1,
             "nome_produto": id_produto.nome_produto,
@@ -161,9 +153,11 @@ def pagina_produto(request, id_produto):
             "categoria": id_produto.categoria,
             "qntd": id_produto.qntd
         }
+
         return render(request, "pagina_produto.html", context=contexto)
     else:
         raise Http404("Produto não encontrado")
+
 
 def home(request):
     categorias = [
@@ -184,12 +178,8 @@ def home(request):
         "nome_pesquisado": "nome_pesquisado",
         "categorias":categorias,
     }
-
-        #  Q(nome_produto__icontains=nome_pesquisado)
-        # | Q(description__icontains=search)
-        # | Q(category__title__icontains=search))
-
     return render(request, "home.html", context=contexto)
+
 
 def pesquisa(request):
     nome_pesquisado = request.GET.get("nome_pesquisado")
@@ -199,10 +189,8 @@ def pesquisa(request):
         | Q(descricao__icontains=nome_pesquisado)
         | Q(categoria__exact=categoria))
     elif Q(nome_pesquisado == '') & Q(categoria == ""):
-        print("3")
         return render(request, "{% url 'home' %}", {"erro": "Por Favor Digite um produto"})
     else:
-        print("4")
         lista_produtos = Produto.objects.filter(Q(nome_produto__icontains=nome_pesquisado)
         |Q(descricao__icontains=nome_pesquisado)
         |Q(categoria__icontains=categoria))
@@ -216,7 +204,6 @@ def pesquisa(request):
 
 def pagina_loja(request, nome_loja):
     loja = Loja.objects.get(NomeLoja=nome_loja)
-    print(loja.Perfil.url)
     if loja is not None:
         produtos = list(loja.produto_set.all())
         contexto = {
@@ -228,7 +215,6 @@ def pagina_loja(request, nome_loja):
             "produtos": produtos
             
         }
-        print(contexto["perfil"].url)
         return render(request, "pagina_loja.html", context=contexto)
     else:
         raise Http404("Loja não encontrada")
