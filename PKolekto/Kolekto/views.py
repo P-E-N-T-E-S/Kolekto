@@ -53,8 +53,8 @@ def Cadastro_Loja(request):
             Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
             cpf = request.POST.get("cpf")
             nome_loja = request.POST.get("nome_loja")
-            banner = request.POST.get("banner")
-            perfil = request.POST.get("perfil")
+            banner = request.FILES.get("banner")
+            perfil = request.FILES.get("perfil")
             associado = usuario
             descricao = request.POST.get("descricao")
 
@@ -124,11 +124,11 @@ def Add_Produto(request):
                 categoria = request.POST["select"]
                 qntd = request.POST["qntd"]
 
-                if not nome_produto or not descricao or not preco or not qntd or not foto1 or categoria == "Selecione a categoria":
-                    return render(request, "add_produto.html", {'error_message': "Preencha os campos necessários", 'categorias': categorias})
-
+                if not nome_produto or not descricao or not preco or not qntd or foto1 is None or categoria == "Selecione a categoria":
+                    return render(request, "add_produto.html",
+                                  {'error_message': "Preencha os campos necessários", 'categorias': categorias})
                 try:
-                    Produto.objects.create(foto1=foto1, nome_produto=nome_produto, descricao=descricao, preco=preco, categoria=categoria,qntd=qntd, loja=loja[0])
+                    Produto.objects.create(foto1=foto1, nome_produto=nome_produto, descricao=descricao, preco=preco, categoria=categoria, qntd=qntd, loja=loja[0])
                 finally:
                     nome = loja[0].NomeLoja
                     #return redirect('pagina_produto', id_produto=Produto.id)
@@ -137,7 +137,6 @@ def Add_Produto(request):
        
 def pagina_produto(request, id_produto):
     id_produto = Produto.objects.get(id=id_produto)
-    print(id_produto)
     if id_produto is not None:
 
         contexto = {
@@ -145,8 +144,8 @@ def pagina_produto(request, id_produto):
             "nome_produto": id_produto.nome_produto,
             "descricao": id_produto.descricao,
             "preco": id_produto.preco,
-            "categoria":id_produto.categoria,
-            "qntd":id_produto.qntd       
+            "categoria": id_produto.categoria,
+            "qntd": id_produto.qntd
         }
         return render(request, "pagina_produto.html", context=contexto)
     else:
@@ -203,14 +202,16 @@ def pesquisa(request):
 
 def pagina_loja(request, nome_loja):
     loja = Loja.objects.get(NomeLoja=nome_loja)
+    print(loja.Perfil.url)
     if loja is not None:
-        #produtos = list(loja.produto_set.all())
+        produtos = list(loja.produto_set.all())
         contexto = {
             "banner": loja.Banner,
             "perfil": loja.Perfil,
             "nome_loja": loja.NomeLoja,
             "localizacao": loja.Localizacao,
             "descricao": loja.descricao,
+            "produtos": produtos
         }
         print(contexto["perfil"].url)
         return render(request, "pagina_loja.html", context=contexto)
