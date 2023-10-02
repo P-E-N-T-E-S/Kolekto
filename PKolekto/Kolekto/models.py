@@ -27,17 +27,17 @@ class Loja(models.Model):
 class Produto(models.Model):
     categorias = [
         (None, "Selecione a categoria"),
-        ("moveis","Móveis e Decoração"),
-        ("arte","Arte"),
-        ("joias","Joalheria"),
-        ("livros","Livros"),
-        ("relogios","Relógios"),
-        ("cartas","Cartas"),
-        ("brinquedos","Brinquedos e Jogos"),
-        ("roupa","Vestuário"),
-        ("foto","Fotografia"),
-        ("musica","Instrumento Musical"),
-        ("outro","Outro")
+        ("Móveis e Decoração","Móveis e Decoração"),
+        ("Arte","Arte"),
+        ("Joalheria","Joalheria"),
+        ("Livros","Livros"),
+        ("Relógios","Relógios"),
+        ("Cartas","Cartas"),
+        ("Brinquedos e Jogos","Brinquedos e Jogos"),
+        ("Vestuário","Vestuário"),
+        ("Fotografia","Fotografia"),
+        ("Instrumento Musical","Instrumento Musical"),
+        ("Outro","Outro")
             ]
     foto1 = models.ImageField(upload_to="fotos/")
     nome_produto = models.CharField(max_length=100)

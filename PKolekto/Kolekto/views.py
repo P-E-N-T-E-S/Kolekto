@@ -3,6 +3,20 @@ from .models import Produto, Loja, Usuario
 from django.http import Http404
 from django.db.models import Q
 
+categorias = [
+                "Selecione a categoria",
+                "Móveis e Decoração",
+                "Arte",
+                "Joalheria",
+                "Livros",
+                "Relógios",
+                "Cartas",
+                "Brinquedos e Jogos",
+                "Vestuário",
+                "Fotografia",
+                "Instrumento Musical",
+                "Outro"
+            ]
 
 
 def Registro(request):
@@ -160,22 +174,8 @@ def pagina_produto(request, id_produto):
 
 
 def home(request):
-    categorias = [
-                "Selecione a categoria",
-                "Móveis e Decoração",
-                "Arte",
-                "Joalheria",
-                "Livros",
-                "Relógios",
-                "Cartas",
-                "Brinquedos e Jogos",
-                "Vestuário",
-                "Fotografia",
-                "Instrumento Musical",
-                "Outro"
-            ]
+    
     contexto = {
-        "nome_pesquisado": "nome_pesquisado",
         "categorias":categorias,
     }
     return render(request, "home.html", context=contexto)
@@ -184,19 +184,24 @@ def home(request):
 def pesquisa(request):
     nome_pesquisado = request.GET.get("nome_pesquisado")
     categoria = request.GET.get("select")
-    if Q(categoria == "") & Q(nome_pesquisado != ''):
-        lista_produtos = Produto.objects.filter(Q(nome_produto__icontains=nome_pesquisado)
-        | Q(descricao__icontains=nome_pesquisado)
-        | Q(categoria__exact=categoria))
-    elif Q(nome_pesquisado == '') & Q(categoria == ""):
-        return render(request, "{% url 'home' %}", {"erro": "Por Favor Digite um produto"})
+
+    if nome_pesquisado:
+        if categoria:
+            lista_produtos = Produto.objects.filter(Q(nome_produto__icontains=nome_pesquisado)
+            | Q(descricao__icontains=nome_pesquisado)
+            | Q(categoria__icontains=categoria))
+        else:
+            lista_produtos = Produto.objects.filter(Q(nome_produto__icontains=nome_pesquisado)
+            | Q(descricao__icontains=nome_pesquisado))
     else:
-        lista_produtos = Produto.objects.filter(Q(nome_produto__icontains=nome_pesquisado)
-        |Q(descricao__icontains=nome_pesquisado)
-        |Q(categoria__icontains=categoria))
+        if categoria != "Selecione a categoria":
+            lista_produtos = Produto.objects.filter(Q(categoria__icontains=categoria))
+        else:
+            return render(request, 'home.html', {"erro": "Por Favor Digite um produto","categorias":categorias})
 
     contexto = {
         "nome_pesquisado":nome_pesquisado,
+        "categoria":categoria,
         "lista_produtos":lista_produtos,
     }
     return render(request, "pesquisa.html", context=contexto)

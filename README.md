@@ -39,9 +39,9 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 - **Frontend:** A interface do usuário é desenvolvida utilizando tecnologias como HTML, CSS usando Boostrap.
 - **Organização:** Para nos organizar e seguir os principios de desenvolvimento de software vamos usar o jira: https://pentes.atlassian.net/jira/software/projects/KLK/boards/4
 
-  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/97982032/9c60bee7-a8fa-4c14-b0cc-786fe2d6493e)
+  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/6dd258c6-49c0-4def-8617-7d71c311d8c1)
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/97982032/7033e70b-fd87-4125-b0e8-4e7631760ccc)
-
+  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/893c51ff-42bb-448e-92e4-469a1b56cccc)
 
 
 
@@ -49,9 +49,8 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 - **Link do vídeo de apresentação do protótipo:** https://youtu.be/gdpRbjAJmQc
 - **Relato da programação em par:** https://docs.google.com/document/d/1zw3Q6Y6QbHdDzpf4Eu1U9jx_Ms4kfT1JEyAKVdMWnt8/edit
 - **Diagrama de Atividades:** https://drive.google.com/file/d/1N920ENkea0Z2DfxY9_b8sYHP0fhKI-kb/view?usp=sharing
-- **Instruções de Uso**: https://docs.google.com/document/d/1e18tCYqD1ilSfU3TpcBpCI7fZOGd8F4YFKRLD4vcp3o/edit?usp=sharing
-
-(Obs, as Issues, já estão no próprio git, e organizadas na aba Projects"
+- **Apresentação das Entrega 1**: 
+- **Link do Site**: 
 
 ## 🤝 Membros
 
