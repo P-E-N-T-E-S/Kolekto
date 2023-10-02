@@ -68,6 +68,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'PKolekto'
+          app-name: 'Kolekto'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_07514F94771842B69A0783891B79DAD6 }}
