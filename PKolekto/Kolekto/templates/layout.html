@@ -23,15 +23,6 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/Kolekto">Kolekto</a>
               </li>
-              {% if not usuario %}
-              <li class="nav-item">
-                <a class="nav-link" href="/Kolekto/login">Entrar</a>
-              </li>
-              {% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="#">Sair</a>
-              </li>
-              {% endif %}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Categorias
@@ -50,10 +41,19 @@
                 </ul>
               </li>
             </ul>
-            <form class="d-flex justify-content-center" role="search">
+            <form class="d-flex mx-auto justify-content-center" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+            {% if usuario != None %}
+            <a class="nav-item">
+              <a class="nav-link" href="#">Sair</a>
+            </a>
+            {% else %}
+            <a class="nav-item">
+              <a class="nav-link" href="/Kolekto/login">Entrar</a>
+            </a>
+            {% endif %}
           </div>
         </div>
       </nav>
