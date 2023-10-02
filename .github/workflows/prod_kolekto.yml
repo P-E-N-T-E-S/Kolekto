@@ -28,7 +28,14 @@ jobs:
           source venv/bin/activate
       
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r Kolekto/requirements.txt
+        
+      - name: Cleaning testing files
+        run: |
+          cd Kolekto/
+          rm db.sqlite3
+          rm .env
+          cd ..
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       
@@ -37,7 +44,7 @@ jobs:
         with:
           name: python-app
           path: |
-            . 
+            . Kolekto
             !venv/
 
   deploy:
