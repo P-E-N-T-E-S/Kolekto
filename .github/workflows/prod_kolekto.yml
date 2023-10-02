@@ -55,9 +55,9 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-    
-      - name: 'Upload artifact for deployment jobs'
-        uses: actions/upload-artifact@v2
+  
+      - name: 'Download artifact from build job'
+        uses: actions/download-artifact@v2
         with:
           name: python-app
           path: |
