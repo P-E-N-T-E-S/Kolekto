@@ -61,7 +61,7 @@ jobs:
         with:
           name: python-app
           path: |
-            Kolekto
+            PKolekto
             !venv/
             
       - name: 'Deploy to Azure Web App'
