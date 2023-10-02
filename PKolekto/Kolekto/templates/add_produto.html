@@ -6,22 +6,29 @@
 
 {% block main %}
     <h1>Adicionar produto</h1>
+    <br>
+    <br>
     <form action="{% url 'add_produto' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <label for="foto1">Fotos</label>
         <input type="file" id="foto1" name="foto1">
         <br>
+        <br>
         <label for="nome_produto">Nome do produto</label>
         <input type="text" name="nome_produto" id="nome_produto">
+        <br>
         <br>
         <label for="descricao">Descrição</label>
         <input type="text" name="descricao" id="descricao">
         <br>
+        <br>
         <label for="preco">Preço</label>
         <input type="text" name="preco" id="preco">
         <br>
+        <br>
         <label for="qntd">Quantidade</label>
         <input type="text" name="qntd" id="qntd">
+        <br>
         <br>
         <label for="categoria">Categoria</label>
         <select id="categoria" name="select">
