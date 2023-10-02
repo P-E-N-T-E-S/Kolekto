@@ -56,7 +56,7 @@ jobs:
 
     steps:
     
-      - name: Upload artifact for deployment jobs
+      - name: 'Upload artifact for deployment jobs'
         uses: actions/upload-artifact@v2
         with:
           name: python-app
