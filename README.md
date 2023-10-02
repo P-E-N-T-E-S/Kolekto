@@ -41,6 +41,7 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/97982032/9c60bee7-a8fa-4c14-b0cc-786fe2d6493e)
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/97982032/7033e70b-fd87-4125-b0e8-4e7631760ccc)
+  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/5e72ea03-12ca-41af-95bd-794eb8fe1e73)
 
 
 
@@ -49,7 +50,8 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 - **Link do vídeo de apresentação do protótipo:** https://youtu.be/gdpRbjAJmQc
 - **Relato da programação em par:** https://docs.google.com/document/d/1zw3Q6Y6QbHdDzpf4Eu1U9jx_Ms4kfT1JEyAKVdMWnt8/edit
 - **Diagrama de Atividades:** https://drive.google.com/file/d/1N920ENkea0Z2DfxY9_b8sYHP0fhKI-kb/view?usp=sharing
-- **Instruções de Uso**: https://docs.google.com/document/d/1e18tCYqD1ilSfU3TpcBpCI7fZOGd8F4YFKRLD4vcp3o/edit?usp=sharing
+- **Apresentação das Entrega 1**: 
+- **Link do Site**: 
 
 (Obs, as Issues, já estão no próprio git, e organizadas na aba Projects"
 
