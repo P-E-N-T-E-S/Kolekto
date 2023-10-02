@@ -23,7 +23,7 @@ load_dotenv(BASE_DIR / '.env')
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 TARGET_ENV = os.getenv('TARGET_ENV')
-NOT_PROD = not TARGET_ENV.lower().startswith('prod')
+NOT_PROD = not TARGET_ENV
 
 if NOT_PROD:
     # SECURITY WARNING: don't run with debug turned on in production!

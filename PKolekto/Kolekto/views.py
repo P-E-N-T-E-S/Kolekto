@@ -223,3 +223,26 @@ def pagina_loja(request, nome_loja):
         return render(request, "pagina_loja.html", context=contexto)
     else:
         raise Http404("Loja não encontrada")
+    
+def minha_loja(request):
+    try:
+        usuario = Usuario.objects.get(username=request.session["usuario"])
+    except:
+        return redirect('login')
+    else:
+        loja = Loja.objects.get(associado_id=usuario.id)
+        if loja is not None:
+            produtos = list(loja.produto_set.all())
+            contexto = {
+                "banner": loja.Banner,
+                "perfil": loja.Perfil,
+                "nome_loja": loja.NomeLoja,
+                "localizacao": loja.Localizacao,
+                "descricao": loja.descricao,
+                "produtos": produtos
+                
+            }
+            return render(request, "pagina_loja.html", context=contexto)
+        else:
+            raise Http404("Loja não encontrada")
+        
