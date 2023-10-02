@@ -40,6 +40,7 @@
                   <li><a class="dropdown-item" href="#">Outro</a></li>
                 </ul>
               </li>
+              {% if request.session.usuario %}
               <li class="nav-item">
                 <a class="nav-link" href="/Kolekto/nova_loja">Criar loja</a>
               </li>
@@ -49,12 +50,13 @@
               <li class="nav-item">
                 <a class="nav-link" href="/Kolekto/add_produto">Adicionar produto</a>
               </li>
+              {% endif %}
             </ul>
-            <form class="d-flex mx-auto justify-content-center" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
+            <form class="d-flex mx-auto justify-content-center" role="search" action="{% url 'pesquisa' %}">
+              <input class="form-control me-2" type="search" id="nome_pesquisado" name="nome_pesquisado" placeholder="Digite um nome" value="{{ nome_pesquisado }}">
+              <button class="btn btn-outline-success" type="submit">Pesquisar</button>
             </form>
-            {% if username %}
+            {% if request.session.usuario %}
             <a class="nav-item">
               <a class="nav-link" href="#">Sair</a>
             </a>
