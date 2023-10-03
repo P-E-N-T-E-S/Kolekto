@@ -45,12 +45,13 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 
 
 
-- **Prototipação:** Para o processo de prototipação foi utilizado o aplicativo Figma, onde será possível acessar as telas prototipadas com o storyboard: https://www.figma.com/file/jOfywNY7puA1jQq3IbesyK/Kolekto?type=design&node-id=0-1&mode=design&t=yxEkCr1ZZESIiozu-0
+- **Prototipação:** https://www.figma.com/file/jOfywNY7puA1jQq3IbesyK/Kolekto?type=design&node-id=0-1&mode=design&t=yxEkCr1ZZESIiozu-0
 - **Link do vídeo de apresentação do protótipo:** https://youtu.be/gdpRbjAJmQc
 - **Relato da programação em par:** https://docs.google.com/document/d/1zw3Q6Y6QbHdDzpf4Eu1U9jx_Ms4kfT1JEyAKVdMWnt8/edit
 - **Diagrama de Atividades:** https://drive.google.com/file/d/1N920ENkea0Z2DfxY9_b8sYHP0fhKI-kb/view?usp=sharing
-- **Apresentação das Entrega 1**: 
-- **Link do Site**: 
+- **Apresentação das Entrega 1**: https://youtu.be/qO5hOz4OXEs
+- **Link do Site**: https://kolekto.azurewebsites.net/Kolekto/
+- **Instruções de uso**: https://docs.google.com/document/d/1p9zjSeGfZ_tuO5J4OwFa8QlAKEKO0YaJRCOkXo4b870/edit?usp=sharing
 
 ## 🤝 Membros
 
