@@ -29,9 +29,8 @@ jobs:
       
       - name: Install dependencies
         run: | 
-          cd PKolekto
-          pip install -r requirements.txt
-          cd ..
+          pip install -r PKolekto/requirements.txt
+
         
       - name: Cleaning testing files
         run: |
