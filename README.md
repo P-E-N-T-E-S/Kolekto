@@ -5,9 +5,10 @@
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/P-E-N-T-E-S/Kolekto?style=flat&logo=github)
 ![Commits](https://img.shields.io/github/commit-activity/t/P-E-N-T-E-S/Kolekto?style=flat&logo=github)
 [![GitHub](https://img.shields.io/github/license/P-E-N-T-E-S/Kolekto)](LICENSE.md)
+[![CI](https://github.com/P-E-N-T-E-S/Kolekto/actions/workflows/prod_kolekto.yml/badge.svg)](https://github.com/P-E-N-T-E-S/Kolekto/actions/workflows/ci.yml)
+
 <!--
 Atualizações para o Futuro
-[![CI](https://github.com/ericgio/react-bootstrap-typeahead/actions/workflows/ci.yml/badge.svg)](https://github.com/ericgio/react-bootstrap-typeahead/actions/workflows/ci.yml)
 ![Site Online](https://img.shields.io/website)
 --> 
 
