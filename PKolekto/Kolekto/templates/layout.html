@@ -40,12 +40,7 @@
                   <li><a class="dropdown-item" href="#">Outro</a></li>
                 </ul>
               </li>
-              {% if user.is_authenticated %}
-              {% if temloja == 1 %}
-              <li class="nav-item">
-                <a class="nav-link" href="/Kolekto/nova_loja">Criar loja</a>
-              </li>
-              {% endif %}
+              {% if temloja %}
               <li class="nav-item">
                 <a class="nav-link" href="/Kolekto/minha_loja">Minha Loja</a>
               </li>
@@ -53,6 +48,11 @@
                 <a class="nav-link" href="/Kolekto/add_produto">Adicionar produto</a>
               </li>
               {% endif %}
+              {% if user.is_authenticated and not temloja %} 
+              <li class="nav-item">
+                  <a class="nav-link" href="/Kolekto/nova_loja">Criar loja</a>
+              </li>
+              {% endif %}              
             </ul>
             <form class="d-flex mx-auto justify-content-center" role="search" action="{% url 'pesquisa' %}">
               <input class="form-control me-2" type="search" id="nome_pesquisado" name="nome_pesquisado" placeholder="Digite um nome" value="{{ nome_pesquisado }}">
