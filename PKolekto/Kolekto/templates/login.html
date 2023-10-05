@@ -22,10 +22,6 @@
         <button type="submit">Entrar</button>
     </form>
 
-    {% if error_message %}
-    <p>{{ error_message }}</p>
-    {% endif %}
-
     <p>Ainda não possui uma conta? <a href="{% url 'registro' %}">Registre-se aqui</a></p>
 
 {% endblock%}

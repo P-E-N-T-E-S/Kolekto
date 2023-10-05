@@ -1,12 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
 
 class Usuario(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     username = models.CharField(max_length=20)
-    senha = models.CharField(max_length=20)
-    email = models.CharField(max_length=50)
-    nome = models.CharField(max_length=70)
+    nome = models.CharField(max_length=20)
+    email = models.EmailField(max_length=100)
     def __str__(self):
         return (self.username)
     
@@ -19,7 +19,7 @@ class Loja(models.Model):
     DataNascimento = models.DateTimeField()
     Localizacao = models.CharField(max_length=50)
     descricao = models.TextField(max_length=200, default="Sem dados de contato")
-    associado = models.ForeignKey(Usuario, null=True, on_delete=models.CASCADE)
+    associado = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return (self.NomeLoja)
 

@@ -88,6 +88,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "PKolekto.urls"
 
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'home' 
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
