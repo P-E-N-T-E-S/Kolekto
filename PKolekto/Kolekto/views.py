@@ -216,9 +216,11 @@ def home(request):
         else:
             temloja = False
     
+    produtos = Produto.objects.all()
     contexto = {
         "categorias":categorias,
-        "temloja": temloja
+        "temloja": temloja,
+        "produtos": produtos
     }
     return render(request, "home.html", context=contexto)
 
