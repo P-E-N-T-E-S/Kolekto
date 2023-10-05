@@ -39,6 +39,7 @@ def Registro(request):
         user = User.objects.create_user(username=username, password=senha, email=email, first_name=nome)
         login(request, user)
         request.session["usuario"] = username
+        return redirect(home)
         
     return render(request, 'registro.html')
 
