@@ -6,6 +6,8 @@ from .models import Produto, Loja
 from django.http import Http404
 from django.db.models import Q
 
+
+
 categorias = [
                 "Selecione a categoria",
                 "Móveis e Decoração",
@@ -67,11 +69,15 @@ def Logout(request):
 @login_required
 def Cadastro_Loja(request):
     usuario = request.user
+
     if Loja.objects.filter(associado_id=usuario).exists():
-        temloja = 1
+        temloja = True
+    else:
+        temloja = False
         
     contexto = {
-        "nome_vendedor": usuario.first_name
+        "nome_vendedor": usuario.first_name,
+        "temloja": temloja
     }
     
     if request.method == "POST":
@@ -123,6 +129,14 @@ def Cadastro_Loja(request):
 @login_required
 def Add_Produto(request):
     usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False 
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
+
     loja = usuario.loja_set.all()
     if len(list(loja)) == 0:
         return redirect(Cadastro_Loja)
@@ -158,10 +172,19 @@ def Add_Produto(request):
             finally:
                 loja[0].NomeLoja
                 return redirect(home)
-        return render(request, "add_produto.html", {"categorias": categorias})
+        return render(request, "add_produto.html", {"categorias": categorias, "temloja": temloja})
 
        
 def pagina_produto(request, id_produto):
+    usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False 
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
+
     id_produto = Produto.objects.get(id=id_produto)
     if id_produto is not None:
         contexto = {
@@ -170,7 +193,8 @@ def pagina_produto(request, id_produto):
             "descricao": id_produto.descricao,
             "preco": id_produto.preco,
             "categoria": id_produto.categoria,
-            "qntd": id_produto.qntd
+            "qntd": id_produto.qntd,
+            "temloja": temloja
         }
 
         return render(request, "pagina_produto.html", context=contexto)
@@ -179,14 +203,32 @@ def pagina_produto(request, id_produto):
 
 
 def home(request):
+    usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False 
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
     
     contexto = {
         "categorias":categorias,
+        "temloja": temloja
     }
     return render(request, "home.html", context=contexto)
 
 
 def pesquisa(request):
+    usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False 
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
+
     nome_pesquisado = request.GET.get("nome_pesquisado")
     categoria = request.GET.get("select")
 
@@ -208,12 +250,25 @@ def pesquisa(request):
         "nome_pesquisado":nome_pesquisado,
         "categoria":categoria,
         "lista_produtos":lista_produtos,
+        "temloja": temloja
     }
     return render(request, "pesquisa.html", context=contexto)
 
 
 def pagina_loja(request, nome_loja):
+    usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False 
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
+
     loja = Loja.objects.get(NomeLoja=nome_loja)
+    contexto = {
+        "temloja": temloja
+    }
     if loja is not None:
         produtos = list(loja.produto_set.all())
         contexto = {
@@ -222,8 +277,8 @@ def pagina_loja(request, nome_loja):
             "nome_loja": loja.NomeLoja,
             "localizacao": loja.Localizacao,
             "descricao": loja.descricao,
-            "produtos": produtos
-            
+            "produtos": produtos,
+            "temloja": temloja
         }
         return render(request, "pagina_loja.html", context=contexto)
     else:
@@ -233,6 +288,14 @@ def pagina_loja(request, nome_loja):
 @login_required
 def minha_loja(request):
     usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False 
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
+
     loja = Loja.objects.get(associado_id=usuario.id)
     if loja is not None:
         produtos = list(loja.produto_set.all())
@@ -242,10 +305,9 @@ def minha_loja(request):
             "nome_loja": loja.NomeLoja,
             "localizacao": loja.Localizacao,
             "descricao": loja.descricao,
-            "produtos": produtos
-            
+            "produtos": produtos,
+            "temloja": temloja
         }
         return render(request, "pagina_loja.html", context=contexto)
     else:
         raise Http404("Loja não encontrada")
-        
