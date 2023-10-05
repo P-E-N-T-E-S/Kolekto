@@ -168,9 +168,12 @@ def Add_Produto(request):
             if not nome_produto or not descricao or not preco or not qntd or foto1 is None or categoria == "Selecione a categoria":
                 return render(request, "add_produto.html",
                                 {'error_message': "Preencha os campos necessários", 'categorias': categorias})
+                
             try:
                 Produto.objects.create(foto1=foto1, nome_produto=nome_produto, descricao=descricao, preco=preco, categoria=categoria, qntd=qntd, loja=loja[0])
-            finally:
+            except:
+                return render(request, "add_produto.html", {'error_message': "Coloque um preço válido", 'categorias': categorias})
+            else:
                 loja[0].NomeLoja
                 return redirect(home)
         return render(request, "add_produto.html", {"categorias": categorias, "temloja": temloja})
