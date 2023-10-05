@@ -21,7 +21,10 @@
         <div class="card-footer">
         <form class="d-block">
           <button class="btn btn-danger">
-            Detalhes
+           <a href="{% url 'pagina_produto' produto.id %}" class="btn btn-danger">
+              Detalhes
+          </a>
+          
           </button>
         </form>
           <small class="text-sucess">{{produto.qntd}}</small>

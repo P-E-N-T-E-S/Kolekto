@@ -236,6 +236,9 @@ def pesquisa(request):
     nome_pesquisado = request.GET.get("nome_pesquisado")
     categoria = request.GET.get("select")
 
+    if categoria is None:
+        categoria = "" 
+        
     if nome_pesquisado:
         if categoria:
             lista_produtos = Produto.objects.filter(Q(nome_produto__icontains=nome_pesquisado)
