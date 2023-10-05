@@ -5,9 +5,12 @@
 {% endblock %}
 
 {% block main %}
+
+{% if erro %}
 <div class="alert alert-primary" role="alert">
   {{ erro }}
 </div>
+{% endif %}
 
 <div class="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0">
     <form action="{% url 'pesquisa' %}" method="get">
