@@ -7,9 +7,9 @@
 {% block main %}
 <div class = "produtos">
   {% for produto in lista_produtos %}
-      <div class="card" style="width: 18rem;">
-        <img src="{{ produto.foto1 }}" class="img-thumbnail" alt="{{ produto.nome_produto }}">
-        <div class="card-body">
+    <div class="card" style="width: 18rem;">
+      <img width="300" height="300" src="{{ produto.foto1 }}" class="card-img-top" alt="{{ produto.nome_produto }}">
+      <div class="card-body">
           <h5 class="card-title" style="font-size: 150%; font-weight: bold;">{{ produto.nome_produto }}</h5>
           <p class="card-text" style="font-size: 120%;">{{ produto.descricao }}</p>
           <p class="card-text" style="font-size: 120%;">Preço: ${{ produto.preco }}</p>
