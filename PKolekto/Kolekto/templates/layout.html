@@ -1,81 +1,136 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
-
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/XbZUY01.png">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://i.imgur.com/XbZUY01.png"
+    />
 
     <title>Kolekto: {% block title %}{% endblock %}</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="/static/styles.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link href="/static/styles.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
 
   <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <nav class="navbar navbar-expand-lg" style="background-color: #f9efe8;">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="{% url 'index' %}"><img src="https://i.imgur.com/XbZUY01.png" width="40" height="40">    <img src="https://imgur.com/HHZ8V4q.png" width="100" height="35"></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Categorias
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Móveis e Decoração</a></li>
-                  <li><a class="dropdown-item" href="#">Arte</a></li>
-                  <li><a class="dropdown-item" href="#">Joalheria</a></li>
-                  <li><a class="dropdown-item" href="#">Livros</a></li>
-                  <li><a class="dropdown-item" href="#">Relógios</a></li>
-                  <li><a class="dropdown-item" href="#">Brinquedos e Jogos</a></li>
-                  <li><a class="dropdown-item" href="#">Vestuário</a></li>
-                  <li><a class="dropdown-item" href="#">Fotografia</a></li>
-                  <li><a class="dropdown-item" href="#">Instrumento Musical</a></li>
-                  <li><a class="dropdown-item" href="#">Outro</a></li>
-                </ul>
-              </li>
-              {% if temloja %}
-              <li class="nav-item">
-                <a class="nav-link" href="/minha_loja">Minha Loja</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/add_produto">Adicionar produto</a>
-              </li>
-              {% endif %}
-              {% if user.is_authenticated and not temloja %} 
-              <li class="nav-item">
-                  <a class="nav-link" href="/nova_loja">Criar loja</a>
-              </li>
-              {% endif %}              
-            </ul>
-            <form class="d-flex mx-auto justify-content-center" role="search" action="{% url 'pesquisa' %}">
-              <input class="form-control me-2" type="search" id="nome_pesquisado" name="nome_pesquisado" placeholder="Digite um nome" value="{{ nome_pesquisado }}">
-              <button class="btn btn-outline-success" type="submit">Pesquisar</button>
-            </form>
-            {% if user.is_authenticated %}
-            <a class="nav-item">
-              <a class="nav-link" href="{% url 'logout' %}">Sair</a>
-            </a>
-            {% else %}
-            <a class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Entrar</a>
-            </a>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <nav class="navbar navbar-expand-lg" style="background-color: #f9efe8">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}"
+          ><img src="https://i.imgur.com/XbZUY01.png" width="40" height="40" />
+          <img src="https://imgur.com/HHZ8V4q.png" width="100" height="35"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Categorias
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="#">Móveis e Decoração</a>
+                </li>
+                <li><a class="dropdown-item" href="#">Arte</a></li>
+                <li><a class="dropdown-item" href="#">Joalheria</a></li>
+                <li><a class="dropdown-item" href="#">Livros</a></li>
+                <li><a class="dropdown-item" href="#">Relógios</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">Brinquedos e Jogos</a>
+                </li>
+                <li><a class="dropdown-item" href="#">Vestuário</a></li>
+                <li><a class="dropdown-item" href="#">Fotografia</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">Instrumento Musical</a>
+                </li>
+                <li><a class="dropdown-item" href="#">Outro</a></li>
+              </ul>
+            </li>
+            {% if temloja %}
+            <li class="nav-item">
+              <a class="nav-link" href="/minha_loja">Minha Loja</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/add_produto">Adicionar produto</a>
+            </li>
+            {% endif %} {% if user.is_authenticated and not temloja %}
+            <li class="nav-item">
+              <a class="nav-link" href="/nova_loja">Criar loja</a>
+            </li>
             {% endif %}
-          </div>
+          </ul>
+          <form
+            class="d-flex mx-auto justify-content-center"
+            role="search"
+            action="{% url 'pesquisa' %}"
+          >
+            <input
+              class="form-control me-2"
+              type="search"
+              id="nome_pesquisado"
+              name="nome_pesquisado"
+              placeholder="Digite um nome"
+              value="{{ nome_pesquisado }}"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Pesquisar
+            </button>
+          </form>
+          {% if user.is_authenticated %}
+          <a class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+          </a>
+          {% else %}
+          <a class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Entrar</a>
+          </a>
+          {% endif %}
         </div>
-      </nav>
+      </div>
+    </nav>
     <main class="container-fluid py-5 text-center">
-        {% block main %}
-        {% endblock %}
+      {% block main %} {% endblock %}
     </main>
 
-    <footer class="border-top fixed-bottom text-muted" style="background-color: #f9efe8;">
+    <footer
+      class="border-top fixed-bottom text-muted"
+      style="background-color: #f9efe8"
+    >
       <div class="container">
         <div class="row py-3">
           <div class="text-center">
@@ -84,6 +139,5 @@
         </div>
       </div>
     </footer>
-
   </body>
 </html>
