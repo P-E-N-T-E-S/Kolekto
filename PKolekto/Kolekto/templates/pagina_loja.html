@@ -9,15 +9,15 @@
     <div id="carrouselMain" class="carousel carousel-dark slide" data-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active text-center">
-          <img src="{{ banner.url }}" alt="{{ nome_loja }}"
-               class="img-fluid">
+          <img src="{{ banner }}" alt="{{ nome_loja }}"
+               class="img-fluid" width ="500">
         </div>
       </div>
     </div>
     <div class="d-flex align-items-center mb-4">
       <div class="flex-shrink-0">
-        <img src="{{ perfil.url }}"
-             alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
+        <img src="{{ perfil }}"
+             alt="{{ nome_loja }}" class="img-fluid rounded-circle border border-dark border-3"
              style="width: 70px;">
       </div>
     <div class="flex-grow-1 ms-3">
@@ -36,7 +36,7 @@
         <div class="d-flex flex-row-reverse justify-content-center justify-content-md-start">
           {% for item in produto %}
         <div class="card text-center bg-light">
-          <img src="{{item.foto1.url}}" alt="{{item.nome_produto}}">
+          <img src="{{item.foto1}}" alt="{{item.nome_produto}}">
           <div class="card-header">
             {{item.preco}}
           </div>
@@ -65,7 +65,7 @@
         {% for produto in produtos %}
             <li>
                 <h3>{{ produto.nome_produto }}</h3>
-                <img src="{{ produto.foto1.url }}" alt="{{ produto.nome_produto }}" width="100">
+                <img src="{{ produto.foto1 }}" alt="{{ produto.nome_produto }}" width="100">
                 <p>Descrição: {{ produto.descricao }}</p>
                 <p>Categoria: {{ produto.categoria }}</p>
                 <p>Preço: ${{ produto.preco }}</p>

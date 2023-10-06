@@ -82,21 +82,27 @@ def Cadastro_Loja(request):
     }
     
     if request.method == "POST":
+        errado = False
         erros = {}
 
         data_nascimento = request.POST.get("nascimento")
         Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
         cpf = request.POST.get("cpf")
         nome_loja = request.POST.get("nome_loja")
-        banner = request.FILES.get("banner")
-        perfil = request.FILES.get("perfil")
+        banner = request.POST.get("banner")
+        perfil = request.POST.get("perfil")
         associado = usuario
         descricao = request.POST.get("descricao")
         
         if Loja.objects.filter(NomeLoja=nome_loja).exists():
             erros["nomedaloja"] = "Já existe uma loja com esse nome."
+            errado = True
 
-        if erros:
+        if banner[-5:-1] != ".jpe" or perfil[-5:-1] != ".jpe":
+            erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
+            errado = True
+
+        if errado:
             contexto["erros"] = erros
             contexto["data_nascimento"] = data_nascimento
             contexto["localizacao"] = request.POST.get("cidade")
@@ -158,7 +164,7 @@ def Add_Produto(request):
         ]
 
         if request.method == "POST":
-            foto1 = request.FILES.get("foto1")
+            foto1 = request.POST.get("foto1")
             nome_produto = request.POST["nome_produto"]
             descricao = request.POST["descricao"]
             preco = request.POST["preco"]
@@ -168,6 +174,9 @@ def Add_Produto(request):
             if not nome_produto or not descricao or not preco or not qntd or foto1 is None or categoria == "Selecione a categoria":
                 return render(request, "add_produto.html",
                                 {'error_message': "Preencha os campos necessários", 'categorias': categorias})
+            if foto1[-5:-1] != ".jpe":
+                return render(request, "add_produto.html",
+                              {"erro_message": "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"})
                 
             try:
                 Produto.objects.create(foto1=foto1, nome_produto=nome_produto, descricao=descricao, preco=preco, categoria=categoria, qntd=qntd, loja=loja[0])

@@ -72,13 +72,13 @@
     </div>
     <div class="col-md-6">
       <label for="perfil" class="form-label">Imagem de perfil</label>
-      <input type="file" class="form-control" id="perfil" aria-describedby="perfil_" name="perfil" value="{{ perfil }}">
-      <div id="perfil_" class="form-text">Selecione uma imagem da sua galeria para ser sua foto de perfil da sua loja</div>
+      <input type="text" class="form-control" id="perfil" aria-describedby="perfil_" name="perfil" value="{{ perfil }}">
+      <div id="perfil_" class="form-text">Coloque um url de imagem da web, como do imgur, PostImage, ImgBB, etc...</div>
     </div>
         <div class="col-md-6">
       <label for="banner" class="form-label">Imagem de banner</label>
-      <input type="file" class="form-control" id="banner" aria-describedby="banner_" name="banner" value="{{ banner }}">
-      <div id="banner_" class="form-text">Selecione uma imagem da sua galeria para ser sua foto de perfil da sua loja</div>
+      <input type="text" class="form-control" id="banner" aria-describedby="banner_" name="banner" value="{{ banner }}">
+      <div id="banner_" class="form-text">Coloque um url de imagem da web, como do imgur, PostImage, ImgBB, etc...</div>
           </div>
 
           <div class="container text-left">
@@ -90,7 +90,7 @@
       <div class="coll md-12">
       <button type="submit" class="btn btn-primary">Enviar</button>
       <br />
-      {{ erros.cpf_mask }} {{ erros.nomedaloja }}
+      {{ erros.cpf_mask }} {{ erros.nomedaloja }} {{ erros.urlerrado }}
       </div>
     </form>
   </div><!--class="container"-->

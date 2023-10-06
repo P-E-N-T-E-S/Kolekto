@@ -39,7 +39,7 @@ class Produto(models.Model):
         ("Instrumento Musical","Instrumento Musical"),
         ("Outro","Outro")
             ]
-    foto1 = models.ImageField(upload_to="fotos/")
+    foto1 = models.CharField(max_length=100)
     nome_produto = models.CharField(max_length=100)
     descricao = models.CharField(max_length=500)
     categoria = models.CharField(choices=categorias,default=categorias[0],max_length=50)

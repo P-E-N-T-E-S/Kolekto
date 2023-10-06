@@ -29,7 +29,7 @@
     {% for produto in produtos %}
         <li>
             <h3>{{ produto.nome_produto }}</h3>
-            <img src="{{ produto.foto1.url }}" alt="{{ produto.nome_produto }}" width="100">
+            <img src="{{ produto.foto1 }}" alt="{{ produto.nome_produto }}" width="100">
             <p>Descrição: {{ produto.descricao }}</p>
             <p>Categoria: {{ produto.categoria }}</p>
             <p>Preço: ${{ produto.preco }}</p>
