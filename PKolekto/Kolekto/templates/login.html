@@ -10,7 +10,8 @@
         <div class="alert alert-primary" role="alert">
         {{ erro }}
         {% endif %}
-</div>
+        
+<div>
     <form method="post">
         {% csrf_token %}
         <div class="col-md-6">
@@ -27,5 +28,7 @@
     </form>
 
     <br><p>Ainda não possui uma conta? <a href="{% url 'registro' %}">Registre-se aqui</a></p>
+    
+</div>
 
 {% endblock%}
