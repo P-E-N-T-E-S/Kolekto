@@ -10,7 +10,7 @@
       <div class="carousel-inner">
         <div class="carousel-item active text-center">
           <img src="{{ banner }}" alt="{{ nome_loja }}"
-               class="img-fluid" width ="500">
+               class="img-fluid" width="500">
         </div>
       </div>
     </div>
@@ -61,19 +61,22 @@
     </div>
     </div>
     <h2>Produtos desta Loja:</h2>
-    <ul>
-        {% for produto in produtos %}
-            <li>
-                <h3>{{ produto.nome_produto }}</h3>
-                <img src="{{ produto.foto1 }}" alt="{{ produto.nome_produto }}" width="100">
-                <p>Descrição: {{ produto.descricao }}</p>
-                <p>Categoria: {{ produto.categoria }}</p>
-                <p>Preço: ${{ produto.preco }}</p>
-                <p>Quantidade disponível: {{ produto.qntd }}</p>
-            </li>
-        {% empty %}
-            <li>Nenhum produto disponível nesta loja.</li>
-        {% endfor %}
-    </ul>
+    <div class = "produtos">
+      {% for produto in produtos %}
+          <div class="card" style="width: 18rem;">
+            <img width="300" height="300" src="{{ produto.foto1 }}" class="card-img-top" alt="{{ produto.nome_produto }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ produto.nome_produto }}</h5>
+              <p class="card-text">{{ produto.descricao }}</p>
+              <p class="card-text">Preço: ${{ produto.preco }}</p>
+              <a href="{% url 'pagina_produto' produto.id %}" class="btn btn-primary">Detalhes</a>
+            </div>
+          </div>
+      {% empty %}
+          <h1>Nenhum produto disponível.</h1>
+      {% endfor %}
+  </div>
+  
+  
   </main>
 {% endblock %}

@@ -11,34 +11,35 @@
   {{ erro }}
 </div>
 {% endif %}
-
-<div class="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0">
-    <form action="{% url 'pesquisa' %}" method="get">
-      <input type="text" class="form-control" id="nome_pesquisado" aria-describedby="digite um nome" name="nome_pesquisado" placeholder="pesquisa" value="{{ nome_pesquisado }}">
-      <select id="categorias" name="select">
-        {% for categoria in categorias %}
+<div class="pesquisar">
+  <div class="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0" style="width: 500px;">
+      <form action="{% url 'pesquisa' %}" method="get">
+        <div class="input-group">
+          <select class="form-select" id="categorias" name="select">
+            {% for categoria in categorias %}
             <option value="{{ categoria }}">{{ categoria }}</option>
-        {% endfor %}
-    </select>
-    <button type="submit">pesquisar</button>
-    </form>
+            {% endfor %}
+          </select>
+          <button class="btn btn-primary" type="submit">Button</button>
+        </div>
+      </form>
+  </div>
 </div>
 
-<div>
-  <ul>
+<div class = "produtos">
     {% for produto in produtos %}
-        <li>
-            <h3>{{ produto.nome_produto }}</h3>
-            <img src="{{ produto.foto1 }}" alt="{{ produto.nome_produto }}" width="100">
-            <p>Descrição: {{ produto.descricao }}</p>
-            <p>Categoria: {{ produto.categoria }}</p>
-            <p>Preço: ${{ produto.preco }}</p>
-            <p>Quantidade disponível: {{ produto.qntd }}</p>
-        </li>
+        <div class="card" style="width: 18rem;">
+          <img width="300" height="300" src="{{ produto.foto1 }}" class="card-img-top" alt="{{ produto.nome_produto }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ produto.nome_produto }}</h5>
+            <p class="card-text">{{ produto.descricao }}</p>
+            <p class="card-text">Preço: ${{ produto.preco }}</p>
+            <a href="{% url 'pagina_produto' produto.id %}" class="btn btn-primary">Detalhes</a>
+          </div>
+        </div>
     {% empty %}
-        <li>Nenhum produto disponível.</li>
+        <h1>Nenhum produto disponível.</h1>
     {% endfor %}
-  </ul>
 </div>
 
 {% if error_message %}
