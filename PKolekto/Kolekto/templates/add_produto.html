@@ -1,56 +1,96 @@
-{% extends "layout.html" %}
-
-{% block title %}
-    Adicionar produto
-{% endblock %}
-
+{% extends "layout.html" %} {% block title %} Adicionar produto {% endblock %}
 {% block main %}
-    <h1>Adicionar produto</h1>
-    <br>
-    <br>
-    <div class="container">
-        <form action="{% url 'add_produto' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="foto1" class="form-label">Fotos</label>
-                        <input type="text" class="form-control" id="foto1" name="foto1", value="{{foto1}}">
-                        <div id="foto1" class="form-text">Coloque um url de imagem da web, como do imgur, PostImage, ImgBB, etc...</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="nome_produto" class="form-label">Nome do produto</label>
-                        <input type="text" class="form-control" id="nome_produto" name="nome_produto" value="{{ nome_produto }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="descricao" class="form-label">Descrição</label>
-                        <input type="text" class="form-control" id="descricao" name="descricao" value="{{ descricao }}">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="preco" class="form-label">Preço</label>
-                        <input type="text" class="form-control" id="preco" name="preco" value="{{ preco }}">
-                        <div id="preco" class="form-text">Coloque os valores decimais usando ponto</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="qntd" class="form-label">Quantidade</label>
-                        <input type="number" class="form-control" id="qntd" name="qntd" value="{{ qntd }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="categoria" class="form-label">Categoria</label>
-                        <select class="form-select" id="categoria" name="select" value="{{ categoria }}">
-                            {% for categoria in categorias %}
-                                <option value="{{ categoria }}">{{ categoria }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <p class="text-danger">{{ erros.campos }}</p>
-            <p class="text-danger">{{ erros.url }}</p>
-            <p class="text-danger">{{ erros.precos }}</p>
-            <button type="submit" class="btn btn-primary">Anunciar produto</button>
-        </form>
+<h1>Adicionar produto</h1>
+<br />
+<br />
+<div class="container">
+  <form
+    action="{% url 'add_produto' %}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="foto1" class="form-label">Fotos</label>
+          <input
+            type="text"
+            class="form-control"
+            id="foto1"
+            name="foto1"
+            ,
+            value="{{foto1}}"
+          />
+          <div id="foto1" class="form-text">
+            Coloque um url de imagem da web, como do imgur, PostImage, ImgBB,
+            etc...
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="nome_produto" class="form-label">Nome do produto</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nome_produto"
+            name="nome_produto"
+            value="{{ nome_produto }}"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="descricao" class="form-label">Descrição</label>
+          <input
+            type="text"
+            class="form-control"
+            id="descricao"
+            name="descricao"
+            value="{{ descricao }}"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="preco" class="form-label">Preço</label>
+          <input
+            type="text"
+            class="form-control"
+            id="preco"
+            name="preco"
+            value="{{ preco }}"
+          />
+          <div id="preco" class="form-text">
+            Coloque os valores decimais usando ponto
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="qntd" class="form-label">Quantidade</label>
+          <input
+            type="number"
+            class="form-control"
+            id="qntd"
+            name="qntd"
+            value="{{ qntd }}"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="categoria" class="form-label">Categoria</label>
+          <select
+            class="form-select"
+            id="categoria"
+            name="select"
+            value="{{ categoria }}"
+          >
+            {% for categoria in categorias %}
+            <option value="{{ categoria }}">{{ categoria }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
     </div>
+    <p class="text-danger">{{ erros.campos }}</p>
+    <p class="text-danger">{{ erros.url }}</p>
+    <p class="text-danger">{{ erros.precos }}</p>
+    <button type="submit" class="btn btn-primary">Anunciar produto</button>
+  </form>
+</div>
 {% endblock %}

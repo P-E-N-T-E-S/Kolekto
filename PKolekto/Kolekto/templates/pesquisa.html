@@ -1,24 +1,33 @@
-{% extends "layout.html" %}
-
-{% block title %}
-    Página inicial
-{% endblock %}
-
+{% extends "layout.html" %} {% block title %} Página inicial {% endblock %} 
 {% block main %}
-<div class = "produtos">
+<div class="produtos">
   {% for produto in lista_produtos %}
-    <div class="card" style="width: 18rem;">
-      <img width="300" height="300" src="{{ produto.foto1 }}" class="card-img-top" alt="{{ produto.nome_produto }}">
-      <div class="card-body">
-          <h5 class="card-title" style="font-size: 150%; font-weight: bold;">{{ produto.nome_produto }}</h5>
-          <p class="card-text" style="font-size: 120%;">{{ produto.descricao }}</p>
-          <p class="card-text" style="font-size: 120%;">Preço: ${{ produto.preco }}</p>
-          <a href="/{{ nome_loja }}" class="link-primary" style="font-size: 100%;">{{ nome_loja }}</a><br>
-          <a href="{% url 'pagina_produto' produto.id %}" class="btn btn-primary">Detalhes</a>
-        </div>
-      </div>
+  <div class="card" style="width: 18rem">
+    <img
+      width="300"
+      height="300"
+      src="{{ produto.foto1 }}"
+      class="card-img-top"
+      alt="{{ produto.nome_produto }}"
+    />
+    <div class="card-body">
+      <h5 class="card-title" style="font-size: 150%; font-weight: bold">
+        {{ produto.nome_produto }}
+      </h5>
+      <p class="card-text" style="font-size: 120%">{{ produto.descricao }}</p>
+      <p class="card-text" style="font-size: 120%">
+        Preço: ${{ produto.preco }}
+      </p>
+      <a href="/{{ nome_loja }}" class="link-primary" style="font-size: 100%"
+        >{{ nome_loja }}</a
+      ><br />
+      <a href="{% url 'pagina_produto' produto.id %}" class="btn btn-primary"
+        >Detalhes</a
+      >
+    </div>
+  </div>
   {% empty %}
-      <h1>Nenhum produto disponível.</h1>
+  <h1>Nenhum produto disponível.</h1>
   {% endfor %}
 </div>
 {% endblock %}

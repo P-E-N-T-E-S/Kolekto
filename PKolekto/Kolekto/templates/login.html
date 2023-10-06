@@ -1,34 +1,49 @@
 {% extends "layout.html" %}
-
-{% block title %}
-    Login
-{% endblock %}
-
+{% block title %} Login {% endblock %}
 {% block main %}
-    <h1>Login</h1>
-        {%if erro %}
-        <div class="alert alert-primary" role="alert">
+<div class="container">
+  <div class="row justify-content-center align-items-center" style="height: 100%;">
+    <div class="col-md-6">
+      <h1>Login</h1>
+      {% if erro %}
+      <div class="alert alert-primary" role="alert">
         {{ erro }}
-        {% endif %}
-        
-<div>
-    <form method="post">
+      </div>
+      {% endif %}
+      <form method="post">
         {% csrf_token %}
-        <div class="col-md-6">
-            <label for="username" class="form-label">Nome de Usuário:</label>
-            <input type="text" class="form-control" id="username" name="username" value="{{username}}" required>
+        <div class="mb-3">
+          <label for="username" class="form-label">Nome de Usuário:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            name="username"
+            value="{{username}}"
+            required
+          />
         </div>
 
-        <div class="col-md-6">
-            <label for="password" class="form-label">Nome de Usuário:</label>
-            <input type="password" class="form-control" id="password" name="senha" value="{{senha}}" required>
+        <div class="mb-3">
+          <label for="password" class="form-label">Senha:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="senha"
+            value="{{senha}}"
+            required
+          />
         </div>
 
-        <br><button type="submit" class="btn btn-primary">Entrar</button>
-    </form>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+      </form>
 
-    <br><p>Ainda não possui uma conta? <a href="{% url 'registro' %}">Registre-se aqui</a></p>
-    
+      <p style="margin-top: 10px;">
+        Ainda não possui uma conta?
+        <a href="{% url 'registro' %}">Registre-se aqui</a>
+      </p>
+    </div>
+  </div>
 </div>
-
-{% endblock%}
+{% endblock %}
