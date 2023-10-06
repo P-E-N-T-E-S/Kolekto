@@ -281,10 +281,12 @@ def pesquisa(request):
         if categoria:
             lista_produtos = Produto.objects.filter(Q(nome_produto__icontains=nome_pesquisado)
             | Q(descricao__icontains=nome_pesquisado)
-            | Q(categoria__icontains=categoria))
+            | Q(categoria__icontains=categoria)
+            | Q(loja__NomeLoja__icontains=nome_pesquisado))
         else:
             lista_produtos = Produto.objects.filter(Q(nome_produto__icontains=nome_pesquisado)
-            | Q(descricao__icontains=nome_pesquisado))
+            | Q(descricao__icontains=nome_pesquisado)
+            | Q(loja__NomeLoja__icontains=nome_pesquisado))
     else:
         if categoria != "Selecione a categoria":
             lista_produtos = Produto.objects.filter(Q(categoria__icontains=categoria))
