@@ -6,7 +6,7 @@
 
 {% block main %}
   <header>
-          <img src="{{ banner }}" alt="{{ nome_loja }}" width="1400" height="400">
+          <img src="{{ banner }}" alt="{{ nome_loja }}" width="1250" height="256">
           <br/>  
           <br/>
         </div>
@@ -15,7 +15,7 @@
     <div class="d-flex align-items-center mb-4">
       <div class="flex-shrink-0">
         <img src="{{ perfil }}"
-             alt="{{ nome_loja }}" class="img-fluid rounded-circle border border-dark border-3" width="100%" height="100%">
+             alt="{{ nome_loja }}" class="rounded-circle border border-dark border-3" width="100" height="100">
       </div>
     <div class="flex-grow-1 ms-3">
     <div class="d-flex flex-row aling-items-center mb-2">
@@ -23,7 +23,12 @@
     </div>
     </div>
     </div>
-    <p class="my-4 pb-1">{{ descricao }}</p>
+    <fieldset disabled>
+      <div class="col md-6 d-flex flex-wrap">
+        <p class="text-start">Descrição</p>
+        <textarea type="text" class="form-control" id="descricao" > placeholder="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</textarea>
+      </div>
+    </fieldset>
     <hr>
   </header>
   <main>
@@ -57,7 +62,7 @@
       </div>
     </div>
     </div>
-    <h2>Produtos desta Loja:</h2>
+    <h1>Produtos desta Loja:</h1>
     <div class = "produtos">
       {% for produto in produtos %}
           <div class="card" style="width: 18rem;">
@@ -70,7 +75,7 @@
             </div>
           </div>
       {% empty %}
-          <h1>Nenhum produto disponível.</h1>
+          <h4>Nenhum produto disponível.</h4>
       {% endfor %}
   </div>
   

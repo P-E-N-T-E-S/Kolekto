@@ -135,6 +135,7 @@ def Cadastro_Loja(request):
 
 @login_required
 def Add_Produto(request):
+    erros = {}
     usuario = request.user
     if request.user.is_anonymous:
         temloja = False 
@@ -164,6 +165,7 @@ def Add_Produto(request):
         ]
 
         if request.method == "POST":
+            errado = False
             foto1 = request.POST.get("foto1")
             nome_produto = request.POST["nome_produto"]
             descricao = request.POST["descricao"]
@@ -172,16 +174,38 @@ def Add_Produto(request):
             qntd = request.POST["qntd"]
 
             if not nome_produto or not descricao or not preco or not qntd or foto1 is None or categoria == "Selecione a categoria":
-                return render(request, "add_produto.html",
-                                {'error_message': "Preencha os campos necessários", 'categorias': categorias})
+                erros["campos"] = "preencha todos os campos necessários"
+                errado = True
             if foto1[-5:-1] != ".jpe":
-                return render(request, "add_produto.html",
-                              {"erro_message": "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"})
+               erros["url"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
+
+            if errado:
+                contexto = {
+                    "erros": erros,
+                    "foto1": foto1,
+                    "nome_produto": nome_produto,
+                    "descricao": descricao,
+                    "preco": preco,
+                    "qntd": qntd,
+                    "categorias": categorias
+                }
+                return render(request, "add_produto.html", contexto)
                 
             try:
                 Produto.objects.create(foto1=foto1, nome_produto=nome_produto, descricao=descricao, preco=preco, categoria=categoria, qntd=qntd, loja=loja[0])
             except:
-                return render(request, "add_produto.html", {'error_message': "Coloque um preço válido", 'categorias': categorias})
+                erros["precos"] = "insira um valor válido"
+                contexto = {
+                    "erros": erros,
+                    "foto1": foto1,
+                    "nome_produto": nome_produto,
+                    "descricao": descricao,
+                    "preco": preco,
+                    "qntd": qntd,
+                    "erropreco": "Coloque um preço válido",
+                    "categorias": categorias
+                }
+                return render(request, "add_produto.html", contexto)
             else:
                 loja[0].NomeLoja
                 return redirect(home)
@@ -234,7 +258,7 @@ def home(request):
         "temloja": temloja,
         "produtos": produtos
     }
-    return render(request, "home.html", context=contexto)
+    return redirect('minha_loja')
 
 
 def pesquisa(request):

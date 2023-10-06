@@ -42,15 +42,15 @@
               </li>
               {% if temloja %}
               <li class="nav-item">
-                <a class="nav-link" href="/Kolekto/minha_loja">Minha Loja</a>
+                <a class="nav-link" href="/minha_loja">Minha Loja</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/Kolekto/add_produto">Adicionar produto</a>
+                <a class="nav-link" href="/add_produto">Adicionar produto</a>
               </li>
               {% endif %}
               {% if user.is_authenticated and not temloja %} 
               <li class="nav-item">
-                  <a class="nav-link" href="/Kolekto/nova_loja">Criar loja</a>
+                  <a class="nav-link" href="/nova_loja">Criar loja</a>
               </li>
               {% endif %}              
             </ul>
