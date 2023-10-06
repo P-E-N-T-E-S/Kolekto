@@ -13,15 +13,19 @@
 </div>
     <form method="post">
         {% csrf_token %}
-        <label for="username">Nome de Usuário:</label>
-        <input type="text" id="username" name="username" required><br><br>
+        <div class="col-md-6">
+            <label for="username" class="form-label">Nome de Usuário:</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{username}}" required>
+        </div>
 
-        <label for="password">Senha:</label>
-        <input type="password" id="password" name="senha" required><br><br>
+        <div class="col-md-6">
+            <label for="password" class="form-label">Nome de Usuário:</label>
+            <input type="password" class="form-control" id="password" name="senha" value="{{senha}}" required>
+        </div>
 
-        <button type="submit">Entrar</button>
+        <br><button type="submit" class="btn btn-primary">Entrar</button>
     </form>
 
-    <p>Ainda não possui uma conta? <a href="{% url 'registro' %}">Registre-se aqui</a></p>
+    <br><p>Ainda não possui uma conta? <a href="{% url 'registro' %}">Registre-se aqui</a></p>
 
 {% endblock%}
