@@ -258,7 +258,7 @@ def home(request):
         "temloja": temloja,
         "produtos": produtos
     }
-    return redirect('minha_loja')
+    return render(request, "home.html", context=contexto)
 
 
 def pesquisa(request):
