@@ -1,20 +1,21 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Pagina inicial
+    Página inicial
 {% endblock %}
 
 {% block main %}
+    <h1> Pesquisa por: {% if nome_pesquisado %} {{ nome_pesquisado }} {% else %} {{ categoria }} {% endif %}</h1>
     {% for produto in lista_produtos %}
     <div class="card text-center bg-light">
-        <img src="{{produto.foto1}}" alt="{{produto.nome_produto}}" width="100">
+        <img src="{{produto.foto1.url}}" alt="{{produto.nome_produto}}" width="100">
         <div class="card-header">
           {{produto.preco}}
         </div>
         <div class="card-body">
         <h5 class="card-title">{{produto.nome_produto}}</h5>
           <p class="card-text">
-            {{produto.decricao}}
+            {{produto.descricao}}
           </p>
         </div>
         <div class="card-footer">

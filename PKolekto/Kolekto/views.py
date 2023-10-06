@@ -174,7 +174,7 @@ def Add_Produto(request):
             qntd = request.POST["qntd"]
 
             if not nome_produto or not descricao or not preco or not qntd or foto1 is None or categoria == "Selecione a categoria":
-                erros["campos"] = "preencha todos os campos necessários"
+                erros["campos"] = "Preencha todos os campos necessários"
                 errado = True
             if foto1[-5:-1] != ".jpe":
                erros["url"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
@@ -187,14 +187,15 @@ def Add_Produto(request):
                     "descricao": descricao,
                     "preco": preco,
                     "qntd": qntd,
-                    "categorias": categorias
+                    "categorias": categorias,
+                    "temloja": temloja
                 }
                 return render(request, "add_produto.html", contexto)
                 
             try:
                 Produto.objects.create(foto1=foto1, nome_produto=nome_produto, descricao=descricao, preco=preco, categoria=categoria, qntd=qntd, loja=loja[0])
             except:
-                erros["precos"] = "insira um valor válido"
+                erros["precos"] = "Insira um valor válido"
                 contexto = {
                     "erros": erros,
                     "foto1": foto1,
@@ -203,7 +204,8 @@ def Add_Produto(request):
                     "preco": preco,
                     "qntd": qntd,
                     "erropreco": "Coloque um preço válido",
-                    "categorias": categorias
+                    "categorias": categorias,
+                    "temloja": temloja
                 }
                 return render(request, "add_produto.html", contexto)
             else:
@@ -281,10 +283,12 @@ def pesquisa(request):
         if categoria:
             lista_produtos = Produto.objects.filter(Q(nome_produto__icontains=nome_pesquisado)
             | Q(descricao__icontains=nome_pesquisado)
-            | Q(categoria__icontains=categoria))
+            | Q(categoria__icontains=categoria)
+            | Q(loja__NomeLoja__icontains=nome_pesquisado))
         else:
             lista_produtos = Produto.objects.filter(Q(nome_produto__icontains=nome_pesquisado)
-            | Q(descricao__icontains=nome_pesquisado))
+            | Q(descricao__icontains=nome_pesquisado)
+            | Q(loja__NomeLoja__icontains=nome_pesquisado))
     else:
         if categoria != "Selecione a categoria":
             lista_produtos = Produto.objects.filter(Q(categoria__icontains=categoria))
