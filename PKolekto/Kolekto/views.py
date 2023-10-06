@@ -199,6 +199,8 @@ def pagina_produto(request, id_produto):
             temloja = False
 
     id_produto = Produto.objects.get(id=id_produto)
+    loja = id_produto.loja
+    nome_loja = loja.NomeLoja
     if id_produto is not None:
         contexto = {
             "foto1": id_produto.foto1,
@@ -207,6 +209,7 @@ def pagina_produto(request, id_produto):
             "preco": id_produto.preco,
             "categoria": id_produto.categoria,
             "qntd": id_produto.qntd,
+            "nome_loja": nome_loja,
             "temloja": temloja
         }
 
