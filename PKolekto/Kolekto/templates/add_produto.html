@@ -90,7 +90,10 @@
     <p class="text-danger">{{ erros.campos }}</p>
     <p class="text-danger">{{ erros.url }}</p>
     <p class="text-danger">{{ erros.precos }}</p>
-    <button type="submit" class="btn btn-primary">Anunciar produto</button>
+    <div class="d-flex justify-content-end w-100">
+      <button type="submit" class="btn btn-primary">Anunciar produto</button>
+      <a href="{% url 'index' %}" class="btn btn-danger mx-3">Cancelar</a>
+    </div>
   </form>
 </div>
 {% endblock %}

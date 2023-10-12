@@ -152,10 +152,10 @@
     </div>
     <!--class="row"-->
     <br />
-    <div class="coll md-12">
+    {{ erros.cpf_mask }} {{ erros.nomedaloja }} {{ erros.urlerrado }}
+    <div class="d-flex justify-content-end w-100">
       <button type="submit" class="btn btn-primary">Enviar</button>
-      <br />
-      {{ erros.cpf_mask }} {{ erros.nomedaloja }} {{ erros.urlerrado }}
+      <a href="{% url 'index' %}" class="btn btn-danger mx-3">Cancelar</a>
     </div>
   </form>
 </div>

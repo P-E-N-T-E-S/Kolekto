@@ -28,13 +28,13 @@
       class="card-img-top"
       alt="{{ produto.nome_produto }}"
     />
-    <div class="card-body">
-      <h5 class="card-title">{{ produto.nome_produto }}</h5>
-      <p class="card-text">{{ produto.descricao }}</p>
-      <p class="card-text">Preço: ${{ produto.preco }}</p>
+    <div class="card-body d-flex justify-content-between flex-column">
+      <h5 class="card-title text-start">{{ produto.nome_produto }}</h5>
+      <p class="card-text text-start" style="height: 100px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">{{ produto.descricao }}</p>
+      <p class="card-text text-start">Preço: ${{ produto.preco }}</p>
       <a href="{% url 'pagina_produto' produto.id %}" class="btn btn-primary"
         >Detalhes</a
-      >
+        >
     </div>
   </div>
   {% empty %}
