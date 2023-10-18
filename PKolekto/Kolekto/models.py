@@ -48,3 +48,8 @@ class Produto(models.Model):
     loja = models.ForeignKey(Loja, null=True, on_delete=models.CASCADE)
     def __str__(self):
         return (self.nome_produto)
+    
+
+class ListaDesejos(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)

@@ -25,6 +25,24 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script> 
+      document.getElementById("adicionarListaDesejos").addEventListener("click", function() {
+        var produtoId = this.getAttribute("data-produto");
+    
+        // Realizar a solicitação AJAX para adicionar o produto à lista de desejos
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "{% url 'add_lista_desejos' %}", true);
+        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // A ação foi realizada com sucesso, você pode atualizar a interface do usuário, se necessário
+                alert("Produto adicionado à lista de desejos!");
+            }
+        };
+        xhr.send("produto_id=" + produtoId);
+    });
+    </script>
   </head>
 
   <body>
@@ -112,6 +130,9 @@
             </button>
           </form>
           {% if user.is_authenticated %}
+          <a class="nav-item">
+            <a style="margin-right: 30px;" class="nav-link" href="{% url 'lista_desejos' %}"><i class="fa-solid fa-heart"></i></a>
+          </a>
           <a class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Sair</a>
           </a>

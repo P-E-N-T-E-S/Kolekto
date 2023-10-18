@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
-from .models import Produto, Loja
-from django.http import Http404
+from .models import Produto, Loja, ListaDesejos
+from django.http import Http404, JsonResponse
 from django.db.models import Q
 
 
@@ -360,3 +360,31 @@ def minha_loja(request):
         return render(request, "pagina_loja.html", context=contexto)
     else:
         raise Http404("Loja não encontrada")
+    
+
+@login_required
+def lista_desejos(request):
+    usuario = request.user
+    lista = ListaDesejos.objects.filter(usuario=usuario.id)
+    return render(request, "lista_desejos.html", {"lista": lista})
+
+
+@login_required
+def add_lista_desejos(request, produto_id):
+    if request.method == 'POST':
+        usuario = request.user
+        
+        lista_existente = ListaDesejos.objects.filter(usuario=usuario, produto=produto_id).exists()
+        
+        if not lista_existente:
+            ListaDesejos.objects.create(usuario=usuario, produto=produto_id)
+            return JsonResponse({'mensagem': "Produto adicionado à lista de desejos!"})
+        
+    return JsonResponse({'mensagem': 'Requisição inválida.'}, status=400)
+    
+        
+
+@login_required
+def rem_lista_desejos(request, produto_id):
+    usuario = request.user
+    ListaDesejos.objects.filter(usuario=usuario.id, produto=produto_id).delete()

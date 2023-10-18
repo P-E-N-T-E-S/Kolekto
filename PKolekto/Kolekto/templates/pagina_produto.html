@@ -1,5 +1,25 @@
 {% extends "layout.html" %} {% block title %} {{ nome_produto }} {% endblock %}
 {% block main %}
+
+<script>
+  document.getElementById("adicionarListaDesejos").addEventListener("click", function() {
+      var produtoId = this.getAttribute("data-produto");
+
+      // Realizar a solicitação AJAX para adicionar o produto à lista de desejos
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "{% url 'add_lista_desejos' %}", true);
+      xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+              // A ação foi realizada com sucesso, você pode atualizar a interface do usuário, se necessário
+              alert("Produto adicionado à lista de desejos!");
+          }
+      };
+      xhr.send("produto_id=" + produtoId);
+  });
+</script>
+
 <div
   class="d-flex justify-content-center flex-wrap"
   style="width: 90%; margin: 0 auto"
@@ -33,6 +53,7 @@
         <i class="fa-solid fa-cart-shopping"></i>
       </button>
       <button
+        id="adicionarListaDesejos" data-produto="{{ produto.id }}"
         class="btn btn-lg btn-outline-danger mx-1"
         style="font-size: 140%"
       >

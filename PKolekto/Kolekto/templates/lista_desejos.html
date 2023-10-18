@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %} Lista de desejos {% endblock %}
+
+{% block main %}
+
+<h1>Lista de desejo:</h1>
+<div class = "produtos">
+  {% for item in lista %}
+      <div class="card" style="width: 18rem;">
+        <img width="300" height="300" src="{{ item.foto1 }}" class="card-img-top" alt="{{ item.nome_item }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ item.nome_item }}</h5>
+          <p class="card-text">{{ item.descricao }}</p>
+          <p class="card-text">Preço: ${{ item.preco }}</p>
+        </div>
+      </div>
+  {% empty %}
+      <h4>Nenhum item disponível.</h4>
+  {% endfor %}
+
+{% endblock %}
