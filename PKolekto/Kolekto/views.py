@@ -217,17 +217,18 @@ def Add_Produto(request):
        
 def pagina_produto(request, id_produto):
     usuario = request.user
+    id_produto = Produto.objects.get(id=id_produto)
     if request.user.is_anonymous:
         temloja = False 
+        lista_existente = None
     else:
+        lista_existente = ListaDesejos.objects.filter(usuario=usuario, produto=id_produto.id).exists()
         if Loja.objects.filter(associado_id=usuario).exists():
             temloja = True
         else:
             temloja = False
-
-    id_produto = Produto.objects.get(id=id_produto)
+    
     loja = id_produto.loja
-    lista_existente = ListaDesejos.objects.filter(usuario=usuario, produto=id_produto.id).exists()
     nome_loja = loja.NomeLoja
     if id_produto is not None:
         contexto = {
