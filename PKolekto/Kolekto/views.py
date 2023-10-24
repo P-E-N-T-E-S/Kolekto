@@ -5,6 +5,7 @@ from django.contrib.auth import login, authenticate, logout
 from .models import Produto, Loja, ListaDesejos
 from django.http import Http404, JsonResponse
 from django.db.models import Q
+import json
 
 
 
@@ -226,9 +227,12 @@ def pagina_produto(request, id_produto):
 
     id_produto = Produto.objects.get(id=id_produto)
     loja = id_produto.loja
+    lista_existente = ListaDesejos.objects.filter(usuario=usuario, produto=id_produto.id).exists()
     nome_loja = loja.NomeLoja
     if id_produto is not None:
         contexto = {
+            "lista_existente":lista_existente,
+            "id_produto": id_produto.id,
             "foto1": id_produto.foto1,
             "nome_produto": id_produto.nome_produto,
             "descricao": id_produto.descricao,
@@ -366,25 +370,37 @@ def minha_loja(request):
 def lista_desejos(request):
     usuario = request.user
     lista = ListaDesejos.objects.filter(usuario=usuario.id)
-    return render(request, "lista_desejos.html", {"lista": lista})
+    if lista is not None:
+        produtos = list(lista.produto_set.all())
 
+    return render(request, "lista_desejos.html", {"produtos": produtos})
 
 @login_required
-def add_lista_desejos(request, produto_id):
+def add_lista_desejos(request):
+    produto_id = json.loads(request.body)["produtoId"]
+    id_produto = Produto.objects.get(id=produto_id)
     if request.method == 'POST':
         usuario = request.user
         
         lista_existente = ListaDesejos.objects.filter(usuario=usuario, produto=produto_id).exists()
         
         if not lista_existente:
-            ListaDesejos.objects.create(usuario=usuario, produto=produto_id)
+            ListaDesejos.objects.create(usuario=usuario, produto=id_produto)
             return JsonResponse({'mensagem': "Produto adicionado à lista de desejos!"})
+        else:
+            return JsonResponse({'mensagem': 'Produto já adicionado.'}, status =302)
         
     return JsonResponse({'mensagem': 'Requisição inválida.'}, status=400)
     
         
 
 @login_required
-def rem_lista_desejos(request, produto_id):
-    usuario = request.user
-    ListaDesejos.objects.filter(usuario=usuario.id, produto=produto_id).delete()
+def rem_lista_desejos(request):
+    produto_id = json.loads(request.body)["produtoId"]
+    if request.method == 'POST':
+        usuario = request.user
+        
+        ListaDesejos.objects.filter(usuario=usuario, produto=produto_id).delete()
+        return JsonResponse({'mensagem': 'Produto removido.'}, status=200)
+           
+    return JsonResponse({'mensagem': 'Requisição inválida.'}, status=400)

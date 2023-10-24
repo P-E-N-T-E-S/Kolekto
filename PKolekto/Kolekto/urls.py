@@ -14,5 +14,6 @@ urlpatterns =[
     path("pesquisa", views.pesquisa, name="pesquisa"),
     path("minha_loja", views.minha_loja, name="minha_loja"),
     path("lista_desejos", views.lista_desejos, name="lista_desejos"),
-    path("add_lista_desejos", views.add_lista_desejos, name="add_lista_desejos")
+    path("add_lista_desejos", views.add_lista_desejos, name="add_lista_desejos"),
+    path("rem_lista_desejos", views.rem_lista_desejos, name="rem_lista_desejos")
 ]

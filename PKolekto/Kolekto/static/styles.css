@@ -9,7 +9,8 @@ body{
     gap: 40px;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 40px;   
+    margin-top: 40px;
+    margin-right: 40px;  
 }
 .pesquisar{
     display: flex;
@@ -25,3 +26,9 @@ body{
 .text-container {
     flex: 1;
 }
+
+.btn-danger:hover {
+    border-color: #dc3545;
+    color: #dc3545;
+    background-color: transparent;
+  }
