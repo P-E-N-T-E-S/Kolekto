@@ -370,10 +370,15 @@ def minha_loja(request):
 def lista_desejos(request):
     usuario = request.user
     lista = ListaDesejos.objects.filter(usuario=usuario.id)
+        
     if lista is not None:
-        produtos = list(lista.produto_set.all())
-
-    return render(request, "lista_desejos.html", {"produtos": produtos})
+        produtos = []
+        for nome in lista:
+            produtos.append(Produto.objects.get(nome_produto=nome.produto))
+            print(produtos)
+        return render(request, "lista_desejos.html", {"produtos": produtos})
+    
+    return render(request, "lista_desejos.html", {"lista": lista})
 
 @login_required
 def add_lista_desejos(request):
