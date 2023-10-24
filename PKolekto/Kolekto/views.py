@@ -370,6 +370,14 @@ def minha_loja(request):
 @login_required
 def lista_desejos(request):
     usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False 
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
+            
     lista = ListaDesejos.objects.filter(usuario=usuario.id)
         
     if lista is not None:
@@ -377,7 +385,7 @@ def lista_desejos(request):
         for nome in lista:
             produtos.append(Produto.objects.get(id=nome.produto.id))
             print(nome.produto.id)
-        return render(request, "lista_desejos.html", {"produtos": produtos})
+        return render(request, "lista_desejos.html", {"produtos": produtos, "temloja": temloja})
     
     return render(request, "lista_desejos.html", {"lista": lista})
 
