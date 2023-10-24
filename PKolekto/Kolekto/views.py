@@ -375,8 +375,8 @@ def lista_desejos(request):
     if lista is not None:
         produtos = []
         for nome in lista:
-            produtos.append(Produto.objects.get(nome_produto=nome.produto))
-            print(produtos)
+            produtos.append(Produto.objects.get(id=nome.produto.id))
+            print(nome.produto.id)
         return render(request, "lista_desejos.html", {"produtos": produtos})
     
     return render(request, "lista_desejos.html", {"lista": lista})
