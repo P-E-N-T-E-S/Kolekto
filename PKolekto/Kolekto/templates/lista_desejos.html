@@ -4,26 +4,79 @@
 
 {% block main %}
 
-<h1>Lista de desejo:</h1>
-<div class = "produtos">
-  {% for item in produtos %}
-      <div class="card" style="width: 18rem;">
-        <img width="300" height="300" src="{{ item.foto1 }}" class="card-img-top" alt="{{ item.nome_item }}">
-        <div class="card-body">
-          <h5 class="card-title">{{ item.nome_produto }}</h5>
-          <p class="card-text">{{ item.descricao }}</p>
-          <p class="card-text">Preço: ${{ item.preco }}</p>
-          <a href="{% url 'pagina_produto' item.id %}" class="btn btn-primary"
-          >Detalhes</a
-          >
-          <button id="removerlistadesejo" class="btn btn-lg mx-1 btn-outline-danger" style="font-size: 140%" onclick="rem_lista_desejo('{{ item.id }}')">
-            <i class="fa-solid fa-trash-can"></i>
-          </button>
-        </div>
-      </div>
-  {% empty %}
+<style>
+  #wish-container table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  #wish-container table thead {
+    font-weight: 700;
+  }
+  #wish-container table thead td {
+    background: #fd8c66;
+    color: #fff;
+    border: none;
+    padding: 6px 0;
+  }
+  
+  #wish-container table td{
+    border: 1px solid #b6b3b3;
+    text-align: center;
+  }
+
+  #wish-container table td:nth-child(1){
+    width: 200px;
+  }
+  #wish-container table td:nth-child(2),
+  #wish-container table td:nth-child(3)
+  {
+    width: 170px;
+  }
+  #wish-container table td:nth-child(4),
+  #wish-container table td:nth-child(5){
+    width: 100px;
+  }
+
+  #wish-container table tbody img{
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+  }
+</style>
+
+<h1 class="text-start" style="margin-left: 200px;">Minha lista de desejos:</h1>
+
+
+<section id="wish-container" class="container my-5">
+  <table width="100%">
+    <thead>
+      <tr>
+        <td style="font-size: 20px;">Imagem</td>
+        <td style="font-size: 20px;">Produto</td>
+        <td style="font-size: 20px;">Preço</td>
+        <td style="font-size: 20px;">Detalhes</td>
+        <td style="font-size: 20px;">Remover</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in produtos %}
+      <tr>
+        <td><img src="{{ item.foto1 }}" alt="{{ item.nome_item }}"></td>
+        <td><h5>{{ item.nome_produto }}</h5></td>
+        <td><h5>${{ item.preco }}</h5></td>
+        <td><a href="{% url 'pagina_produto' item.id %}" class="btn btn-primary">Detalhes</a></td>
+        <td><button id="removerlistadesejo" class="btn btn-lg mx-1 btn-danger" onclick="rem_lista_desejo('{{ item.id }}')">
+          <i class="fa-solid fa-trash-can"></i>
+          </button></td>
+      </tr>
+      {% empty %}
       <h4>Nenhum item disponível.</h4>
-  {% endfor %}
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
 <script>
   async function rem_lista_desejo(produtoId){
     const produto = document.getElementById("removerlistadesejo")
@@ -38,4 +91,5 @@
     location.reload();
   }
 </script>
+
 {% endblock %}
