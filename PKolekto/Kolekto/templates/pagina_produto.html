@@ -29,8 +29,9 @@ class="d-flex justify-content-center flex-wrap"
     <p style="font-size: 100%"><strong>Descrição:</strong> {{ descricao }}</p>
     <div>
       <button
-      class="btn btn-lg btn-outline-success mx-1"
+      class="btn btn-lg  mx-1 {% if carrinho_existente %} btn-success {% else %} btn-outline-success {% endif %}"
       style="font-size: 140%"
+      id ="adicionarCarrinho"
       >
         <i class="fa-solid fa-cart-shopping"></i>
       </button>
@@ -93,5 +94,38 @@ class="d-flex justify-content-center flex-wrap"
       })
     }
   }
+
+    async function add_carrinho(produtoId){
+    const produto = document.getElementById("adicionarCarrinho")
+
+    if(produto.classList.contains("btn-outline-danger")){
+      produto.classList.remove("btn-outline-danger")
+      produto.classList.add("btn-danger")
+    }
+    else{
+      produto.classList.remove("btn-danger")
+      produto.classList.add("btn-outline-danger")
+    }
+
+    const request = await fetch("/add_carrinho", {
+      method:"POST",
+      body:JSON.stringify({produtoId}),
+      headers:{
+        "X-CSRFToken":"{{ csrf_token }}"
+      }
+    })
+    const response = await request.json()
+
+    if(response.mensagem == "Produto já adicionado."){
+      const request = await fetch("/rem_carrinho", {
+        method:"POST",
+        body:JSON.stringify({produtoId}),
+        headers:{
+          "X-CSRFToken":"{{ csrf_token }}"
+        }
+      })
+    }
+  }
+
 </script>
 {% endblock %}

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
-from .models import Produto, Loja, ListaDesejos
+from .models import Produto, Loja, ListaDesejos, Carrinho
 from django.http import Http404, JsonResponse
 from django.db.models import Q
 import json
@@ -221,8 +221,10 @@ def pagina_produto(request, id_produto):
     if request.user.is_anonymous:
         temloja = False 
         lista_existente = None
+        carrinho_existente = None
     else:
         lista_existente = ListaDesejos.objects.filter(usuario=usuario, produto=id_produto.id).exists()
+        carrinho_existente = Carrinho.objects.filter(usuario=usuario, produto=id_produto.id).exists()
         if Loja.objects.filter(associado_id=usuario).exists():
             temloja = True
         else:
@@ -233,6 +235,7 @@ def pagina_produto(request, id_produto):
     if id_produto is not None:
         contexto = {
             "lista_existente":lista_existente,
+            "carrinho_existente": carrinho_existente,
             "id_produto": id_produto.id,
             "foto1": id_produto.foto1,
             "nome_produto": id_produto.nome_produto,
@@ -418,3 +421,53 @@ def rem_lista_desejos(request):
         return JsonResponse({'mensagem': 'Produto removido.'}, status=200)
            
     return JsonResponse({'mensagem': 'Requisição inválida.'}, status=400)
+
+
+@login_required
+def add_carrinho(request):
+    produto_id = json.loads(request.body)["produtoId"]
+    id_produto = Produto.objects.get(id=produto_id)
+    if request.method == 'POST':
+        usuario = request.user
+
+        carrinho_existente = Carrinho.objects.filter(usuario=usuario, produto=produto_id).exists()
+
+        if carrinho_existente:
+            return JsonResponse({'mensagem': 'Produto já adicionado.'}, status=302)
+        else:
+            Carrinho.objects.create(usuario=usuario, produto=id_produto, quantidade=1)
+            return JsonResponse({'mensagem': "Produto adicionado ao carrinho!"})
+
+    return JsonResponse({'mensagem': 'Requisição inválida.'}, status=400)
+
+
+@login_required
+def rem_carrinho(request):
+    produto_id = json.loads(request.body)["produtoId"]
+    if request.method == 'POST':
+        usuario = request.user
+
+        Carrinho.objects.filter(usuario=usuario, produto=produto_id).delete()
+        return JsonResponse({'mensagem': 'Produto removido.'}, status=200)
+
+    return JsonResponse({'mensagem': 'Requisição inválida.'}, status=400)
+
+
+@login_required
+def carrinho(request):
+    usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
+
+    lista = Carrinho.objects.filter(usuario=usuario.id)
+
+    if lista is not None:
+        produtos = [Produto.objects.get(id=x.produto.id) for x in lista]
+        return render(request, "carrinho.html", {"produtos": produtos, "temloja": temloja})
+
+    return render(request, "carrinho.html", {"lista": lista})
