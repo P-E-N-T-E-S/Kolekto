@@ -12,8 +12,8 @@ class Usuario(models.Model):
     
     
 class Loja(models.Model):
-    Banner = models.ImageField(upload_to="ban_imgs/")
-    Perfil = models.ImageField(upload_to="perf_imgs/")
+    Banner = models.CharField(max_length=100)
+    Perfil = models.CharField(max_length=100)
     NomeLoja = models.CharField(max_length=30)
     Cpf = models.CharField(max_length=14)
     DataNascimento = models.DateTimeField()
