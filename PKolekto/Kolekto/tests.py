@@ -1,47 +1,91 @@
-'''import pathlib
-from django.contrib.auth.models import User
-import os
-import unittest
+from django.test import LiveServerTestCase
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service
-from .models import Loja
 from selenium.webdriver.common.by import By
+import time
 
-# Create your tests here.
+driver = webdriver.Chrome()
 
-#http://127.0.0.1:8000/
+class Historia4(LiveServerTestCase):
+    def test_000_setup(self):
+        listloja = ['', '', 'Gêmeos das Minis', 'Brinquedos do Futuro']
+        for i in range(4):
+            driver.get("http://127.0.0.1:8000/registro")
+            usuario = driver.find_element(by=By.NAME, value="username")
+            nome_usuario = driver.find_element(by=By.NAME, value="nome")
+            email = driver.find_element(by=By.NAME, value="email")
+            senha = driver.find_element(by=By.NAME, value="senha")
+            botao = driver.find_element(by=By.NAME, value="registro")
 
-class Historia4(unittest.TestCase):
-    if __name__ == '__main__':
-        unittest.main()
-    def __init__(self):
-        self.servico = Service(ChromeDriverManager().install())
-        self.navegador = webdriver.Chrome(service=servico)
+            usuario.send_keys(f"Teste{i}")
+            nome_usuario.send_keys(f"João{i}")
+            email.send_keys(f"teste{i}@teste.com")
+            senha.send_keys("Teste12345")
+            botao.click()
 
-    def setUp(self):
-        userhist1 = User.objects.create_user(username="Teste", password="Testando", email="teste@teste.com", first_name="Teste")
-        userhist2 = User.objects.create_user(username="Teste2", password="Testando2", email="teste2@teste.com", first_name="Teste2")
+            if i >= 2:
+                driver.get("http://127.0.0.1:8000/nova_loja")
+                nascimento = driver.find_element(by=By.NAME, value="nascimento")
+                cidade = driver.find_element(by=By.NAME, value="cidade")
+                cpf = driver.find_element(by=By.NAME, value="cpf")
+                nome_loja = driver.find_element(by=By.NAME, value="nome_loja")
+                imgperfil = driver.find_element(by=By.NAME, value="perfil")
+                imgbanner = driver.find_element(by=By.NAME, value="banner")
+                descloja = driver.find_element(by=By.NAME, value="descricao")
+                time.sleep(2)
+                enviar = driver.find_element(by=By.NAME, value="criar")
 
-    def cenario1(self):
-        Banner="https://i.imgur.com/7d4psY9.jpeg"
-        Perfil = "https://i.imgur.com/Uschheg.jpeg"
-        NomeLoja = "Minis Recife"
-        cpf = "000.000.000-00"
-        datanascimento = "01/01/2000"
-        estado = "PE"
-        cidade = "Recife"
-        descricao = "Lorem Ipsun etc e talz"
+                nascimento.send_keys("29082003")
+                cidade.send_keys("Rio Branco")
+                cpf.send_keys("000.000.000-00")
+                nome_loja.send_keys(listloja[i])
+                imgperfil.send_keys("https://i.imgur.com/6K0TQwo.jpeg")
+                imgbanner.send_keys("https://i.imgur.com/6K0TQwo.jpeg")
+                descloja.send_keys("lorem impsum etc e talz")
+                time.sleep(2)
+                enviar.click()
 
-        usuario = "Teste"
-        senha = "Testando"
+        driver.get("http://127.0.0.1:8000/logout/")
 
-        navegador.get("http://127.0.0.1:8000/login")
-        loginbox = navegador.find_element(by=By.NAME, value="username")
-        senhabox = navegador.find_element(by=By.NAME, value="senha")
-        botaosubmit = navegador.find_element(by=By.CSS_SELECTOR, value="button")
 
-        loginbox.send_keys(usuario)
-        senhabox.send_keys(senha)
-        botaosubmit.click()'''
+    def test_001_cenario1(self):
+        driver.get("http://127.0.0.1:8000/login")
+
+        usuario = driver.find_element(by=By.NAME, value="username")
+        senha = driver.find_element(by=By.NAME, value="senha")
+        enviar = driver.find_element(by=By.NAME, value="logar")
+
+        usuario.send_keys("Teste0")
+        senha.send_keys("Teste12345")
+        enviar.click()
+
+        driver.get("http://127.0.0.1:8000/nova_loja")
+        nascimento = driver.find_element(by=By.NAME, value="nascimento")
+        cidade = driver.find_element(by=By.NAME, value="cidade")
+        cpf = driver.find_element(by=By.NAME, value="cpf")
+        nome_loja = driver.find_element(by=By.NAME, value="nome_loja")
+        imgperfil = driver.find_element(by=By.NAME, value="perfil")
+        imgbanner = driver.find_element(by=By.NAME, value="banner")
+        descloja = driver.find_element(by=By.NAME, value="descricao")
+        time.sleep(2)
+        enviar = driver.find_element(by=By.NAME, value="criar")
+
+        nascimento.send_keys("29082003")
+        cidade.send_keys("Rio Branco")
+        cpf.send_keys("000.000.000-00")
+        nome_loja.send_keys("Minis Recife")
+        imgperfil.send_keys("https://i.imgur.com/6K0TQwo.jpeg")
+        imgbanner.send_keys("https://i.imgur.com/6K0TQwo.jpeg")
+        descloja.send_keys("lorem impsum etc e talz")
+        time.sleep(2)
+        enviar.click()
+
+        minhaloja = driver.find_element(by=By.NAME, value="MLoja")
+        minhaloja.click()
+
+        self.assertEquals(
+            driver.find_element(by=By.NAME, value="tituloLoja")
+        )
+
+
+
 
