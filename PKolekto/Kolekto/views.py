@@ -467,7 +467,12 @@ def carrinho(request):
     lista = Carrinho.objects.filter(usuario=usuario.id)
 
     if lista is not None:
-        produtos = [Produto.objects.get(id=x.produto.id) for x in lista]
-        return render(request, "carrinho.html", {"produtos": produtos, "temloja": temloja})
+        produtos = []
+        soma = 0
+        for nome in lista:
+            produto = Produto.objects.get(id=nome.produto.id)
+            produtos.append(produto)
+            soma += produto.qntd * produto.preco
+        return render(request, "carrinho.html", {"produtos": produtos, "temloja": temloja, "soma": soma})
 
     return render(request, "carrinho.html", {"lista": lista})

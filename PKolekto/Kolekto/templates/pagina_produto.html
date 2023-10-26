@@ -21,7 +21,7 @@ class="d-flex justify-content-center flex-wrap"
       <!--kolekto.azurewebsites.net/{{ nome_loja }}-->
       <hr />
     </div>
-    <p style="font-size: 200%">R$ {{ preco }}</p>
+    <p style="font-size: 200%; font-weight: bold;">R$ {{ preco }}</p>
     <p style="font-size: 100%">
       <strong>Quantidade Disponível:</strong> {{ qntd }}
     </p>
@@ -31,7 +31,7 @@ class="d-flex justify-content-center flex-wrap"
       <button
       class="btn btn-lg  mx-1 {% if carrinho_existente %} btn-success {% else %} btn-outline-success {% endif %}"
       style="font-size: 140%"
-      id ="adicionarCarrinho"
+      id ="adicionarCarrinho" onclick="add_carrinho('{{ id_produto }}')"
       >
         <i class="fa-solid fa-cart-shopping"></i>
       </button>
@@ -95,16 +95,16 @@ class="d-flex justify-content-center flex-wrap"
     }
   }
 
-    async function add_carrinho(produtoId){
+  async function add_carrinho(produtoId){
     const produto = document.getElementById("adicionarCarrinho")
 
-    if(produto.classList.contains("btn-outline-danger")){
-      produto.classList.remove("btn-outline-danger")
-      produto.classList.add("btn-danger")
+    if(produto.classList.contains("btn-outline-success")){
+      produto.classList.remove("btn-outline-success")
+      produto.classList.add("btn-success")
     }
     else{
-      produto.classList.remove("btn-danger")
-      produto.classList.add("btn-outline-danger")
+      produto.classList.remove("btn-success")
+      produto.classList.add("btn-outline-success")
     }
 
     const request = await fetch("/add_carrinho", {

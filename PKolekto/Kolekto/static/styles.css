@@ -26,10 +26,4 @@ body{
 .text-container {
     flex: 1;
 }
-
-.btn-danger:hover {
-    border-color: #dc3545;
-    color: #dc3545;
-    background-color: transparent;
-  }
   
