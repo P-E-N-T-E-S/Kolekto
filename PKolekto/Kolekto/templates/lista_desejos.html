@@ -6,43 +6,62 @@
 
 <style>
   #wish-container table {
-    border-collapse: collapse;
     width: 100%;
-    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
   }
 
   #wish-container table thead {
-    font-weight: 700;
-  }
-  #wish-container table thead td {
-    background: #fd8c66;
+    background-color: #fd8c66;
     color: #fff;
-    border: none;
-    padding: 6px 0;
   }
-  
-  #wish-container table td{
-    border: 1px solid #b6b3b3;
+
+  #wish-container table th,
+  #wish-container table td {
+    padding: 8px;
     text-align: center;
   }
 
-  #wish-container table td:nth-child(1){
+  #wish-container table th:nth-child(1) {
     width: 200px;
   }
-  #wish-container table td:nth-child(2),
-  #wish-container table td:nth-child(3)
-  {
+
+  #wish-container table th:nth-child(2),
+  #wish-container table th:nth-child(3) {
     width: 170px;
   }
-  #wish-container table td:nth-child(4),
-  #wish-container table td:nth-child(5){
+
+  #wish-container table th:nth-child(4),
+  #wish-container table th:nth-child(5) {
     width: 100px;
   }
 
-  #wish-container table tbody img{
+  #wish-container table tbody img {
     width: 100px;
     height: 80px;
     object-fit: cover;
+  }
+
+  h1.text-start {
+    margin-left: 200px;
+  }
+
+  #wish-container {
+    margin-top: 20px;
+  }
+
+  #removerCarrinho {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+  }
+
+  #removerCarrinho:hover {
+    background-color: #cc0000;
   }
 </style>
 

@@ -6,43 +6,83 @@
 
 <style>
   #wish-container table {
-    border-collapse: collapse;
     width: 100%;
-    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
   }
 
   #wish-container table thead {
-    font-weight: 700;
-  }
-  #wish-container table thead td {
-    background: #fd8c66;
+    background-color: #fd8c66;
     color: #fff;
-    border: none;
-    padding: 6px 0;
   }
 
-  #wish-container table td{
-    border: 1px solid #b6b3b3;
+  #wish-container table th,
+  #wish-container table td {
+    padding: 8px;
     text-align: center;
   }
 
-  #wish-container table td:nth-child(1){
+  #wish-container table th:nth-child(1) {
     width: 200px;
   }
-  #wish-container table td:nth-child(2),
-  #wish-container table td:nth-child(3)
-  {
+
+  #wish-container table th:nth-child(2),
+  #wish-container table th:nth-child(3) {
     width: 170px;
   }
-  #wish-container table td:nth-child(4),
-  #wish-container table td:nth-child(5){
+
+  #wish-container table th:nth-child(4),
+  #wish-container table th:nth-child(5) {
     width: 100px;
   }
 
-  #wish-container table tbody img{
+  #wish-container table tbody img {
     width: 100px;
     height: 80px;
     object-fit: cover;
+  }
+
+  h1.text-start {
+    margin-left: 200px;
+  }
+
+  #wish-container {
+    margin-top: 20px;
+  }
+
+  #total {
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 20px;
+  }
+
+  .qntd_botao {
+    background-color: #fd8c66;
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    border-radius: 20%; 
+  }
+
+  .qntd_botao:hover {
+    background-color: #ff6633;
+  }
+
+  #removerCarrinho {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+  }
+
+  #removerCarrinho:hover {
+    background-color: #cc0000;
   }
 </style>
 
@@ -55,7 +95,7 @@
         <td style="font-size: 20px;">Imagem</td>
         <td style="font-size: 20px;">Produto</td>
         <td style="font-size: 20px;">Preço</td>
-        <td style="font-size: 20px;">Qntd</td>
+        <td style="font-size: 20px;">Quantidade</td>
         <td style="font-size: 20px;">Detalhes</td>
         <td style="font-size: 20px;">Remover</td>
       </tr>
@@ -67,9 +107,9 @@
         <td><h5>{{ item.nome_produto }}</h5></td>
         <td><h5 class='preco'>R${{ item.preco }}</h5></td>
         <td>
-          <input type="number" id="qntd{{ item.id }}" name="qntd" min="1" max="{{ item.qntd }}" value="1">
-          <button class="qntd_botao" data-max="{{ item.qntd }}" data-product-id="{{ item.id }}">+</button>
+          <input type="number" id="qntd{{ item.id }}" name="qntd" min="1" max="{{ item.qntd }}" value="1" disabled>
           <button class="qntd_botao" data-max="{{ item.qntd }}" data-product-id="{{ item.id }}">-</button>
+          <button class="qntd_botao" data-max="{{ item.qntd }}" data-product-id="{{ item.id }}">+</button>
         </td>
         <td><a href="{% url 'pagina_produto' item.id %}" class="btn btn-primary">Detalhes</a></td>
         <td><button id="removerCarrinho" class="btn btn-lg mx-1 btn-danger" onclick="rem_carrinho('{{ item.id }}')">
