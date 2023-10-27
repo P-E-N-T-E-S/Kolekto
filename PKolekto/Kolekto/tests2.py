@@ -142,6 +142,93 @@ class Historia2(LiveServerTestCase):
             "Login"
         )
 
+class Historia3(LiveServerTestCase):
+    def test_000_setup(self):
+        for i in range(4):
+            driver.get("http://127.0.0.1:8000/registro")
+            usuario = driver.find_element(by=By.NAME, value="username")
+            nome_usuario = driver.find_element(by=By.NAME, value="nome")
+            email = driver.find_element(by=By.NAME, value="email")
+            senha = driver.find_element(by=By.NAME, value="senha")
+            botao = driver.find_element(by=By.NAME, value="registro")
+
+            usuario.send_keys(f"Teste3{i}")
+            nome_usuario.send_keys(f"Marcílio{i}")
+            email.send_keys(f"teste{i}@teste.com")
+            senha.send_keys("Teste12345")
+            time.sleep(2)
+            botao.send_keys(Keys.ENTER)
+
+            if i == 0:
+                driver.get("http://127.0.0.1:8000/nova_loja")
+                nascimento = driver.find_element(by=By.NAME, value="nascimento")
+                cidade = driver.find_element(by=By.NAME, value="cidade")
+                cpf = driver.find_element(by=By.NAME, value="cpf")
+                nome_loja = driver.find_element(by=By.NAME, value="nome_loja")
+                imgperfil = driver.find_element(by=By.NAME, value="perfil")
+                imgbanner = driver.find_element(by=By.NAME, value="banner")
+                descloja = driver.find_element(by=By.NAME, value="descricao")
+                time.sleep(2)
+                enviar = driver.find_element(by=By.NAME, value="criar")
+
+                nascimento.send_keys("24112004")
+                cidade.send_keys("Goiana")
+                cpf.send_keys("000.000.000-00")
+                nome_loja.send_keys("Recicards")
+                imgperfil.send_keys("https://i.imgur.com/zdftIp6.jpeg")
+                imgbanner.send_keys("https://i.imgur.com/dcGl7yo.png")
+                descloja.send_keys("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+                time.sleep(2)
+                enviar.send_keys(Keys.ENTER)
+
+                driver.get("http://127.0.0.1:8000/add_produto")
+                foto = driver.find_element(by=By.NAME, value="foto1")
+                prod = driver.find_element(by=By.NAME, value="nome_produto")
+                descricao = driver.find_element(by=By.NAME, value="descricao")
+                preco = driver.find_element(by=By.NAME, value="preco")
+                qntd = driver.find_element(by=By.NAME, value="qntd")
+                categoria = driver.find_element(by=By.NAME, value="select")
+                enviar = driver.find_element(by=By.NAME, value="Add")
+
+                foto.send_keys("https://static22.minhalojanouol.com.br/brofistloja/produto/20210701161644_6137993863_D.jpg")
+                prod.send_keys("Charizard 1999 - 1° Edição")
+                descricao.send_keys("Carta Charizard 1999 - 1° Edição")
+                preco.send_keys("1700000")
+                qntd.send_keys("1")
+                categoria.select_by_visible_text("Cartas")
+                time.sleep(2)
+                enviar.send_keys(Keys.ENTER)
+
+                driver.get("http://127.0.0.1:8000/add_produto")
+                foto = driver.find_element(by=By.NAME, value="foto1")
+                prod = driver.find_element(by=By.NAME, value="nome_produto")
+                descricao = driver.find_element(by=By.NAME, value="descricao")
+                preco = driver.find_element(by=By.NAME, value="preco")
+                qntd = driver.find_element(by=By.NAME, value="qntd")
+                enviar = driver.find_element(by=By.NAME, value="Add")
+
+                foto.send_keys("https://i.ebayimg.com/images/g/HbYAAOSwKeVjOsBa/s-l1600.jpg")
+                prod.send_keys("Black Lotus - Beta")
+                descricao.send_keys("Black Lotus - Beta, uma das cartas mais raras do Magic")
+                preco.send_keys("4039553")
+                qntd.send_keys("1")
+                time.sleep(2)
+                enviar.send_keys(Keys.ENTER)
+
+        self.assertTrue(
+            True
+        )
+        driver.get("http://127.0.0.1:8000/logout/")
+
+
+    #def test_003_cenario1(self):
+
+    #def test_003_cenario2(self):
+      
+    #def teste_003_cenario3(self):
+
+    #def teste_003_cenario4(self):
+
 
 class Historia4(LiveServerTestCase):
     def test_000_setup(self):
