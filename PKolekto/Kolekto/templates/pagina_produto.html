@@ -37,7 +37,7 @@ class="d-flex justify-content-center flex-wrap"
       </button>
       {% if request.user.is_anonymous %}
       <a
-      href={% url 'login' %}
+      href="{% url 'login' %}"
       id="adicionarListaDesejos"
       class="btn btn-lg  mx-1 btn-outline-danger"
       style="font-size: 140%"
