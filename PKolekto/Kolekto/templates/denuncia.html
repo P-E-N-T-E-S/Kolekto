@@ -14,11 +14,13 @@
 <body>
     <div class="align-items-left">
         <div class="text-align" style="align-items: center;">
-            <form>
-            <input type="radio" name="cargo" value="1" checked /> Produto não entregue ou não conforme <br>
-            <input type="radio" name="cargo" value="2" /> Vendedor fraudulento ou não confiável <br>
-            <input type="radio" name="cargo" value="3" /> Comportamento inadequado do vendedor <br>
-            <input type="radio" name="cargo" value="4" /> Outro <br>
+            <form action="" method="POST" class="form-denuncia">
+                {% csrf_token %}
+                <input type="radio" name="motivo" value="Produto não entregue ou não conforme" checked /> Produto não entregue ou não conforme <br>
+            <input type="radio" name="motivo" value="Vendedor fraudulento ou não confiável" /> Vendedor fraudulento ou não confiável <br>
+            <input type="radio" name="motivo" value="Comportamento inadequado do vendedor" /> Comportamento inadequado do vendedor <br>
+            <input type="radio" name="motivo" value="Outro" /> Outro <br>
+            <input type="text" class="form-control" name="detalhes"> </input> <br>
             <button type="submit"> Enviar denuncia </button>
         </form>
     </div>

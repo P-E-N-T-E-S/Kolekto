@@ -341,21 +341,34 @@ def pagina_loja(request, nome_loja):
         return render(request, "pagina_loja.html", context=contexto)
     else:
         raise Http404("Loja não encontrada")
-    
+
 def denuncia(request, nome_loja):
-                        
+
+    if request.method == "POST":
+        motivo = request.POST.get("motivo")
+        detalhes = request.POST.get("detalhes")
+
+
+
+        send_mail(
+            (f"Nova Denuncia: {nome_loja}"),
+            (f"Motivo da denuncia: {motivo}\nDescrição da denuncia: {detalhes}"),
+            "pkolekto@gmail.com",
+            ["andreluizfonseca27@gmail.com"],
+            fail_silently=False,
+        )
+
     contexto = {
-        "nome_loja": 123,
-            }
+        "motivo": motivo,
+        "detalhes": detalhes
+    }
 
 
-    send_mail(
-    " nome_loja ",
-    "Teste de Email Django",
-    "pkolekto@gmail.com",
-    ["andreluizfonseca27@gmail.com"],
-    fail_silently=False,)
     return render(request, "denuncia.html", context=contexto)
+
+
+
+
 
 @login_required
 def minha_loja(request):
