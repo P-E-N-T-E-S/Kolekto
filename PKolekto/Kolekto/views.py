@@ -324,12 +324,10 @@ def pagina_loja(request, nome_loja):
             temloja = False
 
     loja = Loja.objects.get(NomeLoja=nome_loja)
-    contexto = {
-        "temloja": temloja
-    }
     if loja is not None:
         produtos = list(loja.produto_set.all())
         contexto = {
+            "minhaloja": False,
             "banner": loja.Banner,
             "perfil": loja.Perfil,
             "nome_loja": loja.NomeLoja,
@@ -372,6 +370,7 @@ def minha_loja(request):
     if loja is not None:
         produtos = list(loja.produto_set.all())
         contexto = {
+            "minhaloja": True,
             "banner": loja.Banner,
             "perfil": loja.Perfil,
             "nome_loja": loja.NomeLoja,
