@@ -19,4 +19,5 @@ urlpatterns =[
     path("add_carrinho", views.add_carrinho, name="add_carrinho"),
     path("rem_carrinho", views.rem_carrinho, name="rem_carrinho"),
     path("carrinho", views.carrinho, name="carrinho"),
+    path("<str:nome_loja>/denuncia", views.denuncia, name="denuncia")
 ]

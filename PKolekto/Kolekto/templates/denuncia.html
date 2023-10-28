@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %} Login {% endblock %}
+{% block main %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Denunciar vendedor</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <div class="align-items-left">
+        <div class="text-align" style="align-items: center;">
+            <form>
+            <input type="radio" name="cargo" value="1" checked /> Produto não entregue ou não conforme <br>
+            <input type="radio" name="cargo" value="2" /> Vendedor fraudulento ou não confiável <br>
+            <input type="radio" name="cargo" value="3" /> Comportamento inadequado do vendedor <br>
+            <input type="radio" name="cargo" value="4" /> Outro <br>
+            <button type="submit"> Enviar denuncia </button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}

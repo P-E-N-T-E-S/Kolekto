@@ -5,6 +5,7 @@ from django.contrib.auth import login, authenticate, logout
 from .models import Produto, Loja, ListaDesejos, Carrinho
 from django.http import Http404, JsonResponse
 from django.db.models import Q
+from django.core.mail import send_mail
 import json
 
 
@@ -340,7 +341,21 @@ def pagina_loja(request, nome_loja):
         return render(request, "pagina_loja.html", context=contexto)
     else:
         raise Http404("Loja não encontrada")
+    
+def denuncia(request, nome_loja):
+                        
+    contexto = {
+        "nome_loja": 123,
+            }
 
+
+    send_mail(
+    " nome_loja ",
+    "Teste de Email Django",
+    "pkolekto@gmail.com",
+    ["andreluizfonseca27@gmail.com"],
+    fail_silently=False,)
+    return render(request, "denuncia.html", context=contexto)
 
 @login_required
 def minha_loja(request):
