@@ -707,7 +707,9 @@ class Historia8(LiveServerTestCase):
                 preco = driver.find_element(by=By.NAME, value="preco")
                 qntd = driver.find_element(by=By.NAME, value="qntd")
                 enviar = driver.find_element(by=By.NAME, value="Add")
+                categoria = Select(categoria)
 
+                categoria.select_by_visible_text("Carta")
                 foto.send_keys("https://i.ebayimg.com/images/g/HbYAAOSwKeVjOsBa/s-l1600.jpg")
                 prod.send_keys("Black Lotus - Beta")
                 descricao.send_keys("Black Lotus - Beta, uma das cartas mais raras do Magic")
@@ -744,7 +746,9 @@ class Historia8(LiveServerTestCase):
                 preco = driver.find_element(by=By.NAME, value="preco")
                 qntd = driver.find_element(by=By.NAME, value="qntd")
                 enviar = driver.find_element(by=By.NAME, value="Add")
+                categoria = Select(categoria)
 
+                categoria.select_by_visible_text("Arte")
                 foto.send_keys("https://i.ebayimg.com/images/g/HbYAAOSwKeVjOsBa/s-l1600.jpg")
                 prod.send_keys("Pikachu Shiny - Edição Especial")
                 descricao.send_keys("Pikachu Shiny - Edição Especial, uma das cartas mais raras do Magic")
@@ -782,7 +786,9 @@ class Historia8(LiveServerTestCase):
                 preco = driver.find_element(by=By.NAME, value="preco")
                 qntd = driver.find_element(by=By.NAME, value="qntd")
                 enviar = driver.find_element(by=By.NAME, value="Add")
+                categoria = Select(categoria)
 
+                categoria.select_by_visible_text("Arte")
                 foto.send_keys("https://d1o6h00a1h5k7q.cloudfront.net/imagens/img_m/9029/4041864.jpg")
                 prod.send_keys("Mona Lisa Reprodução - Edição Limitada")
                 descricao.send_keys("Mona Lisa Reprodução - Edição Limitada, uma das cartas mais raras do Magic")
