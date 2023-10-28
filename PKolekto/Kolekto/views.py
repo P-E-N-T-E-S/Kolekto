@@ -491,3 +491,80 @@ def carrinho(request):
         return render(request, "carrinho.html", {"produtos": produtos, "temloja": temloja, "soma": soma})
 
     return render(request, "carrinho.html", {"lista": lista})
+
+
+def editar_loja(request, loja):
+    usuario = request.user
+
+    userloja = Loja.objects.get(NomeLoja=loja)
+    if userloja.associado.username != usuario.username:
+        return redirect(home)
+    else:
+        localizacao = (userloja.Localizacao).split(",")
+        contexto = {
+            "nome_vendedor": usuario.first_name,
+            "temloja": True,
+            "data_nascimento": userloja.DataNascimento,
+            "cidade": localizacao[0],
+            "estado": localizacao[1],
+            "cpf": userloja.Cpf,
+            "nome_loja": userloja.NomeLoja,
+            "banner": userloja.Banner,
+            "perfil": userloja.Perfil,
+            "descrito": userloja.descricao
+        }
+
+        if request.method == "POST":
+            errado = False
+            erros = {}
+
+            data_nascimento = request.POST.get("nascimento")
+            Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
+            cpf = request.POST.get("cpf")
+            nome_loja = request.POST.get("nome_loja")
+            banner = request.POST.get("banner")
+            perfil = request.POST.get("perfil")
+            descricao = request.POST.get("descricao")
+
+            if Loja.objects.filter(NomeLoja=nome_loja).exists():
+                erros["nomedaloja"] = "Já existe uma loja com esse nome."
+                errado = True
+
+            if not ((banner[-5:-1] == ".jpe" or perfil[-5:-1] == ".jpe") or (banner[-5:-1] == ".jp" or perfil[-5:-1] == ".jp")):
+                erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
+                errado = True
+
+            if errado:
+                contexto["erros"] = erros
+                contexto["data_nascimento"] = data_nascimento
+                contexto["localizacao"] = request.POST.get("cidade")
+                contexto["estado"] = localizacao[1]
+                contexto["cpf"] = cpf
+                contexto["nome_loja"] = nome_loja
+                contexto["banner"] = banner
+                contexto["perfil"] = perfil
+                contexto["descrito"] = descricao
+                return render(request, "editLoja.html", context=contexto)
+            else:
+                try:
+                    userloja.NomeLoja = nome_loja
+                    userloja.Perfil = perfil
+                    userloja.Cpf = cpf
+                    userloja.Banner = banner
+                    userloja.DataNascimento = data_nascimento
+                    userloja.Localizacao = Localizacao
+                    userloja.descricao = descricao
+                    userloja.save()
+                except:
+                    contexto["erros"] = "Preencha todos os campos corretamente."
+                    contexto["data_nascimento"] = data_nascimento
+                    contexto["estado"] = True
+                    contexto["cpf"] = cpf
+                    contexto["nome_loja"] = nome_loja
+                    contexto["banner"] = banner
+                    contexto["perfil"] = perfil
+                    contexto["descrito"] = descricao
+                    return render(request, "editLoja.html", context=contexto)
+                else:
+                    return redirect(minha_loja)
+        return render(request, "editLoja.html", context=contexto)

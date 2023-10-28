@@ -380,7 +380,8 @@ class Historia4(LiveServerTestCase):
 
     #def teste_003_cenario4(self):
         #driver.get("http://127.0.0.1:8000/login")
-    
+
+
 class Historia8(LiveServerTestCase):
     def test_000_setup(self):
         for i in range(4):
