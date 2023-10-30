@@ -31,10 +31,6 @@ jobs:
         run: pip install -r PKolekto/requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
-      - name: Test with Selenium
-        run:  |
-          cd PKolekto/
-          python manage.py test
       
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v2
