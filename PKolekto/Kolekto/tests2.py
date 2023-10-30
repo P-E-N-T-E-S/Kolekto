@@ -299,7 +299,6 @@ class Historia3(LiveServerTestCase):
         )
 
 
-
 class Historia4(LiveServerTestCase):
     def test_000_setup(self):
         listloja = ['', '', 'Gêmeos das Minis', 'Brinquedos do Futuro']
@@ -423,15 +422,50 @@ class Historia4(LiveServerTestCase):
         )
         driver.get("http://127.0.0.1:8000/logout")
 
-    def teste_002_cenario3(self):
+    def teste_003_cenario3(self):
         driver.get("http://127.0.0.1:8000/nova_loja")
         self.assertEquals(
             driver.title,
             "Login"
         )
 
-    #def teste_003_cenario4(self):
-        #driver.get("http://127.0.0.1:8000/login")
+    def teste_004_cenario4(self):
+        driver.get("http://127.0.0.1:8000/login")
+
+        usuario = driver.find_element(by=By.NAME, value="username")
+        senha = driver.find_element(by=By.NAME, value="senha")
+        enviar = driver.find_element(by=By.NAME, value="Logar")
+
+        usuario.send_keys("Teste43")
+        senha.send_keys("Teste12345")
+        time.sleep(segundos)
+        enviar.send_keys(Keys.ENTER)
+
+        driver.get('http://127.0.0.1:8000/minha_loja')
+
+        driver.find_element(by=By.ID, value="Editar").click()
+
+        nascimento = driver.find_element(by=By.ID, value="nascimento")
+        nome_loja = driver.find_element(by=By.ID, value="nome_loja")
+        enviar = driver.find_element(by=By.NAME, value="criar")
+
+        nascimento.send_keys("29082003")
+
+        nome_loja.send_keys(Keys.CONTROL + 'a')
+        nome_loja.send_keys("Estatuetas 10")
+        time.sleep(segundos)
+        enviar.send_keys(Keys.ENTER)
+
+        self.assertEquals(
+            driver.find_element(by=By.NAME, value="tituloLoja").text,
+            "Estatuetas 10"
+        )
+
+
+
+
+
+
 
 
 class Historia5(LiveServerTestCase):
