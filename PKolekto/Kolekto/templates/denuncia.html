@@ -1,30 +1,18 @@
 {% extends "layout.html" %}
 {% block title %} Login {% endblock %}
 {% block main %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Denunciar vendedor</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
-</head>
-<body>
-    <div class="align-items-left">
-        <div class="text-align" style="align-items: center;">
+    <div class=>
+        <div class="text-align-center">
             <form action="" method="POST" class="form-denuncia">
                 {% csrf_token %}
-                <input type="radio" name="motivo" value="Produto não entregue ou não conforme" checked /> Produto não entregue ou não conforme <br>
+                <label style="font-size: 25px;">Motivo da denuncia</label> <br>
+            <input type="radio" name="motivo" value="Produto não entregue ou não conforme"/> Produto não entregue ou não conforme <br>
             <input type="radio" name="motivo" value="Vendedor fraudulento ou não confiável" /> Vendedor fraudulento ou não confiável <br>
             <input type="radio" name="motivo" value="Comportamento inadequado do vendedor" /> Comportamento inadequado do vendedor <br>
             <input type="radio" name="motivo" value="Outro" /> Outro <br>
-            <input type="text" class="form-control" name="detalhes"> </input> <br>
-            <button type="submit"> Enviar denuncia </button>
+            <input type="text" class="center-block" name="detalhes" style="left: 25%; right: 25%; width: 500px; height: 100px;"> </input> <br>
+            <button type="submit" class="btn btn-danger" style="margin-top: 10px;"> Enviar denuncia </button>
         </form>
-    </div>
-</div>
-</body>
+    </body>
 </html>
 {% endblock %}

@@ -14,14 +14,14 @@
     <div class="d-flex flex-row aling-items-center mb-" style="margin-top: 30px; margin-left: 20px; font-size: 30px;">
       <p class="mb-0 me-2" style="font-weight: bold;" name="tituloLoja">{{ nome_loja }}</p> 
     <div style=" width: 83%; text-align: right;">
-      {{% if minhaloja %}}
+      {% if minhaloja %}
       <a href="editar/{{ nome_loja }}">
-      <button class="report" style="border-radius: 3px; font-size: 20px;"> Editar Dados</button>
-      {{% else %}}
+      <button class="btn btn-secondary" id="Editar">Editar Dados</button>
+      {% else %}
       <a href="denuncia">
-      <button class="report" style="border-radius: 3px; font-size: 20px;"> Denunciar</button>
+      <button class="btn btn-warning" style="justify-content-end">Denunciar</button>
+      {% endif %}
     </a>
-      {{% endif %}}
     </div>
     </div>
       <div class="col md-6 d-flex flex-wrap" style="margin-top: 10px;">

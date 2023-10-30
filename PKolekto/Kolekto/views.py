@@ -283,6 +283,8 @@ def pesquisa(request):
             temloja = False
 
     nome_pesquisado = request.GET.get("nome_pesquisado")
+    if nome_pesquisado is None:
+        nome_pesquisado = ""
     categoria = request.GET.get("select")
 
     if categoria is None:
@@ -316,7 +318,7 @@ def pesquisa(request):
 def pagina_loja(request, nome_loja):
     usuario = request.user
     if request.user.is_anonymous:
-        temloja = False 
+        temloja = False
     else:
         if Loja.objects.filter(associado_id=usuario).exists():
             temloja = True
@@ -334,31 +336,42 @@ def pagina_loja(request, nome_loja):
             "localizacao": loja.Localizacao,
             "descricao": loja.descricao,
             "produtos": produtos,
-            "temloja": temloja
+            "temloja": temloja,
         }
         return render(request, "pagina_loja.html", context=contexto)
     else:
         raise Http404("Loja não encontrada")
 
+@login_required
 def denuncia(request, nome_loja):
+    usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False 
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
 
-    if request.method == "POST":
-        motivo = request.POST.get("motivo")
-        detalhes = request.POST.get("detalhes")
+    motivo = request.POST.get("motivo")
+    detalhes = request.POST.get("detalhes")
+    usuario = request.user
 
 
 
-        send_mail(
-            (f"Nova Denuncia: {nome_loja}"),
-            (f"Motivo da denuncia: {motivo}\nDescrição da denuncia: {detalhes}"),
+    send_mail(
+            (f"Nova Denúncia: {nome_loja}"),
+            (f"Loja denunciada: {nome_loja}\nMotivo da denúncia: {motivo}\nDescrição da denúncia: {detalhes} \nRealizada por: {usuario}"),
             "pkolekto@gmail.com",
-            ["andreluizfonseca27@gmail.com"],
+            ["suporte.kolekto@gmail.com"],
             fail_silently=False,
         )
 
     contexto = {
         "motivo": motivo,
-        "detalhes": detalhes
+        "detalhes": detalhes,
+        "usuario": usuario,
+        "temloja": temloja
     }
 
 
