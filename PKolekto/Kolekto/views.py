@@ -361,7 +361,7 @@ def denuncia(request, nome_loja):
 
     send_mail(
             (f"Nova Denúncia: {nome_loja}"),
-            (f"Motivo da denúncia: {motivo}\nDescrição da denúncia: {detalhes} \n Realizada por: {usuario}"),
+            (f"Loja denunciada: {nome_loja}\nMotivo da denúncia: {motivo}\nDescrição da denúncia: {detalhes} \nRealizada por: {usuario}"),
             "pkolekto@gmail.com",
             ["suporte.kolekto@gmail.com"],
             fail_silently=False,
