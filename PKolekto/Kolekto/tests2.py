@@ -245,6 +245,59 @@ class Historia3(LiveServerTestCase):
             driver.find_element(by=By.ID, value="Charizard 1999 - 1° Edição").text,
             "Charizard 1999 - 1° Edição"
         )
+        driver.get("http://127.0.0.1:8000/logout")
+
+    def test_002_cenario2(self):
+        driver.get("http://127.0.0.1:8000")
+        div = driver.find_element(by=By.NAME, value="Black Lotus - Beta")
+        idproduto = div.find_element(by=By.TAG_NAME, value="a").get_attribute("name")
+        driver.get(f"http://127.0.0.1:8000/Produto/{idproduto}")
+        favorito = driver.find_element(By.ID, value="adicionarListaDesejos")
+
+        favorito.click()
+        time.sleep(segundos)
+        self.assertEquals(
+            driver.title,
+            "Login"
+        )
+
+    def test_003_cenario3(self):
+        driver.get("http://127.0.0.1:8000/login")
+
+        usuario = driver.find_element(by=By.NAME, value="username")
+        senha = driver.find_element(by=By.NAME, value="senha")
+        enviar = driver.find_element(by=By.NAME, value="Logar")
+
+        usuario.send_keys("Teste30")
+        senha.send_keys("Teste12345")
+        time.sleep(segundos)
+        enviar.send_keys(Keys.ENTER)
+        time.sleep(segundos)
+
+        driver.get("http://127.0.0.1:8000/lista_desejos")
+
+        idproduto = driver.find_element(by=By.ID, value="Charizard 1999 - 1° Edição").get_attribute("name")
+
+        driver.get(f"http://127.0.0.1:8000/Produto/{idproduto}")
+
+        favorito = driver.find_element(By.ID, value="adicionarListaDesejos")
+
+        favorito.click()
+        time.sleep(segundos)
+
+        driver.get("http://127.0.0.1:8000/lista_desejos")
+
+        try:
+            driver.find_element(by=By.ID, value="Charizard 1999 - 1° Edição")
+        except:
+            validacao = True
+        else:
+            validacao = False
+
+        self.assertTrue(
+            validacao
+        )
+
 
 
 class Historia4(LiveServerTestCase):
@@ -461,6 +514,7 @@ class Historia5(LiveServerTestCase):
         )
         driver.get("http://127.0.0.1:8000/logout/")
 
+
 class Historia7(LiveServerTestCase):
     def test_000_setup(self):
         for i in range(4):
@@ -622,6 +676,8 @@ class Historia7(LiveServerTestCase):
             True
         )
         driver.get("http://127.0.0.1:8000/logout/")
+
+
 class Historia8(LiveServerTestCase):
     def test_000_setup(self):
         for i in range(4):

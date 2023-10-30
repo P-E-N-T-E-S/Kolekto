@@ -82,8 +82,8 @@
     <tbody>
       {% for item in produtos %}
       <tr>
-        <td><img src="{{ item.foto1 }}" alt="{{ item.nome_item }}"></td>
-        <td><h5 id="{{ item.nome_produto }}">{{ item.nome_produto }}</h5></td>
+        <td><img src="{{ item.foto1 }}" alt="{{ item.nome_produto }}"></td>
+        <td><h5 id="{{ item.nome_produto }}" name="{{ item.id }}">{{ item.nome_produto }}</h5></td>
         <td><h5>${{ item.preco }}</h5></td>
         <td><a href="{% url 'pagina_produto' item.id %}" class="btn btn-primary">Detalhes</a></td>
         <td><button id="removerlistadesejo" class="btn btn-lg mx-1 btn-danger" onclick="rem_lista_desejo('{{ item.id }}')">
