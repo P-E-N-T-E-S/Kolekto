@@ -1,15 +1,131 @@
-{% extends "layout.html" %}
-
-{% block title %}
-    {{ nome_produto }}
-{% endblock %}
-
+{% extends "layout.html" %} {% block title %} {{ nome_produto }} {% endblock %}
 {% block main %}
-    <h1>{{ nome_produto }}</h1>
-    <img src="{{ foto1.url }}" alt="{{ nome_produto }}" width="500">
 
-    <p><strong>Descrição:</strong> {{ descricao }}</p>
-    <p><strong>Preço:</strong> R$ {{ preco }}</p>
-    <p><strong>Categoria:</strong> {{ categoria }}</p>
-    <p><strong>Quantidade Disponível:</strong> {{ qntd }}</p>
+
+<div
+class="d-flex justify-content-center flex-wrap"
+  style="width: 90%; margin: 0 auto"
+  >
+  <div class="image-container" style="width: 100%">
+    <img width="400" height="400" src="{{ foto1 }}" alt="{{ nome_produto }}" />
+  </div>
+  <div
+    class="d-flex justify-content-around flex-column px-5 mx-5 border text-container"
+    style="width: 100%"
+    >
+    <div>
+      <p style="font-size: 410%">{{ nome_produto }}</p>
+      <a href="/{{ nome_loja }}" class="link-primary" style="font-size: 140%"
+        >{{ nome_loja }}</a
+      >
+      <!--kolekto.azurewebsites.net/{{ nome_loja }}-->
+      <hr />
+    </div>
+    <p style="font-size: 200%; font-weight: bold;">R$ {{ preco }}</p>
+    <p style="font-size: 100%">
+      <strong>Quantidade Disponível:</strong> {{ qntd }}
+    </p>
+    <p style="font-size: 100%"><strong>Categoria:</strong> {{ categoria }}</p>
+    <p style="font-size: 100%"><strong>Descrição:</strong> {{ descricao }}</p>
+    <div>
+      <button
+      class="btn btn-lg  mx-1 {% if carrinho_existente %} btn-success {% else %} btn-outline-success {% endif %}"
+      style="font-size: 140%"
+      id ="adicionarCarrinho" onclick="add_carrinho('{{ id_produto }}')"
+      >
+        <i class="fa-solid fa-cart-shopping"></i>
+      </button>
+      {% if request.user.is_anonymous %}
+      <a
+      href="{% url 'login' %}"
+      id="adicionarListaDesejos"
+      class="btn btn-lg  mx-1 btn-outline-danger"
+      style="font-size: 140%"
+      >
+      <i class="fa-solid fa-heart"></i>
+      </a>
+      {% else %}
+      <button
+      id="adicionarListaDesejos"
+      class="btn btn-lg  mx-1 {% if lista_existente %} btn-danger {% else %} btn-outline-danger {% endif %}"
+      style="font-size: 140%" onclick="add_lista_desejo('{{ id_produto }}')"
+      >
+      <i class="fa-solid fa-heart"></i>
+      </button>
+      {% endif %}
+      <button
+      class="btn btn-lg btn-outline-success mx-1"
+      style="font-size: 140%"
+      >
+        Comprar
+      </button>
+    </div>
+  </div>
+</div>
+<script> 
+  async function add_lista_desejo(produtoId){
+    const produto = document.getElementById("adicionarListaDesejos")
+
+    if(produto.classList.contains("btn-outline-danger")){
+      produto.classList.remove("btn-outline-danger")
+      produto.classList.add("btn-danger")
+    }
+    else{
+      produto.classList.remove("btn-danger")
+      produto.classList.add("btn-outline-danger")
+    }
+    
+    const request = await fetch("/add_lista_desejos", {
+      method:"POST",
+      body:JSON.stringify({produtoId}),
+      headers:{
+        "X-CSRFToken":"{{ csrf_token }}"
+      }
+    })
+    const response = await request.json()
+
+    if(response.mensagem == "Produto já adicionado."){
+      const request = await fetch("/rem_lista_desejos", {
+        method:"POST",
+        body:JSON.stringify({produtoId}),
+        headers:{
+          "X-CSRFToken":"{{ csrf_token }}"
+        }
+      })
+    }
+  }
+
+  async function add_carrinho(produtoId){
+    const produto = document.getElementById("adicionarCarrinho")
+
+    if(produto.classList.contains("btn-outline-success")){
+      produto.classList.remove("btn-outline-success")
+      produto.classList.add("btn-success")
+    }
+    else{
+      produto.classList.remove("btn-success")
+      produto.classList.add("btn-outline-success")
+    }
+
+    const request = await fetch("/add_carrinho", {
+      method:"POST",
+      body:JSON.stringify({produtoId}),
+      headers:{
+        "X-CSRFToken":"{{ csrf_token }}"
+      }
+    })
+    const response = await request.json()
+
+    if(response.mensagem == "Produto já adicionado."){
+      const request = await fetch("/rem_carrinho", {
+        method:"POST",
+        body:JSON.stringify({produtoId}),
+        headers:{
+          "X-CSRFToken":"{{ csrf_token }}"
+        }
+      })
+    }
+  }
+
+</script>
 {% endblock %}

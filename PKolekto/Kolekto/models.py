@@ -1,25 +1,25 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
 
 class Usuario(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     username = models.CharField(max_length=20)
-    senha = models.CharField(max_length=20)
-    email = models.CharField(max_length=50)
-    nome = models.CharField(max_length=70)
+    nome = models.CharField(max_length=20)
+    email = models.EmailField(max_length=100)
     def __str__(self):
         return (self.username)
     
     
 class Loja(models.Model):
-    Banner = models.ImageField(upload_to="ban_imgs/")
-    Perfil = models.ImageField(upload_to="perf_imgs/")
+    Banner = models.CharField(max_length=100)
+    Perfil = models.CharField(max_length=100)
     NomeLoja = models.CharField(max_length=30)
     Cpf = models.CharField(max_length=14)
     DataNascimento = models.DateTimeField()
     Localizacao = models.CharField(max_length=50)
     descricao = models.TextField(max_length=200, default="Sem dados de contato")
-    associado = models.ForeignKey(Usuario, null=True, on_delete=models.CASCADE)
+    associado = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return (self.NomeLoja)
 
@@ -39,7 +39,7 @@ class Produto(models.Model):
         ("Instrumento Musical","Instrumento Musical"),
         ("Outro","Outro")
             ]
-    foto1 = models.ImageField(upload_to="fotos/")
+    foto1 = models.CharField(max_length=100)
     nome_produto = models.CharField(max_length=100)
     descricao = models.CharField(max_length=500)
     categoria = models.CharField(choices=categorias,default=categorias[0],max_length=50)
@@ -48,3 +48,17 @@ class Produto(models.Model):
     loja = models.ForeignKey(Loja, null=True, on_delete=models.CASCADE)
     def __str__(self):
         return (self.nome_produto)
+    
+
+class ListaDesejos(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+
+class Carrinho(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    quantidade = models.IntegerField(null=False, blank=False)
+
+class Denuncia(models.Model):
+    motivos = models.CharField
+    detalhe = models.CharField

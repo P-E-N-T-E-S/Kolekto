@@ -1,0 +1,29 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body{
+    font-family: Poppins;
+}
+.produtos{
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 40px;
+    margin-right: 40px;  
+}
+.pesquisar{
+    display: flex;
+    justify-content: center;
+}
+.image-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-container {
+    flex: 1;
+}
+  

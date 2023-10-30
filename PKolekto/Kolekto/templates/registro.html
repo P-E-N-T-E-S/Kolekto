@@ -1,33 +1,73 @@
 {% extends "layout.html" %}
-
-{% block title %}
-    Registro
-{% endblock %}
-
+{% block title %} Registro {% endblock %} 
 {% block main %}
-    <h1>Registro</h1>
-        {%if erro %}
-        <div class="alert alert-primary" role="alert">
+<div class="container">
+  <div class="row justify-content-center align-items-center" style="height: 100%;">
+    <div class="col-md-6">
+      <h1>Registro:</h1>
+      {% if erro %}
+      <div class="alert alert-primary" role="alert">
         {{ erro }}
-        {% endif %}
-</div>
-    <form method="post">
+      </div>
+      {% endif %}
+      <form method="post">
         {% csrf_token %}
-        <label for="username">Nome de Usuário:</label>
-        <input type="text" id="username" name="username" required><br><br>
+        <div class="mb-3">
+          <label for="username" class="form-label">Nome de Usuário:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            name="username"
+            value="{{username}}"
+            required
+          />
+        </div>
 
-        <label for="name">Nome Completo:</label>
-        <input type="text" id="name" name="nome" required><br><br>
+        <div class="mb-3">
+          <label for="nome" class="form-label">Nome Completo:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="nome"
+            name="nome"
+            value="{{nome}}"
+            required
+          />
+        </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            value="{{email}}"
+            required
+          />
+        </div>
 
-        <label for="password">Senha:</label>
-        <input type="password" id="password" name="senha" required><br><br>
+        <div class="mb-3">
+          <label for="password" class="form-label">Senha:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="senha"
+            value="{{senha}}"
+            required
+          />
+        </div>
 
-        <button type="submit">Registrar</button>
-    </form>
+        <button type="submit" class="btn btn-primary" name="registro">Registrar</button>
+      </form>
 
-    <p>Já possui uma conta? <a href="{% url 'login' %}">Faça login aqui</a></p>
-
+      <p>
+        <br />
+        Já possui uma conta? <a href="{% url 'login' %}">Faça login aqui</a>
+      </p>
+    </div>
+  </div>
+</div>
 {% endblock %}

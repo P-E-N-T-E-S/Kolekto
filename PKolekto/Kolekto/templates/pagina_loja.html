@@ -5,28 +5,28 @@
 {% endblock %}
 
 {% block main %}
-  <header class="container-fluid">
-    <div id="carrouselMain" class="carousel carousel-dark slide" data-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active text-center">
-          <img src="{{ banner.url }}" alt="{{ nome_loja }}"
-               class="img-fluid">
-        </div>
+  <header>
+    <div style="position: relative;">
+      <img src="{{ banner }}" alt="{{ nome_loja }}" width="100%" height="350px" style="margin-top: -30px;">
+      <img src="{{ perfil }}" class="rounded-circle border border-dark border-3" style="position: absolute; top: 250px; left: 10px; width: 100px; height: 100px;">
+      <br/>  
+    </div>
+    <div class="d-flex flex-row aling-items-center mb-" style="margin-top: 30px; margin-left: 20px; font-size: 30px;">
+      <p class="mb-0 me-2" style="font-weight: bold;" name="tituloLoja">{{ nome_loja }}</p> 
+    <div style=" width: 83%; text-align: right;">
+      {{% if minhaloja %}}
+      <a href="editar/{{ nome_loja }}">
+      <button class="report" style="border-radius: 3px; font-size: 20px;"> Editar Dados</button>
+      {{% else %}}
+      <a href="denuncia">
+      <button class="report" style="border-radius: 3px; font-size: 20px;"> Denunciar</button>
+    </a>
+      {{% endif %}}
+    </div>
+    </div>
+      <div class="col md-6 d-flex flex-wrap" style="margin-top: 10px;">
+        <p class="form-control text-break text-start" id="descricao">{{descricao}}</p>
       </div>
-    </div>
-    <div class="d-flex align-items-center mb-4">
-      <div class="flex-shrink-0">
-        <img src="{{ perfil.url }}"
-             alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
-             style="width: 70px;">
-      </div>
-    <div class="flex-grow-1 ms-3">
-    <div class="d-flex flex-row aling-items-center mb-2">
-      <p class="mb-0 me-2">{{ nome_loja }}</p>
-    </div>
-    </div>
-    </div>
-    <p class="my-4 pb-1">{{ descricao }}</p>
     <hr>
   </header>
   <main>
@@ -36,7 +36,7 @@
         <div class="d-flex flex-row-reverse justify-content-center justify-content-md-start">
           {% for item in produto %}
         <div class="card text-center bg-light">
-          <img src="{{item.foto1.url}}" alt="{{item.nome_produto}}">
+          <img src="{{item.foto1}}" alt="{{item.nome_produto}}">
           <div class="card-header">
             {{item.preco}}
           </div>
@@ -60,20 +60,23 @@
       </div>
     </div>
     </div>
-    <h2>Produtos desta Loja:</h2>
-    <ul>
-        {% for produto in produtos %}
-            <li>
-                <h3>{{ produto.nome_produto }}</h3>
-                <img src="{{ produto.foto1.url }}" alt="{{ produto.nome_produto }}" width="100">
-                <p>Descrição: {{ produto.descricao }}</p>
-                <p>Categoria: {{ produto.categoria }}</p>
-                <p>Preço: ${{ produto.preco }}</p>
-                <p>Quantidade disponível: {{ produto.qntd }}</p>
-            </li>
-        {% empty %}
-            <li>Nenhum produto disponível nesta loja.</li>
-        {% endfor %}
-    </ul>
+    <h1>Produtos desta Loja:</h1>
+    <div class = "produtos">
+      {% for produto in produtos %}
+          <div class="card" style="width: 18rem;">
+            <img width="300" height="300" src="{{ produto.foto1 }}" class="card-img-top" alt="{{ produto.nome_produto }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ produto.nome_produto }}</h5>
+              <p class="card-text">{{ produto.descricao }}</p>
+              <p class="card-text">Preço: ${{ produto.preco }}</p>
+              <a href="{% url 'pagina_produto' produto.id %}" class="btn btn-primary">Detalhes</a>
+            </div>
+          </div>
+      {% empty %}
+          <h4>Nenhum produto disponível.</h4>
+      {% endfor %}
+  </div>
+  
+  
   </main>
 {% endblock %}

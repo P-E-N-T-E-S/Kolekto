@@ -5,9 +5,10 @@
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/P-E-N-T-E-S/Kolekto?style=flat&logo=github)
 ![Commits](https://img.shields.io/github/commit-activity/t/P-E-N-T-E-S/Kolekto?style=flat&logo=github)
 [![GitHub](https://img.shields.io/github/license/P-E-N-T-E-S/Kolekto)](LICENSE.md)
+[![CI](https://github.com/P-E-N-T-E-S/Kolekto/actions/workflows/prod_kolekto.yml/badge.svg)](https://github.com/P-E-N-T-E-S/Kolekto/actions/workflows/ci.yml)
+
 <!--
 Atualizações para o Futuro
-[![CI](https://github.com/ericgio/react-bootstrap-typeahead/actions/workflows/ci.yml/badge.svg)](https://github.com/ericgio/react-bootstrap-typeahead/actions/workflows/ci.yml)
 ![Site Online](https://img.shields.io/website)
 --> 
 
@@ -41,16 +42,19 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/6dd258c6-49c0-4def-8617-7d71c311d8c1)
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/97982032/7033e70b-fd87-4125-b0e8-4e7631760ccc)
-  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/893c51ff-42bb-448e-92e4-469a1b56cccc)
+  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/f7cd6e02-7170-4933-872b-286fd3ec3ce2)
 
 
 
-- **Prototipação:** Para o processo de prototipação foi utilizado o aplicativo Figma, onde será possível acessar as telas prototipadas com o storyboard: https://www.figma.com/file/jOfywNY7puA1jQq3IbesyK/Kolekto?type=design&node-id=0-1&mode=design&t=yxEkCr1ZZESIiozu-0
-- **Link do vídeo de apresentação do protótipo:** https://youtu.be/gdpRbjAJmQc
+- **Prototipação:** https://www.figma.com/file/jOfywNY7puA1jQq3IbesyK/Kolekto?type=design&node-id=0-1&mode=design&t=yxEkCr1ZZESIiozu-0
+- **Link do vídeo de apresentação do protótipo:**
+   - V1: https://youtu.be/gdpRbjAJmQc
+   - V2: https://youtu.be/8a6elg7hm6c
 - **Relato da programação em par:** https://docs.google.com/document/d/1zw3Q6Y6QbHdDzpf4Eu1U9jx_Ms4kfT1JEyAKVdMWnt8/edit
 - **Diagrama de Atividades:** https://drive.google.com/file/d/1N920ENkea0Z2DfxY9_b8sYHP0fhKI-kb/view?usp=sharing
-- **Apresentação das Entrega 1**: 
-- **Link do Site**: 
+- **Apresentação do screencast do uso do sistema**: https://youtu.be/c_LAf2qt6hs
+- **Link do Site**: https://kolekto.azurewebsites.net/Kolekto/
+- **Instruções de uso**: https://docs.google.com/document/d/1p9zjSeGfZ_tuO5J4OwFa8QlAKEKO0YaJRCOkXo4b870/edit?usp=sharing
 
 ## 🤝 Membros
 

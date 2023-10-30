@@ -1,11 +1,9 @@
-{% extends "layout.html" %} {% block title %} Criar loja {% endblock %} 
+{% extends "layout.html" %} {% block title %} Editar loja {% endblock %}
 {% block main %}
-<h1>Cadastro de Loja</h1>
+<h1>Editar Dados</h1>
 <div class="container">
   <form
-    action="{% url 'nova_loja' %}"
     method="POST"
-    enctype="multipart/form-data"
   >
     {% csrf_token %}
     <div class="row row-cols-2">
@@ -29,7 +27,7 @@
           class="form-control"
           id="nascimento"
           name="nascimento"
-          ,
+          placeholder="{{ data_nascimento }}"
           value="{{ data_nascimento }}"
         />
       </div>
@@ -43,34 +41,34 @@
             style="padding-right: 80%"
           >
             {% if cidade %}
-            <option value="">Escolha seu estado novamente</option>
+            <option value="{{ estado }}">{{ estado }}</option>
             {% endif %}
-            <option value="ac">AC</option>
-            <option value="al">AL</option>
-            <option value="ap">AP</option>
-            <option value="am">AM</option>
-            <option value="ba">BA</option>
-            <option value="ce">CE</option>
-            <option value="es">ES</option>
-            <option value="go">GO</option>
-            <option value="ma">MA</option>
-            <option value="mt">MT</option>
-            <option value="ms">MS</option>
-            <option value="mg">MG</option>
-            <option value="pb">PB</option>
-            <option value="pr">PR</option>
-            <option value="pe">PE</option>
-            <option value="pi">PI</option>
-            <option value="rj">RJ</option>
-            <option value="rn">RN</option>
-            <option value="rs">RS</option>
-            <option value="ro">RO</option>
-            <option value="rr">RR</option>
-            <option value="sc">SC</option>
-            <option value="sp">SP</option>
-            <option value="se">SE</option>
-            <option value="to">TO</option>
-            <option value="df">DF</option>
+            <option value="AC">AC</option>
+            <option value="AL">AL</option>
+            <option value="AP">AP</option>
+            <option value="AM">AM</option>
+            <option value="BA">BA</option>
+            <option value="CE">CE</option>
+            <option value="ES">ES</option>
+            <option value="GO">GO</option>
+            <option value="MA">MA</option>
+            <option value="MT">MT</option>
+            <option value="MS">MS</option>
+            <option value="MG">MG</option>
+            <option value="PB">PB</option>
+            <option value="PR">PR</option>
+            <option value="PE">PE</option>
+            <option value="PI">PI</option>
+            <option value="RJ">RJ</option>
+            <option value="RN">RN</option>
+            <option value="RS">RS</option>
+            <option value="RO">RO</option>
+            <option value="RR">RR</option>
+            <option value="SC">SC</option>
+            <option value="SP">SP</option>
+            <option value="SE">SE</option>
+            <option value="TO">TO</option>
+            <option value="DF">DF</option>
           </select>
         </div>
       </div>
@@ -154,7 +152,7 @@
     <br />
     <p id="erro">{{ erros.cpf_mask }} {{ erros.nomedaloja }} {{ erros.urlerrado }}</p>
     <div class="d-flex justify-content-end w-100">
-      <button type="submit" class="btn btn-primary" name="criar">Criar</button>
+      <button type="submit" class="btn btn-primary" name="criar">Salvar</button>
       <a href="{% url 'index' %}" class="btn btn-danger mx-3">Cancelar</a>
     </div>
   </form>

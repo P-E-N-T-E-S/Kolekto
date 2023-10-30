@@ -1,0 +1,182 @@
+{% extends "layout.html" %}
+
+{% block title %} Carrinho {% endblock %}
+
+{% block main %}
+
+<style>
+  #wish-container table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  #wish-container table thead {
+    background-color: #fd8c66;
+    color: #fff;
+  }
+
+  #wish-container table th,
+  #wish-container table td {
+    padding: 8px;
+    text-align: center;
+  }
+
+  #wish-container table th:nth-child(1) {
+    width: 200px;
+  }
+
+  #wish-container table th:nth-child(2),
+  #wish-container table th:nth-child(3) {
+    width: 170px;
+  }
+
+  #wish-container table th:nth-child(4),
+  #wish-container table th:nth-child(5) {
+    width: 100px;
+  }
+
+  #wish-container table tbody img {
+    width: 100px;
+    height: 80px;
+    object-fit: cover;
+  }
+
+  h1.text-start {
+    margin-left: 200px;
+  }
+
+  #wish-container {
+    margin-top: 20px;
+  }
+
+  #total {
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 20px;
+  }
+
+  .qntd_botao {
+    background-color: #fd8c66;
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    border-radius: 20%; 
+  }
+
+  .qntd_botao:hover {
+    background-color: #ff6633;
+  }
+
+  #removerCarrinho {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+  }
+
+  #removerCarrinho:hover {
+    background-color: #cc0000;
+  }
+</style>
+
+<h1 class="text-start" style="margin-left: 200px;">Meu carrinho:</h1>
+
+<section id="wish-container" class="container my-5">
+  <table width="100%">
+    <thead>
+      <tr>
+        <td style="font-size: 20px;">Imagem</td>
+        <td style="font-size: 20px;">Produto</td>
+        <td style="font-size: 20px;">Preço</td>
+        <td style="font-size: 20px;">Quantidade</td>
+        <td style="font-size: 20px;">Detalhes</td>
+        <td style="font-size: 20px;">Remover</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in produtos %}
+      <tr>
+        <td><img src="{{ item.foto1 }}" alt="{{ item.nome_item }}"></td>
+        <td><h5>{{ item.nome_produto }}</h5></td>
+        <td><h5 class='preco'>R${{ item.preco }}</h5></td>
+        <td>
+          <input type="number" id="qntd{{ item.id }}" name="qntd" min="1" max="{{ item.qntd }}" value="1" disabled>
+          <button class="qntd_botao" data-max="{{ item.qntd }}" data-product-id="{{ item.id }}">-</button>
+          <button class="qntd_botao" data-max="{{ item.qntd }}" data-product-id="{{ item.id }}">+</button>
+        </td>
+        <td><a href="{% url 'pagina_produto' item.id %}" class="btn btn-primary">Detalhes</a></td>
+        <td><button id="removerCarrinho" class="btn btn-lg mx-1 btn-danger" onclick="rem_carrinho('{{ item.id }}')">
+          <i class="fa-solid fa-trash-can"></i>
+          </button></td>
+      </tr>
+      {% empty %}
+      <h4>Nenhum item disponível.</h4>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p style="font-weight: bold; font-size: 20px; margin-top: 20px;" id="total">Total: R${{ soma }}</p>
+</section>
+<script>
+  function atualizarSoma() {
+    const rows = document.querySelectorAll("tbody tr");
+    let soma = 0;
+  
+    rows.forEach(function(row) {
+      const input = row.querySelector("input[name='qntd']");
+      const precoElement = row.querySelector("h5.preco").textContent;
+      const preco = parseFloat(precoElement.replace('R$', '').trim());
+      console.log(preco)
+      const quantidade = parseInt(input.value);
+      soma += quantidade * preco;
+    });
+  
+    const totalElement = document.getElementById("total");
+    totalElement.textContent = "Total: R$" + soma.toFixed(2);
+  }
+
+  async function rem_carrinho(produtoId){
+    const produto = document.getElementById("removerCarrinho")
+    const request = await fetch("/rem_carrinho", {
+      method:"POST",
+      body:JSON.stringify({produtoId}),
+      headers:{
+        "X-CSRFToken":"{{ csrf_token }}"
+      }
+    })
+    const response = await request.json()
+    location.reload();
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const quantityButtons = document.querySelectorAll(".qntd_botao");
+
+    quantityButtons.forEach(function(button) {
+      button.addEventListener("click", function() {
+        const productId = this.getAttribute("data-product-id");
+        const maxQntd = parseInt(this.getAttribute("data-max"));
+        const inputElement = document.querySelector(`#qntd${productId}`);
+        let atualQntd = parseInt(inputElement.value);
+
+        if (this.innerText === "+" && atualQntd < maxQntd) {
+          atualQntd++;
+        } else if (this.innerText === "-" && atualQntd > 1) {
+          atualQntd--;
+        }
+
+        inputElement.value = atualQntd;
+        atualizarSoma();
+      });
+    });
+    atualizarSoma();
+  });
+  
+</script>
+
+{% endblock %}
