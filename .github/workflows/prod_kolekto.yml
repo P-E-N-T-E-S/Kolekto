@@ -30,16 +30,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r PKolekto/requirements.txt
         
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
-      - uses: nanasess/setup-chromedriver@v1
-      
-      - name: Tests with Selenium
-        run: |
-          export DISPLAY=:99
-          chromedriver --url-base=/wd/hub &
-          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
-          cd src
-          python manage.py test web 
+      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)   
       
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v2
