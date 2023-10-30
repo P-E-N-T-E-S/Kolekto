@@ -340,6 +340,7 @@ def pagina_loja(request, nome_loja):
     else:
         raise Http404("Loja não encontrada")
 
+@login_required
 def denuncia(request, nome_loja):
     usuario = request.user
     if request.user.is_anonymous:

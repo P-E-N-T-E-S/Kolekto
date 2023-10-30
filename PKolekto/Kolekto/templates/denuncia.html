@@ -1,17 +1,6 @@
 {% extends "layout.html" %}
 {% block title %} Login {% endblock %}
 {% block main %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Denunciar vendedor</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
-</head>
-<body>
     <div class="align-items-left">
         <div class="text-align" style="align-items: center;">
             <form action="" method="POST" class="form-denuncia">
@@ -21,7 +10,7 @@
             <input type="radio" name="motivo" value="Comportamento inadequado do vendedor" /> Comportamento inadequado do vendedor <br>
             <input type="radio" name="motivo" value="Outro" /> Outro <br>
             <input type="text" class="form-control" name="detalhes"> </input> <br>
-            <button type="submit"> Enviar denuncia </button>
+            <button type="submit" class="btn btn-danger"> Enviar denuncia </button>
         </form>
     </div>
 </div>
