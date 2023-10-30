@@ -283,6 +283,8 @@ def pesquisa(request):
             temloja = False
 
     nome_pesquisado = request.GET.get("nome_pesquisado")
+    if nome_pesquisado is None:
+        nome_pesquisado = ""
     categoria = request.GET.get("select")
 
     if categoria is None:
