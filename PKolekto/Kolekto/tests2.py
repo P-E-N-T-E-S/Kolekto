@@ -464,10 +464,6 @@ class Historia4(LiveServerTestCase):
 
 
 
-
-
-
-
 class Historia5(LiveServerTestCase):
     def test_000_setup(self):
         for i in range(4):
@@ -498,7 +494,7 @@ class Historia5(LiveServerTestCase):
                 nascimento.send_keys("29082003")
                 cidade.send_keys("Rio Branco")
                 cpf.send_keys("000.000.000-00")
-                nome_loja.send_keys("Bazar de Pedro")
+                nome_loja.send_keys("Minis Recife")
                 imgperfil.send_keys("https://i.imgur.com/bXZHIgO.jpeg")
                 imgbanner.send_keys("https://i.imgur.com/qbLig65.jpeg")
                 descloja.send_keys("lorem impsum etc e talz")
@@ -517,7 +513,7 @@ class Historia5(LiveServerTestCase):
 
                 categoria.select_by_visible_text("Cartas")
                 foto.send_keys("https://i.imgur.com/10WPEMV.jpeg")
-                prod.send_keys("Charmander")
+                prod.send_keys("Carta Pokemon: Charmander")
                 descricao.send_keys("Charmander")
                 preco.send_keys("10")
                 qntd.send_keys("5")
@@ -548,6 +544,34 @@ class Historia5(LiveServerTestCase):
         )
         driver.get("http://127.0.0.1:8000/logout/")
 
+
+    def teste_001_cenario1(self):
+        driver.get("http://127.0.0.1:8000/")
+        barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
+        barra_de_pesquisa.send_keys("Teclado gamer")
+        self.assertEquals(
+            driver.find_element(by=By.NAME,value="vazio").text,
+            "Nenhum produto disponível."
+        )
+
+    def teste_002_cenario2(self):
+        driver.get("http://127.0.0.1:8000/")
+        barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
+        barra_de_pesquisa.send_keys("pokémon")
+        self.assertIsNotNone(driver.find_element(by=By.CLASS_NAME, value="card"))
+    
+    def teste_003_cenario3(self):
+        driver.get("http://127.0.0.1:8000/")
+        barra_de_categoria = driver.find_element(by=By.NAME, value="select")
+        barra_de_categoria = Select(barra_de_categoria)
+        barra_de_categoria.select_by_visible_text("Cartas")
+        self.assertIsNotNone(driver.find_element(by=By.CLASS_NAME, value="card"))
+
+    def teste_004_cenario4(self):
+        driver.get("http://127.0.0.1:8000/")
+        barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
+        barra_de_pesquisa.send_keys("Minis Recife")
+        self.assertIsNotNone(driver.find_element(by=By.CLASS_NAME, value="card"))
 
 class Historia7(LiveServerTestCase):
     def test_000_setup(self):
