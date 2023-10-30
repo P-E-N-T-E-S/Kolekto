@@ -16,7 +16,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: nanasess/setup-chromedriver@v1
       - name: Set up Python version
         uses: actions/setup-python@v1
         with:
@@ -32,6 +31,7 @@ jobs:
         run: pip install -r PKolekto/requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+      - uses: nanasess/setup-chromedriver@v1
       
       - name: Tests with Selenium
         run: |
