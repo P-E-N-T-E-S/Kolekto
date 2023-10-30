@@ -3,20 +3,6 @@
 {% if erro %}
 <div class="alert alert-primary" role="alert">{{ erro }}</div>
 {% endif %}
-<div class="pesquisar">
-  <div class="flex space-x-1 pl-0 sm:pl-2 mt-3 sm:mt-0" style="width: 500px">
-    <form action="{% url 'pesquisa' %}" method="get">
-      <div class="input-group">
-        <select class="form-select" id="categorias" name="select">
-          {% for categoria in categorias %}
-          <option value="{{ categoria }}">{{ categoria }}</option>
-          {% endfor %}
-        </select>
-        <button class="btn btn-primary" type="submit">Pesquisar</button>
-      </div>
-    </form>
-  </div>
-</div>
 
 <div class="produtos">
   {% for produto in produtos %}
