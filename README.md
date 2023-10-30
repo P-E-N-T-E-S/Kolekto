@@ -51,7 +51,6 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
    - V1: https://youtu.be/gdpRbjAJmQc
    - V2: https://youtu.be/8a6elg7hm6c
 - **Relato da programação em par:** https://docs.google.com/document/d/1zw3Q6Y6QbHdDzpf4Eu1U9jx_Ms4kfT1JEyAKVdMWnt8/edit?usp=sharing
-![Cópia do Diagrama de Atividade drawio](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/d3c2a468-86cc-4cbf-9d5d-570c8951aaeb)
 - **Diagrama de Atividades:** https://drive.google.com/file/d/1N920ENkea0Z2DfxY9_b8sYHP0fhKI-kb/view?usp=sharing
 - **Apresentação do screencast do uso do sistema**: https://youtu.be/c_LAf2qt6hs
 - **Link do Site**: https://kolekto.azurewebsites.net/Kolekto/
