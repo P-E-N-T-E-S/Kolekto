@@ -30,9 +30,12 @@
   #wish-container table th:nth-child(3) {
     width: 170px;
   }
+  #wish-container table th:nth-child(4){
+    width: 10px;
+  }
 
-  #wish-container table th:nth-child(4),
-  #wish-container table th:nth-child(5) {
+  #wish-container table th:nth-child(5),
+  #wish-container table th:nth-child(6) {
     width: 100px;
   }
 
@@ -107,8 +110,8 @@
         <td><h5>{{ item.nome_produto }}</h5></td>
         <td><h5 class='preco'>R${{ item.preco }}</h5></td>
         <td>
-          <input type="number" id="qntd{{ item.id }}" name="qntd" min="1" max="{{ item.qntd }}" value="1" disabled>
           <button class="qntd_botao" data-max="{{ item.qntd }}" data-product-id="{{ item.id }}">-</button>
+          <input style="width: 50px; font-size: 20px;" type="number" id="qntd{{ item.id }}" name="qntd" min="1" max="{{ item.qntd }}" value="1" disabled>
           <button class="qntd_botao" data-max="{{ item.qntd }}" data-product-id="{{ item.id }}">+</button>
         </td>
         <td><a href="{% url 'pagina_produto' item.id %}" class="btn btn-primary">Detalhes</a></td>
