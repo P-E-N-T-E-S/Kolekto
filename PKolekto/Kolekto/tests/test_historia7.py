@@ -179,3 +179,16 @@ class Historia7(LiveServerTestCase):
             True
         )
         driver.get("http://127.0.0.1:8000/logout/")
+    
+
+    def test_001_cenario1(self):
+        driver = setup_selenium()
+        driver.get("http://127.0.0.1:8000/")
+        barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
+        barra_de_pesquisa.send_keys("Mega Mewtwo")
+        barra_de_pesquisa.send_keys(Keys.ENTER)
+        produto = driver.find_element(by=By.NAME, value="megawtwo")
+        produto.find_element(by=By.CLASS_NAME, value="btn btn-primary").click()
+        driver.find_element(by=By.PARTIAL_LINK_TEXT, value="/lolja").click()
+        driver.find_element(by=By.CLASS_NAME, value="btn btn-warning").click()
+        driver.find_element(by=By.)

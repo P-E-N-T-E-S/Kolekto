@@ -75,46 +75,7 @@ class Historia8(LiveServerTestCase):
                 categoria.select_by_visible_text("Cartas")
                 time.sleep(segundos)
                 enviar.send_keys(Keys.ENTER)
-
-            elif i == 1:
-                driver.get("http://127.0.0.1:8000/nova_loja")
-                nascimento = driver.find_element(by=By.NAME, value="nascimento")
-                cidade = driver.find_element(by=By.NAME, value="cidade")
-                cpf = driver.find_element(by=By.NAME, value="cpf")
-                nome_loja = driver.find_element(by=By.NAME, value="nome_loja")
-                imgperfil = driver.find_element(by=By.NAME, value="perfil")
-                imgbanner = driver.find_element(by=By.NAME, value="banner")
-                descloja = driver.find_element(by=By.NAME, value="descricao")
-                enviar = driver.find_element(by=By.NAME, value="criar")
-
-                nascimento.send_keys("24112004")
-                cidade.send_keys("Recife")
-                cpf.send_keys("222.222.222-22")
-                nome_loja.send_keys("Magicrecife")
-                imgperfil.send_keys("https://i.imgur.com/JtUNCXo.jpeg")
-                imgbanner.send_keys("https://i.imgur.com/RhCYjb3.jpeg")
-                descloja.send_keys("It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum")
-                time.sleep(segundos)
-                enviar.send_keys(Keys.ENTER)
-
-                driver.get("http://127.0.0.1:8000/add_produto")
-                foto = driver.find_element(by=By.NAME, value="foto1")
-                prod = driver.find_element(by=By.NAME, value="nome_produto")
-                descricao = driver.find_element(by=By.NAME, value="descricao")
-                preco = driver.find_element(by=By.NAME, value="preco")
-                qntd = driver.find_element(by=By.NAME, value="qntd")
-                enviar = driver.find_element(by=By.NAME, value="Add")
-                categoria = Select(categoria)
-
-                categoria.select_by_visible_text("Carta")
-                foto.send_keys("https://i.ebayimg.com/images/g/HbYAAOSwKeVjOsBa/s-l1600.jpg")
-                prod.send_keys("Black Lotus - Beta")
-                descricao.send_keys("Black Lotus - Beta, uma das cartas mais raras do Magic")
-                preco.send_keys("4039553")
-                qntd.send_keys("1")
-                time.sleep(segundos)
-                enviar.send_keys(Keys.ENTER)
-
+                
             elif i == 2:
                 driver.get("http://127.0.0.1:8000/nova_loja")
                 nascimento = driver.find_element(by=By.NAME, value="nascimento")
@@ -193,3 +154,106 @@ class Historia8(LiveServerTestCase):
                 qntd.send_keys("3")
                 time.sleep(segundos)
                 enviar.send_keys(Keys.ENTER)
+                
+    def test_001_cenario1(self):
+        driver = setup_selenium()
+        driver.get("http://127.0.0.1:8000/login")
+        
+        usuario = driver.find_element(by=By.NAME, value="username")
+        senha = driver.find_element(by=By.NAME, value="senha")
+        enviar = driver.find_element(by=By.NAME, value="Logar")
+
+        usuario.send_keys("Teste30")
+        senha.send_keys("Teste12345")
+        time.sleep(segundos)
+        enviar.send_keys(Keys.ENTER)
+        time.sleep(segundos)
+        
+        div = driver.find_element(by=By.NAME, value="Charizard 1999 - 1° Edição")
+        idproduto = div.find_element(by=By.TAG_NAME, value="a").get_attribute("name")
+        
+        driver.get(f"http://127.0.0.1:8000/Produto/{idproduto}")
+        time.sleep(segundos)
+        
+        carrinho = driver.find_element(By.ID, value="adicionarCarrinho")
+        carrinho.click()
+        time.sleep(segundos)
+        
+        self.assertEquals(
+            driver.find_element(by=By.ID, value="Charizard 1999 - 1° Edição").text,
+            "Charizard 1999 - 1° Edição"
+        )
+        driver.get("http://127.0.0.1:8000/logout")
+        
+    def test_002_cenario2(self):
+        driver = setup_selenium()
+        driver.get("http://127.0.0.1:8000")
+        
+        div = driver.find_element(by=By.NAME, value="Black Lotus - Beta")
+        idproduto = div.find_element(by=By.TAG_NAME, value="a").get_attribute("name")
+        driver.get(f"http://127.0.0.1:8000/Produto/{idproduto}")
+        carrinho = driver.find_element(By.ID, value="adicionarListaDesejos")
+
+        carrinho.click()
+        time.sleep(segundos)
+        self.assertEquals(
+            driver.title,
+            "Login"
+        )
+        
+    def test_003_cenario3(self):
+        driver = setup_selenium()
+        driver.get("http://127.0.0.1:8000")
+            
+        usuario = driver.find_element(by=By.NAME, value="username")
+        senha = driver.find_element(by=By.NAME, value="senha")
+        enviar = driver.find_element(by=By.NAME, value="Logar")
+
+        usuario.send_keys("Teste30")
+        senha.send_keys("Teste12345")
+        time.sleep(segundos)
+        enviar.send_keys(Keys.ENTER)
+        time.sleep(segundos)
+        
+        driver.get("http://127.0.0.1:8000/carrinho")
+        
+        remover = driver.find_element(by=By.ID, value="removerCarrinho")
+        remover.click()
+        time.sleep(segundos)
+        
+        mensagem_carrinho_vazio = driver.find_element(by=By.ID, value="mensagem_carrinho_vazio")
+        self.assertEqual(mensagem_carrinho_vazio.text, "Seu carrinho está vazio.")
+        
+        driver.get("http://127.0.0.1:8000/logout")
+        
+    def test_004_cenario4(self):
+        driver = setup_selenium()
+        driver.get("http://127.0.0.1:8000")
+            
+        usuario = driver.find_element(by=By.NAME, value="username")
+        senha = driver.find_element(by=By.NAME, value="senha")
+        enviar = driver.find_element(by=By.NAME, value="Logar")
+
+        usuario.send_keys("Teste30")
+        senha.send_keys("Teste12345")
+        time.sleep(segundos)
+        enviar.send_keys(Keys.ENTER)
+        time.sleep(segundos)
+        
+        driver.get("http://127.0.0.1:8000/carrinho")
+        
+        add_qntd = driver.find_element(by=By.ID, value="addQntd")
+        add_qntd.click()
+        
+        qntd = driver.find_element(by=By.NAME, value="qntd")
+        if qntd == 2:
+            validacao = True
+        else:
+            validacao = False
+            
+        self.assertTrue(
+            validacao
+        )
+        
+        
+        
