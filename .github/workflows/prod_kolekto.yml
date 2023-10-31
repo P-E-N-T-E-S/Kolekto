@@ -26,7 +26,6 @@ jobs:
       - name: Cleaning testing files
         run: |
           cd PKolekto/
-          rm db.sqlite3
           rm .env
           cd ..
       - name: Upload artifact for deployment jobs
