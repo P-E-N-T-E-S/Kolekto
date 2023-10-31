@@ -43,7 +43,7 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 <p>Links Importantes</p>
 <ul>
   <li>
-    <a  href="https://kolekto.azurewebsites.net/Kolekto/"
+    <a  href="https://kolekto.azurewebsites.net"
       >Link do Site</a
     >
   </li>
@@ -101,7 +101,7 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
     >
   </li>
   <li>
-    <a  href="https://youtu.be/c_LAf2qt6hs"
+    <a  href="https://youtu.be/fr3kOm6Qg9A"
       >ScreenCast - Uso do Sistema</a
     >
   </li>
@@ -121,7 +121,7 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
     >
   </li>
   <li>
-    <a  href="https://youtu.be/SDmNh9oqI5Y"
+    <a  href=""
       >ScreenCast - Testes</a
     >
   </li>
@@ -133,7 +133,7 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/aa4df3eb-7a02-4cfe-b595-1881bedc7a61)
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/c61f45a9-7844-4574-bafd-a516681bdcc6)
 
-## 🤝 Membros
+## 👩‍💻 Membros
 
 <ul>
   <li>
