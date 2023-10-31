@@ -355,17 +355,18 @@ def denuncia(request, nome_loja):
 
     motivo = request.POST.get("motivo")
     detalhes = request.POST.get("detalhes")
-    usuario = request.user
-
-
-
-    send_mail(
-            (f"Nova Denúncia: {nome_loja}"),
-            (f"Loja denunciada: {nome_loja}\nMotivo da denúncia: {motivo}\nDescrição da denúncia: {detalhes} \nRealizada por: {usuario}"),
-            "pkolekto@gmail.com",
-            ["suporte.kolekto@gmail.com"],
-            fail_silently=False,
-        )
+    
+    if request.method == 'POST':
+        try:
+            send_mail(
+                    (f"Nova Denúncia: {nome_loja}"),
+                    (f"Loja denunciada: {nome_loja}\nMotivo da denúncia: {motivo}\nDescrição da denúncia: {detalhes} \nRealizada por: {usuario}"),
+                    "pkolekto@gmail.com",
+                    ["suporte.kolekto@gmail.com"],
+                    fail_silently=False,
+                )
+        finally:
+            return redirect(home)
 
     contexto = {
         "motivo": motivo,
