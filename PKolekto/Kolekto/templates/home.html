@@ -1,10 +1,23 @@
 {% extends "layout.html" %} {% block title %} Pagina inicial {% endblock %} 
 {% block main %} 
-{% if erro %}
-<div class="alert alert-primary" role="alert">{{ erro }}</div>
-{% endif %}
 
-<div class="produtos">
+<link href="/static/home.css" rel="stylesheet"/>
+
+<script src="./static/home.js"  defer></script>
+
+  <div class="container-slider">
+    <button id="prev-button"><img src="https://i.imgur.com/LgQ8BaB.png" alt="prev-button"></button>
+    <div class="container-images">
+      <img src="https://i.imgur.com/2IUQbBa.png" alt="magic" class="slider on">
+      <img src="https://i.imgur.com/2luLT8M.png" alt="Ferrari" class="slider">
+      <img src="https://i.imgur.com/xH61khw.png" alt="Pikachu" class="slider">
+      <img src="https://i.imgur.com/yFB6T09.png" alt="Pokemon" class="slider">
+      <img src="https://i.imgur.com/sjddaA9.png" alt="StarWars" class="slider">
+    </div>
+    <button id="next-button"><img src="https://i.imgur.com/LgQ8BaB.png" alt="next-button"></button>
+  </div>
+
+  <div class="produtos">
   {% for produto in produtos %}
   <div class="card" style="width: 18rem">
     <img
@@ -31,4 +44,5 @@
 {% if error_message %}
 <p>{{ error_message }}</p>
 {% endif %} 
+
 {% endblock %}

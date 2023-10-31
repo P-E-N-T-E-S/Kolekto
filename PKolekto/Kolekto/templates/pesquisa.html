@@ -9,21 +9,14 @@
       src="{{ produto.foto1 }}"
       class="card-img-top"
       alt="{{ produto.nome_produto }}"
+      name = "{{ produto.nome_produto }}"
     />
-    <div class="card-body">
-      <h5 class="card-title" style="font-size: 150%; font-weight: bold">
-        {{ produto.nome_produto }}
-      </h5>
-      <p class="card-text" style="font-size: 120%">{{ produto.descricao }}</p>
-      <p class="card-text" style="font-size: 120%">
-        Preço: ${{ produto.preco }}
-      </p>
-      <a href="/{{ nome_loja }}" class="link-primary" style="font-size: 100%"
-        >{{ nome_loja }}</a
-      ><br />
-      <a href="{% url 'pagina_produto' produto.id %}" class="btn btn-primary"
-        >Detalhes</a
-      >
+    <div class="card-body d-flex justify-content-between flex-column" name="{{produto.nome_produto}}">
+      <h5 class="card-title text-start">{{ produto.nome_produto }}</h5>
+      <p class="card-text text-start" style="height: 100px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">{{ produto.descricao }}</p>
+      <p class="card-text text-start" style="font-weight: bold; font-size:28px;">R${{ produto.preco }}</p>
+      <a href="{% url 'pagina_produto' produto.id %}" class="btn btn-primary" name="{{ produto.id }}"
+        >Detalhes</a>
     </div>
   </div>
   {% empty %}
