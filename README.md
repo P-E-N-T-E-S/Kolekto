@@ -40,30 +40,120 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 - **Frontend:** A interface do usuário é desenvolvida utilizando tecnologias como HTML, CSS usando Boostrap.
 - **Organização:** Para nos organizar e seguir os principios de desenvolvimento de software vamos usar o jira: https://pentes.atlassian.net/jira/software/projects/KLK/boards/4
 
+<p>Links Importantes</p>
+<ul>
+  <li>
+    <a  href="https://kolekto.azurewebsites.net/Kolekto/"
+      >Link do Site</a
+    >
+  </li>
+  <li>
+    <a  href="https://docs.google.com/document/d/1p9zjSeGfZ_tuO5J4OwFa8QlAKEKO0YaJRCOkXo4b870/edit?usp=sharing"
+      >Instruções de uso</a
+    >
+  </li>
+  <li>
+    <a  href="https://docs.google.com/document/d/1zw3Q6Y6QbHdDzpf4Eu1U9jx_Ms4kfT1JEyAKVdMWnt8/edit?usp=sharing"
+      >Programação em par</a
+    >
+  </li>
+  <li>
+    <a  href="https://drive.google.com/file/d/1N920ENkea0Z2DfxY9_b8sYHP0fhKI-kb/view?usp=sharing"
+      >Diagrama de Atividades</a
+    >
+  </li>
+</ul>
+
+<p>Entrega 2</p>
+<ul>
+  <li>
+    <a  href="https://youtu.be/gdpRbjAJmQc"
+      >Apresentação do Protótipo</a
+    >
+  </li>
+  <li>
+    <a  href="https://youtu.be/c_LAf2qt6hs"
+      >ScreenCast - Uso do Sistema</a
+    >
+  </li>
+  <li>
+    <a  href="https://docs.google.com/document/d/1zw3Q6Y6QbHdDzpf4Eu1U9jx_Ms4kfT1JEyAKVdMWnt8/edit?usp=sharing"
+      >Programação em par</a
+    >
+  </li>
+  <li>
+    <a  href="https://drive.google.com/file/d/1N920ENkea0Z2DfxY9_b8sYHP0fhKI-kb/view?usp=sharing"
+      >Diagrama de Atividades</a
+    >
+  </li>
+</ul>
+
+<p>Entrega 3</p>
+<ul>
+  <li>
+    <a  href="https://youtu.be/8a6elg7hm6c"
+      >Apresentação do Protótipo</a
+    >
+  </li>
+  <li>
+    <a  href="https://youtu.be/c_LAf2qt6hs"
+      >ScreenCast - Uso do Sistema</a
+    >
+  </li>
+  <li>
+    <a  href="https://docs.google.com/document/d/1zw3Q6Y6QbHdDzpf4Eu1U9jx_Ms4kfT1JEyAKVdMWnt8/edit?usp=sharing"
+      >Programação em par</a
+    >
+  </li>
+  <li>
+    <a  href="https://drive.google.com/file/d/1N920ENkea0Z2DfxY9_b8sYHP0fhKI-kb/view?usp=sharing"
+      >Diagrama de Atividades</a
+    >
+  </li>
+  <li>
+    <a  href="https://youtu.be/SDmNh9oqI5Y"
+      >ScreenCast - Deployment e Build</a
+    >
+  </li>
+  <li>
+    <a  href="https://youtu.be/SDmNh9oqI5Y"
+      >ScreenCast - Testes</a
+    >
+  </li>
+</ul>
+
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/dedb9388-ddd7-497e-bba9-41bfb486e18c)
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/9cc066c0-1f20-4eb2-b912-5e5aaf02fc28)
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/e5b9202b-4cac-4053-8d8b-b12543eebe8d)
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/aa4df3eb-7a02-4cfe-b595-1881bedc7a61)
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/c61f45a9-7844-4574-bafd-a516681bdcc6)
 
-- **Prototipação:** https://www.figma.com/file/jOfywNY7puA1jQq3IbesyK/Kolekto?type=design&node-id=0-1&mode=design&t=yxEkCr1ZZESIiozu-0
-- **Link do vídeo de apresentação do protótipo:**
-   - Entrega 2: https://youtu.be/gdpRbjAJmQc
-   - Entrega 3: https://youtu.be/8a6elg7hm6c
-- **Relato da programação em par:** https://docs.google.com/document/d/1zw3Q6Y6QbHdDzpf4Eu1U9jx_Ms4kfT1JEyAKVdMWnt8/edit?usp=sharing
-- **Diagrama de Atividades:** https://drive.google.com/file/d/1N920ENkea0Z2DfxY9_b8sYHP0fhKI-kb/view?usp=sharing
-- **Apresentação do screencast do uso do sistema**: https://youtu.be/c_LAf2qt6hs
-- **Link do Site**: https://kolekto.azurewebsites.net/Kolekto/
-- **Instruções de uso**: https://docs.google.com/document/d/1p9zjSeGfZ_tuO5J4OwFa8QlAKEKO0YaJRCOkXo4b870/edit?usp=sharing
-
 ## 🤝 Membros
 
-- Thomaz R. Lima
-- Evaldo G. Filho
-- Pedro S. Souza
-- Luiz Eduardo Brayner
-- André Fonseca
-- Sofia Saraiva
+<ul>
+  <li>
+    <a href="https://github.com/Thomazrlima">Thomaz Lima</a> -
+    trl@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://github.com/hsspedro">Pedro Henrique Silva</a> -
+    phss@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://github.com/Sofia-Saraiva">Sofia Saraiva</a> -
+    spscl@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://github.com/Luiz-Edu0202">Luiz Eduardo Bryner</a> -
+    elab@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://github.com/Nerebo">André Goes</a> - algcf@cesar.school 📩
+  </li>
+  <li>
+    <a href="https://github.com/evaldocunhaf">Evaldo Galdino</a> - egcf@cesar.school 📩
+  </li>
+</ul>
   
 <table>
   <tr>
