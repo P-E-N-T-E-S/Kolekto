@@ -6,10 +6,10 @@
             <form action="" method="POST" class="form-denuncia">
                 {% csrf_token %}
                 <label style="font-size: 25px;">Motivo da denuncia</label> <br>
-            <input type="radio" name="motivo" value="Produto não entregue ou não conforme"/> Produto não entregue ou não conforme <br>
-            <input type="radio" name="motivo" value="Vendedor fraudulento ou não confiável" /> Vendedor fraudulento ou não confiável <br>
-            <input type="radio" name="motivo" value="Comportamento inadequado do vendedor" /> Comportamento inadequado do vendedor <br>
-            <input type="radio" name="motivo" value="Outro" /> Outro <br>
+            <input type="radio" name="motivo" id="pcalunia" value="Produto não entregue ou não conforme"/> Produto não entregue ou não conforme <br>
+            <input type="radio" name="motivo" id="vfraude" value="Vendedor fraudulento ou não confiável" /> Vendedor fraudulento ou não confiável <br>
+            <input type="radio" name="motivo" id="cvendedor" value="Comportamento inadequado do vendedor" /> Comportamento inadequado do vendedor <br>
+            <input type="radio" name="motivo" id="outro" value="Outro" /> Outro <br>
             <input type="text" class="center-block" name="detalhes" style="left: 25%; right: 25%; width: 500px; height: 100px;"> </input> <br>
             <button type="submit" class="btn btn-danger" style="margin-top: 10px;"> Enviar denuncia </button>
         </form>

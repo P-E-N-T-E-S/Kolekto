@@ -1,4 +1,4 @@
-from selenium_setup import setup_selenium, finalizar_selenium
+'''from selenium_setup import setup_selenium, finalizar_selenium
 from django.test import LiveServerTestCase
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -46,7 +46,7 @@ class Historia7(LiveServerTestCase):
                 enviar = driver.find_element(by=By.NAME, value="criar")
 
                 nascimento.send_keys("29082003")
-                cidade.send_keys("Recife")
+                cidade.send_keys("Rio Branco")
                 cpf.send_keys("222.333.444-55")
                 nome_loja.send_keys("Records")
                 imgperfil.send_keys("https://i.imgur.com/7i6SwKD.jpeg")
@@ -184,11 +184,27 @@ class Historia7(LiveServerTestCase):
     def test_001_cenario1(self):
         driver = setup_selenium()
         driver.get("http://127.0.0.1:8000/")
-        barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
-        barra_de_pesquisa.send_keys("Mega Mewtwo")
-        barra_de_pesquisa.send_keys(Keys.ENTER)
-        produto = driver.find_element(by=By.NAME, value="megawtwo")
-        produto.find_element(by=By.CLASS_NAME, value="btn btn-primary").click()
-        driver.find_element(by=By.PARTIAL_LINK_TEXT, value="/lolja").click()
-        driver.find_element(by=By.CLASS_NAME, value="btn btn-warning").click()
-        driver.find_element(by=By.)
+
+        usuario = driver.find_element(by=By.NAME, value="username")
+        senha = driver.find_element(by=By.NAME, value="senha")
+        enviar = driver.find_element(by=By.NAME, value="Logar")
+
+        usuario.send_keys("Teste30")
+        senha.send_keys("Teste12345")
+        time.sleep(segundos)
+        enviar.send_keys(Keys.ENTER)
+        time.sleep(segundos)
+
+        driver.get("http://127.0.0.1:8000/Records/")
+
+        botao = driver.find_element(by=By.ID, value="Denuncia")
+        botao.click()
+
+        motivo = driver.find_element(by=By.ID, value="pcalunia")
+        descricao = driver.find_element(by=By.NAME, value="detalhes")
+
+        motivo.click()
+        descricao.send_keys("Vacilou muito esse vendedor")'''
+
+
+
