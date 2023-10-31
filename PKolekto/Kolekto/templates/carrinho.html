@@ -112,7 +112,7 @@
         <td>
           <button class="qntd_botao" data-max="{{ item.qntd }}" data-product-id="{{ item.id }}">-</button>
           <input style="width: 50px; font-size: 20px;" type="number" id="qntd{{ item.id }}" name="qntd" min="1" max="{{ item.qntd }}" value="1" disabled>
-          <button class="qntd_botao" data-max="{{ item.qntd }}" data-product-id="{{ item.id }}">+</button>
+          <button class="qntd_botao" data-max="{{ item.qntd }}" data-product-id="{{ item.id }}" id="addQntd">+</button>
         </td>
         <td><a href="{% url 'pagina_produto' item.id %}" class="btn btn-primary">Detalhes</a></td>
         <td><button id="removerCarrinho" class="btn btn-lg mx-1 btn-danger" onclick="rem_carrinho('{{ item.id }}')">
@@ -120,7 +120,7 @@
           </button></td>
       </tr>
       {% empty %}
-      <h4>Nenhum item disponível.</h4>
+      <h4 id='mensagem_carrinho_vazio'>Seu carrinho está vazio.</h4>
       {% endfor %}
     </tbody>
   </table>

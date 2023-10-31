@@ -150,7 +150,7 @@ class Historia4(LiveServerTestCase):
         driver.get("http://127.0.0.1:8000/nova_loja")
         self.assertEquals(
             driver.title,
-            "Login"
+            "Kolekto: Login"
         )
 
     def teste_004_cenario4(self):

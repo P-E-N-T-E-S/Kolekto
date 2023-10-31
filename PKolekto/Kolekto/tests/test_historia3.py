@@ -126,7 +126,7 @@ class Historia3(LiveServerTestCase):
         time.sleep(segundos)
         self.assertEquals(
             driver.title,
-            "Login"
+            "Kolekto: Login"
         )
 
     def test_003_cenario3(self):

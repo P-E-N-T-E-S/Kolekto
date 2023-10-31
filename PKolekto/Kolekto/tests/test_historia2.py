@@ -159,5 +159,5 @@ class Historia2(LiveServerTestCase):
         driver.get("http://127.0.0.1:8000/add_produto")
         self.assertEquals(
             driver.title,
-            "Login"
+            "Kolekto: Criar loja"
         )
