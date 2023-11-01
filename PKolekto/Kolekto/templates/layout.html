@@ -107,18 +107,41 @@
             <li class="nav-item">
               <a class="nav-link" href="/minha_loja" name="MLoja"><i class="fa-solid fa-shop"></i>  Minha Loja</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/add_produto"><i class="fa fa-plus" aria-hidden="true"></i>  Anunciar produto</a>
-            </li>
             {% endif %} {% if user.is_authenticated and not temloja %}
             <li class="nav-item">
-              <a class="nav-link" href="/nova_loja">Criar loja</a>
+              <a class="nav-link" href="/nova_loja"><i class="fa-solid fa-shop"></i>  Criar loja</a>
             </li>
             {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'carrinho' %}"><i class="fa-solid fa-cart-shopping"></i>  Carrinho</a>
             </li>
-            {% if user.is_authenticated %}
+            {% if user.is_authenticated  and temloja%}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ user.username }} 
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" id="avatar-dropdown">
+                <li>
+                  <a class="dropdown-item" href="{% url 'lista_desejos' %}"><i class="fa-solid fa-heart"></i>  Lista de Desejos</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" name="Categorias"><i class="fa-solid fa-bookmark"></i>  Suas categorias</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" name="Historico"><i class="fas fa-history"></i>  Histórico de compras</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/add_produto" name="Historico"><i class="fa fa-plus" aria-hidden="true"></i>  Anunciar produto</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" name="Configuracao"><i class="fa-solid fa-gear"></i>  Configurações</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>  Sair</a>
+                </li>
+              </ul>
+            </li>
+            {% elif user.is_authenticated and not temloja %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ user.username }} 
