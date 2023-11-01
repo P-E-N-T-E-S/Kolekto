@@ -19,7 +19,7 @@ Bem-vindo ao repositório do projeto Kolekto! Este é um aplicativo desenvolvido
 
 <p float="left">
 
-<img align="right" width="100" src="https://i.imgur.com/XbZUY01.png" />
+<img align="right" width="120" src="https://i.imgur.com/rfOkMw2.png" />
 
 O Kolekto é uma plataforma que conecta compradores e vendedores de produtos colecionáveis, como quadrinhos, cards, brinquedos e outros itens de valor sentimental. O aplicativo oferece recursos que simplificam o processo de encontrar, adquirir e vender itens colecionáveis, enquanto cria uma comunidade vibrante de colecionadores.
 
@@ -50,6 +50,11 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
     <li>
     <a  href="https://pentes.atlassian.net/jira/software/projects/KLK/boards/4"
       >Link do Jira</a
+    >
+  </li>
+  <li>
+    <a  href="https://www.figma.com/file/jOfywNY7puA1jQq3IbesyK/Kolekto?type=design&mode=design&t=2AXCB4lptkEGHmMU-0"
+      >Protótipo no Figma</a
     >
   </li>
   <li>
@@ -91,6 +96,11 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
       >Diagrama de Atividades</a
     >
   </li>
+  <li>
+    <a  href="https://www.figma.com/file/jOfywNY7puA1jQq3IbesyK/Kolekto?type=design&mode=design&t=2AXCB4lptkEGHmMU-0"
+      >Protótipo no Figma</a
+    >
+  </li>
 </ul>
 
 <p>Entrega 3</p>
@@ -98,6 +108,11 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
   <li>
     <a  href="https://youtu.be/8a6elg7hm6c"
       >Apresentação do Protótipo</a
+    >
+  </li>
+  <li>
+    <a  href="https://www.figma.com/file/jOfywNY7puA1jQq3IbesyK/Kolekto?type=design&mode=design&t=2AXCB4lptkEGHmMU-0"
+      >Protótipo no Figma</a
     >
   </li>
   <li>
