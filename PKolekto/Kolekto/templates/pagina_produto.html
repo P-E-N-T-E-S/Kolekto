@@ -2,13 +2,11 @@
 {% block main %}
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
 
 *{
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
 }
 body{
 
@@ -18,10 +16,7 @@ body{
     max-width: 1100px;
     margin: 0 auto;
 }
-img{
-    width: 100%;
-    display: block;
-}
+
 .img-display{
     overflow: hidden;
 }
@@ -223,14 +218,15 @@ img{
   border-radius: 50%;
 }
 </style>
-    
+  
+<div class="container-fluid py-5">
 <div class = "card-wrapper">
   <div class = "card">
     <!-- card left -->
     <div class = "product-imgs">
       <div class = "img-display">
         <div class = "img-showcase">
-          <img src = "{{ foto1 }}">
+          <img style="width: 100%; display: block;" src = "{{ foto1 }}">
         </div>
       </div>
     </div>
@@ -321,6 +317,7 @@ img{
       </div>
     </div>
   </div>
+</div>
 </div>
 
 
