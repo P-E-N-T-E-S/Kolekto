@@ -11,6 +11,7 @@ body{
     justify-content: center;
     margin-top: 40px;
     margin-right: 40px;  
+    align-items: flex-start;
 }
 .pesquisar{
     display: flex;

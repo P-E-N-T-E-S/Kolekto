@@ -2,13 +2,11 @@
 {% block main %}
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
 
 *{
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
 }
 body{
 
@@ -16,12 +14,10 @@ body{
 }
 .card-wrapper{
     max-width: 1100px;
+    
     margin: 0 auto;
 }
-img{
-    width: 100%;
-    display: block;
-}
+
 .img-display{
     overflow: hidden;
 }
@@ -123,7 +119,6 @@ img{
     margin: 0;
     list-style: none;
     background-size: 18px;
-    padding-left: 1.7rem;
     margin: 0.4rem 0;
     font-weight: 600;
     opacity: 0.9;
@@ -185,7 +180,7 @@ img{
         grid-gap: 1.5rem;
     }
     .card-wrapper{
-        height: 100vh;
+        margin-top: 40px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -207,7 +202,7 @@ img{
 
 .loja a {
   text-decoration: none;
-  color:blue;
+  color: #256eff;
 }
 
 .loja a:hover {
@@ -223,14 +218,14 @@ img{
   border-radius: 50%;
 }
 </style>
-    
+  
 <div class = "card-wrapper">
   <div class = "card">
     <!-- card left -->
     <div class = "product-imgs">
       <div class = "img-display">
         <div class = "img-showcase">
-          <img src = "{{ foto1 }}">
+          <img style="width: 100%; display: block;" src = "{{ foto1 }}">
         </div>
       </div>
     </div>
@@ -238,7 +233,6 @@ img{
     <div class = "product-content">
       <h2 class = "product-title">{{ nome_produto }}</h2>
       <div class = "loja">
-        <img class="perfil" src="{{ foto_loja }}">
         <a href="/{{ nome_loja }}" style="font-size: 140%">{{ nome_loja }}</a>
       </div>
       <div class = "product-rating">
@@ -322,7 +316,6 @@ img{
     </div>
   </div>
 </div>
-
 
 
 <script> 
