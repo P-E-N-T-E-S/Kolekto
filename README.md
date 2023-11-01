@@ -57,6 +57,7 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
       >Protótipo no Figma</a
     >
   </li>
+  <li>
     <a  href="https://docs.google.com/document/d/1p9zjSeGfZ_tuO5J4OwFa8QlAKEKO0YaJRCOkXo4b870/edit?usp=sharing"
       >Instruções de uso</a
     >
