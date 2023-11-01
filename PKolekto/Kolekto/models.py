@@ -41,7 +41,7 @@ class Produto(models.Model):
             ]
     foto1 = models.CharField(max_length=100)
     nome_produto = models.CharField(max_length=100)
-    descricao = models.CharField(max_length=500)
+    descricao = models.TextField(max_length=500)
     categoria = models.CharField(choices=categorias,default=categorias[0],max_length=50)
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     qntd = models.PositiveSmallIntegerField()

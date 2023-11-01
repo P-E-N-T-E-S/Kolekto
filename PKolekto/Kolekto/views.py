@@ -245,7 +245,7 @@ def pagina_produto(request, id_produto):
             "categoria": id_produto.categoria,
             "qntd": id_produto.qntd,
             "nome_loja": nome_loja,
-            "temloja": temloja
+            "temloja": temloja,
         }
 
         return render(request, "pagina_produto.html", context=contexto)

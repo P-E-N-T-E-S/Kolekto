@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 {% block title %} Login {% endblock %}
 {% block main %}
-    <div class=>
+<div class="container-fluid py-5 text-center">
+    <div class="container">
         <div class="text-align-center">
             <form action="" method="POST" class="form-denuncia">
                 {% csrf_token %}
@@ -13,6 +14,6 @@
             <input type="text" class="center-block" name="detalhes" style="left: 25%; right: 25%; width: 500px; height: 100px;"> </input> <br>
             <button type="submit" class="btn btn-danger" style="margin-top: 10px;"> Enviar denuncia </button>
         </form>
-    </body>
-</html>
+    </div>
+</div>
 {% endblock %}
