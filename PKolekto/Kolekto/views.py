@@ -7,7 +7,7 @@ from django.http import Http404, JsonResponse
 from django.db.models import Q
 from django.core.mail import send_mail
 import json
-import utils
+from .utils import *
 
 
 
@@ -97,15 +97,15 @@ def Cadastro_Loja(request):
         associado = usuario
         descricao = request.POST.get("descricao")
 
-        if utils.nomeLojaExiste(nome_loja, errado):
+        if nomeLojaExiste(nome_loja, errado):
             errado = True
             erros["nomedaloja"] = "Já existe uma loja com esse nome."
 
-        if utils.validacaoLinks(banner, errado):
+        if validacaoLinks(banner, errado):
             errado = True
             erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
 
-        if utils.validacaoLinks(perfil, errado):
+        if validacaoLinks(perfil, errado):
             errado = True
             erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
 
