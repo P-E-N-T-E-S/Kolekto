@@ -62,3 +62,15 @@ class Carrinho(models.Model):
 class Denuncia(models.Model):
     motivos = models.CharField
     detalhe = models.CharField
+
+
+class Compra(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    loja = models.ForeignKey(Loja, on_delete=models.CASCADE)
+    data = models.DateTimeField(auto_now_add=True)
+    trasportadora = models.TextField()
+    itens = models.TextField()
+    valor = models.FloatField()
+
+    def __str__(self):
+        return f"{self.loja} - {self.data}"
