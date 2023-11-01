@@ -1,12 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
-from .models import Produto, Loja, ListaDesejos, Carrinho
+from .models import Produto, Loja, ListaDesejos, Carrinho, Compra
 from django.http import Http404, JsonResponse
 from django.db.models import Q
 from django.core.mail import send_mail
 import json
+import utils
 
 
 
@@ -95,14 +96,18 @@ def Cadastro_Loja(request):
         perfil = request.POST.get("perfil")
         associado = usuario
         descricao = request.POST.get("descricao")
-        
-        if Loja.objects.filter(NomeLoja=nome_loja).exists():
-            erros["nomedaloja"] = "Já existe uma loja com esse nome."
-            errado = True
 
-        if banner[-5:-1] != ".jpe" or perfil[-5:-1] != ".jpe":
-            erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
+        if utils.nomeLojaExiste(nome_loja, errado):
             errado = True
+            erros["nomedaloja"] = "Já existe uma loja com esse nome."
+
+        if utils.validacaoLinks(banner, errado):
+            errado = True
+            erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
+
+        if utils.validacaoLinks(perfil, errado):
+            errado = True
+            erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
 
         if errado:
             contexto["erros"] = erros
@@ -344,6 +349,7 @@ def pagina_loja(request, nome_loja):
     else:
         raise Http404("Loja não encontrada")
 
+
 @login_required
 def denuncia(request, nome_loja):
     usuario = request.user
@@ -377,11 +383,7 @@ def denuncia(request, nome_loja):
         "temloja": temloja
     }
 
-
     return render(request, "denuncia.html", context=contexto)
-
-
-
 
 
 @login_required
@@ -434,6 +436,7 @@ def lista_desejos(request):
     
     return render(request, "lista_desejos.html", {"lista": lista})
 
+
 @login_required
 def add_lista_desejos(request):
     produto_id = json.loads(request.body)["produtoId"]
@@ -451,7 +454,6 @@ def add_lista_desejos(request):
         
     return JsonResponse({'mensagem': 'Requisição inválida.'}, status=400)
     
-        
 
 @login_required
 def rem_lista_desejos(request):
@@ -520,7 +522,7 @@ def carrinho(request):
 
     return render(request, "carrinho.html", {"lista": lista})
 
-
+@login_required
 def editar_loja(request, loja):
     usuario = request.user
 
@@ -596,3 +598,50 @@ def editar_loja(request, loja):
                 else:
                     return redirect(minha_loja)
         return render(request, "editLoja.html", context=contexto)
+
+def realizar_compra(request):
+    contexto = dict()
+    usuario = request.user
+    compras = list(usuario.carrinho_set.all())
+    produtos = list()
+    soma = 0
+    for nome in compras:
+        produto = Produto.objects.get(id=nome.produto.id)
+        produtos.append(produto)
+        soma += produto.qntd * produto.preco
+    oplojas = list()
+    for item in produtos:
+        loja = item.loja
+        oplojas.append(loja.NomeLoja)
+    lojas = list(set(oplojas))
+    sepcompras = list(range(len(lojas)))
+    for i in range(len(lojas)):
+        sepcompras[i] = dict()
+        sepcompras[i]["loja"] = lojas[i]
+        sepcompras[i]["produtos"] = [produto for produto in produtos if produto.loja.NomeLoja == lojas[i]]
+        print(sepcompras)
+
+    if request.method == "POST":
+        cpf = request.POST.get("cpf")
+        cidade = request.POST.get("cidade")
+        estado = request.POST.get("estado")
+        endereco = request.POST.get("endereço")
+        complemento = request.POST.get("complemento")
+        transportadora = request.POST.get("transportadora")
+
+        destino = f"{endereco}, {complemento}, {cidade}, {estado}"
+
+        #validações a fazer
+
+        #else:
+        #try:
+            #Compra.objects.create(usuario=usuario, )
+
+    contexto = {
+        "temloja":True,
+        "compras": sepcompras
+    }
+    return render(request, "realcompra.html", context=contexto)
+
+def historico_compras(request):
+    pass
