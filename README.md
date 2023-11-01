@@ -52,6 +52,9 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
       >Link do Jira</a
     >
   </li>
+  <li> 
+        <a  href="https://www.figma.com/file/jOfywNY7puA1jQq3IbesyK/Kolekto?type=design&node-id=0%3A1&mode=design&t=WAiNgMVluPa1D5W7"
+        >Prototipo </a></li>
   <li>
     <a  href="https://docs.google.com/document/d/1p9zjSeGfZ_tuO5J4OwFa8QlAKEKO0YaJRCOkXo4b870/edit?usp=sharing"
       >Instruções de uso</a
