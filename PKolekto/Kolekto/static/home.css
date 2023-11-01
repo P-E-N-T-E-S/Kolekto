@@ -16,7 +16,7 @@
 .container-images {
   position: relative;
   display: flex;
-  width: 85.5%;
+  width: 84.9%;
   align-items: center;
   justify-content: center;
 }
@@ -27,7 +27,7 @@
   position: absolute;
   width: 100%;
   border-radius: 10px;
-  margin-right: 48px;
+  margin-right: 40px;
 }
 
 .on {
