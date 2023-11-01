@@ -19,7 +19,7 @@ Bem-vindo ao repositório do projeto Kolekto! Este é um aplicativo desenvolvido
 
 <p float="left">
 
-<img align="right" width="100" src="https://i.imgur.com/XbZUY01.png" />
+<img align="right" width="120" src="https://i.imgur.com/rfOkMw2.png" />
 
 O Kolekto é uma plataforma que conecta compradores e vendedores de produtos colecionáveis, como quadrinhos, cards, brinquedos e outros itens de valor sentimental. O aplicativo oferece recursos que simplificam o processo de encontrar, adquirir e vender itens colecionáveis, enquanto cria uma comunidade vibrante de colecionadores.
 
