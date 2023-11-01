@@ -199,6 +199,29 @@ img{
         padding-top: 0;
     }
 }
+
+.loja {
+  display: flex;
+  font-size: 0.8rem;
+}
+
+.loja a {
+  text-decoration: none;
+  color:blue;
+}
+
+.loja a:hover {
+  text-decoration: underline;
+}
+
+.perfil {
+  width: 32px;
+  height: 32px;
+  color: #000;
+  border: 1px solid #000;
+  margin: 0 0.2rem;
+  border-radius: 50%;
+}
 </style>
     
 <div class = "card-wrapper">
@@ -214,9 +237,10 @@ img{
     <!-- card right -->
     <div class = "product-content">
       <h2 class = "product-title">{{ nome_produto }}</h2>
-      <a href="/{{ nome_loja }}" class="link-primary" style="font-size: 140%"
-      >{{ nome_loja }}</a
-    >
+      <div class = "loja">
+        <img class="perfil" src="{{ foto_loja }}">
+        <a href="/{{ nome_loja }}" style="font-size: 140%">{{ nome_loja }}</a>
+      </div>
       <div class = "product-rating">
         <i class = "fas fa-star"></i>
         <i class = "fas fa-star"></i>

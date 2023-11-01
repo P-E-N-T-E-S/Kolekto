@@ -32,7 +32,7 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-    <nav class="navbar navbar-expand-lg" style="background-color: #f9efe8">
+    <nav class="navbar navbar-expand-lg" style="background-color: #dcdcdc">
       <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'index' %}"
           >
@@ -89,14 +89,15 @@
           >
             <input
               class="form-control me-2"
+              style="width: 700px;"
               type="search"
               id="nome_pesquisado"
               name="nome_pesquisado"
-              placeholder="Digite um nome"
+              placeholder="Pesquise por produtos, categorias ou lojas"
               value="{{ nome_pesquisado }}"
             />
-            <button class="btn btn-outline-success" type="submit">
-              Pesquisar
+            <button class="btn btn-secondary" type="submit">
+              <i class="fas fa-search"></i>
             </button>
           </form>
         </ul>
@@ -104,16 +105,19 @@
           <ul class="navbar-nav ms-auto">
             {% if temloja %}
             <li class="nav-item">
-              <a class="nav-link" href="/minha_loja" name="MLoja">Minha Loja</a>
+              <a class="nav-link" href="/minha_loja" name="MLoja"><i class="fa-solid fa-shop"></i>  Minha Loja</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/add_produto">Adicionar produto</a>
+              <a class="nav-link" href="/add_produto"><i class="fa fa-plus" aria-hidden="true"></i>  Anunciar produto</a>
             </li>
             {% endif %} {% if user.is_authenticated and not temloja %}
             <li class="nav-item">
               <a class="nav-link" href="/nova_loja">Criar loja</a>
             </li>
             {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'carrinho' %}"><i class="fa-solid fa-cart-shopping"></i></a>
+            </li>
             {% if user.is_authenticated %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -121,13 +125,19 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-end" id="avatar-dropdown">
                 <li>
-                  <a class="dropdown-item" href="{% url 'carrinho' %}"><i class="fa-solid fa-cart-shopping"></i>  Carrinho</a>
-                </li>
-                <li>
                   <a class="dropdown-item" href="{% url 'lista_desejos' %}"><i class="fa-solid fa-heart"></i>  Lista de Desejos</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="{% url 'logout' %}">Sair</a>
+                  <a class="dropdown-item" href="#" name="Categorias"><i class="fa-solid fa-bookmark"></i>  Suas categorias</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" name="Historico"><i class="fas fa-history"></i>  Histórico de compras</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" name="Configuracao"><i class="fa-solid fa-gear"></i>  Configurações</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>  Sair</a>
                 </li>
               </ul>
             </li>
@@ -139,11 +149,11 @@
         </ul>
       </div>
     </nav>
-    <main>
+    <main style="background-color: f5f5f5">
       {% block main %} {% endblock %}
     </main>
 
-    <footer class="border-top fixed-bottom text-muted" style="background-color: #f9efe8">
+    <footer class="border-top fixed-bottom text-muted" style="background-color: #dcdcdc">
       <div class="container">
         <div class="row py-1">
           <div class="text-center">

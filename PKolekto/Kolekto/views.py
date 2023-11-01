@@ -233,6 +233,7 @@ def pagina_produto(request, id_produto):
     
     loja = id_produto.loja
     nome_loja = loja.NomeLoja
+    foto_loja = loja.Perfil
     if id_produto is not None:
         contexto = {
             "lista_existente":lista_existente,
@@ -246,6 +247,7 @@ def pagina_produto(request, id_produto):
             "qntd": id_produto.qntd,
             "nome_loja": nome_loja,
             "temloja": temloja,
+            "foto_loja": foto_loja
         }
 
         return render(request, "pagina_produto.html", context=contexto)
