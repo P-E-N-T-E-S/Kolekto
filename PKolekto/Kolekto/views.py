@@ -702,8 +702,8 @@ def realizar_compra(request):
                     "transportadora": transportadora
                 }
                 return render(request, "realcompra.html", context=contexto)
-    else:
-        return redirect(historico_compras)
+            else:
+                return redirect(historico_compras)
     contexto = {
         "temloja": temloja,
         "compras": sepcompras,

@@ -87,6 +87,35 @@
   #removerCarrinho:hover {
     background-color: #cc0000;
   }
+
+  .total-price{
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .total-price table{
+    border-top: 3px solid #ff523b;
+    width: 100%;
+    max-width: 350px;
+  }
+
+  .btn-link {
+    text-decoration: none; /* Remove o sublinhado */
+    display: inline-block; /* Torna o link um bloco inline como um botão */
+    padding: 10px 20px; /* Adapte o padding ao seu gosto */
+    background-color: #28a745; /* Cor de fundo do botão */
+    color: #fff; /* Cor do texto do botão */
+    font-size: 140%; /* Tamanho da fonte do texto */
+    float: right;
+    border: none; /* Remove a borda padrão do link */
+    border-radius: 5px; /* Adicione cantos arredondados ao botão */
+    cursor: pointer; /* Transforma o cursor em uma mão ao passar o mouse */
+  }
+  
+  .btn-link:hover {
+    background-color: #218838; /* Cor de fundo do botão ao passar o mouse */
+  }
+
 </style>
 
 <div class="container-fluid py-5 text-center">
@@ -125,7 +154,13 @@
       {% endfor %}
     </tbody>
   </table>
+
   <p style="font-weight: bold; font-size: 20px; margin-top: 20px;" id="total">Total: R${{ soma }}</p>
+
+  <a href="realizar_compra" class="btn-link">
+    Comprar
+  </a>
+
 </section>
 </div>
 

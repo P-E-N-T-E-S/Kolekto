@@ -63,10 +63,28 @@
   #removerCarrinho:hover {
     background-color: #cc0000;
   }
+
+  .btn-link {
+    text-decoration: none; /* Remove o sublinhado */
+    display: inline-block; /* Torna o link um bloco inline como um botão */
+    padding: 10px 20px; /* Adapte o padding ao seu gosto */
+    background-color: #28a745; /* Cor de fundo do botão */
+    color: #fff; /* Cor do texto do botão */
+    font-size: 140%; /* Tamanho da fonte do texto */
+    float: right;
+    border: none; /* Remove a borda padrão do link */
+    border-radius: 5px; /* Adicione cantos arredondados ao botão */
+    cursor: pointer; /* Transforma o cursor em uma mão ao passar o mouse */
+  }
+  
+  .btn-link:hover {
+    background-color: #218838; /* Cor de fundo do botão ao passar o mouse */
+  }
+
 </style>
 
 <div class="container-fluid py-5 text-center">
-<h1 class="text-start" style="margin-left: 200px;">Minha compra:</h1>
+<h1 class="text-start" style="margin-left: 200px;">Revisar Itens:</h1>
 
 
 <section id="wish-container" class="container my-5">
@@ -74,11 +92,7 @@
       {%for loja in compras%}
       <thead>
       <tr>
-          <td style="font-size: 20px;"></td>
           <td style="font-size: 20px;">{{ loja.loja }}</td>
-          <td style="font-size: 20px;"></td>
-          <td style="font-size: 20px;"></td>
-          <td style="font-size: 20px;"></td>
       </tr>
       </thead>
     <thead>
@@ -123,5 +137,142 @@
     location.reload();
   }
 </script>
+
+<div class="container-fluid py-5 text-center">
+  <div class="container">
+    <form
+      method="POST"
+      enctype="multipart/form-data"
+    >
+    <div class="row row-cols-2">
+    <fieldset disabled>
+      <div class="col-md-6">
+        <label for="nome_vendedor" class="form-label">Nome completo</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nome_vendedor"
+          placeholder="{{ nome_vendedor }}"
+        />
+      </div>
+    </fieldset>
+    <div class="col-md-6">
+      <label class="form-label">Selecione seu estado</label>
+      <br />
+      <div style="padding-left: -5%">
+        <select
+          class="form-select form-select-lg mb-3 pb-0"
+          name="estado"
+          style="padding-right: 80%"
+        >
+          {% if cidade %}
+          <option value="">Escolha seu estado novamente</option>
+          {% endif %}
+          <option value="ac">AC</option>
+          <option value="al">AL</option>
+          <option value="ap">AP</option>
+          <option value="am">AM</option>
+          <option value="ba">BA</option>
+          <option value="ce">CE</option>
+          <option value="es">ES</option>
+          <option value="go">GO</option>
+          <option value="ma">MA</option>
+          <option value="mt">MT</option>
+          <option value="ms">MS</option>
+          <option value="mg">MG</option>
+          <option value="pb">PB</option>
+          <option value="pr">PR</option>
+          <option value="pe">PE</option>
+          <option value="pi">PI</option>
+          <option value="rj">RJ</option>
+          <option value="rn">RN</option>
+          <option value="rs">RS</option>
+          <option value="ro">RO</option>
+          <option value="rr">RR</option>
+          <option value="sc">SC</option>
+          <option value="sp">SP</option>
+          <option value="se">SE</option>
+          <option value="to">TO</option>
+          <option value="df">DF</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label for="cidade" class="form-label">Digite sua cidade</label>
+      <input
+        type="text"
+        class="form-control"
+        id="cidade"
+        name="cidade"
+        value="{{ cidade }}"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="nome_loja" class="form-label"
+        >Digite seu Endereço</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="endereco"
+        name="endereco"
+        value="{{endereco}}"
+      />
+    </div>
+    <div class="col-md-6">
+      <label for="perfil" class="form-label">Informe o Complemento</label>
+      <input
+        type="text"
+        class="form-control"
+        id="complemento"
+        aria-describedby="complemento"
+        name="complemento"
+        value="{{ complemento }}"
+      />
+    </div>
+
+    <div class="col-md-6">
+      <label for="cpf" class="form-label">Informe o seu CPF</label>
+      <input
+        type="text"
+        class="form-control"
+        id="cpf"
+        aria-describedby="cpf_"
+        name="cpf"
+        value="{{ cpf }}"
+      />
+      <div id="cpf_" class="form_text">Ex: 999.999.999-99</div>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label">Selecione a Transportadora</label>
+      <br />
+      <div>
+        <select
+          class="form-select form-select-lg mb-3 pb-0"
+          name="transportadora"
+          id="transportadora"
+          style="padding-right: 80%"
+        >
+          <option value="PAC">PAC 15,00 R$ 7-15 dias</option>
+          <option value="Sedex">Sedex 18,00 R$ 5-12 dias</option>
+          <option value="Fedex">Fedex 23,00 R$ 4-10 dias</option>
+          <option value="BPM">BPM 25,00 R$ 4-10 dias</option>
+          <option value="Bertolini">Bertolini 25,00 R$ 4-10 dias</option>
+          <option value="GFL">GFL 30,00 R$ 1-5 dias</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end w-100">
+
+    <a href="historico_de_compra" class="btn-link">
+      Finalizar Compra
+    </a>
+
+  </div>
+  </form>
+  </div>
 
 {% endblock %}
