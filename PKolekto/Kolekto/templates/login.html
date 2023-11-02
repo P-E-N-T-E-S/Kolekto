@@ -10,13 +10,20 @@
     font-family: "Poppins", sans-serif;
   }
   
-  body{
+  .corpo{
     display: flex;
     justify-content: center;
     align-items: center;
     min-width: 100vh;
-    background: palevioletred;
   }
+
+  .center-wrapper {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    height: 70vh; /* Define a altura para ocupar a altura da janela */
+  }
+  
 
   .wrapper{
     width: 420px;
@@ -24,7 +31,7 @@
     border: 2px solid rgba(255, 255, 255, .2);
     backdrop-filter: blur(20px);
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-    color: #fff;
+    color: #000000;
     border-radius: 10px;
     padding: 30px 40px;
   }
@@ -47,15 +54,15 @@
     background: transparent;
     border: none;
     outline: none;
-    border: 2px solid rgba(255, 255, 255, .2);
+    border: 2px solid #dcdcdc;
     border-radius: 40px;
     font-size: 16px;
-    color: #fff;
+    color: #000000;
     padding: 20px 45px 20px 20px;
   }
 
   .input-box input::placeholder{
-    color: #fff;
+    color: #000000;
   }
 
   .input-box i{ 
@@ -76,7 +83,7 @@
   .wrapper .btn {
     width: 100%;
     height: 45px;
-    background-color: #fff;
+    background-color: #ff7420;
     border: none;
     outline: none;
     border-radius: 40px;
@@ -91,8 +98,8 @@
     margin: 20px 0 15px;
   }
 
-  .register-link p a{
-    color: #fff;
+  .register-link a{
+    color: #000000;
     text-decoration: none;
     font-size: 600;
   }
@@ -101,9 +108,16 @@
     text-decoration: underline;
   }
 
+  .erro {
+    font-size: medium;
+    color: red;
+  }
+
 </style>
 
+<div class="corpo">
 <div class="container-fluid py-5 text-center">
+  <div class="center-wrapper">
   <div class="wrapper">
     <form action="" method="post">
       {% csrf_token %}
@@ -136,16 +150,22 @@
         </label>
       </div>
 
+      {% if erro %}
+      <p class="erro">{{ erro }}</p>
+      {% endif %}
+
       <button 
       type="submit" 
       class="btn"
       name="Logar"
-      >Login</button>
+      >Entrar</button>
 
       <div class="register-link">
-        <p>Ainda não possui uma conta? <a href="{% url 'registro' %}">Registre-se</a></p>
+        <a href="{% url 'registro' %}">Ainda não possui uma conta? Registre-se</a>
       </div>
 
     </form>
   </div>
+  </div>
+</div>
 {% endblock %}
