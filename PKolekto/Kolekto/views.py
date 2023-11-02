@@ -109,6 +109,10 @@ def Cadastro_Loja(request):
             errado = True
             erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
 
+        if validar_cpf(cpf, errado):
+            errado = True
+            erros["cpferrado"] = "digite o cpf corretamente"
+
         if errado:
             contexto["erros"] = erros
             contexto["data_nascimento"] = data_nascimento
@@ -556,13 +560,23 @@ def editar_loja(request, loja):
             perfil = request.POST.get("perfil")
             descricao = request.POST.get("descricao")
 
-            if Loja.objects.filter(NomeLoja=nome_loja).exists():
+            if nomeLojaExiste(nome_loja, errado):
+                errado = True
                 erros["nomedaloja"] = "Já existe uma loja com esse nome."
-                errado = True
 
-            if not ((banner[-5:-1] == ".jpe" or perfil[-5:-1] == ".jpe") or (banner[-5:-1] == ".jp" or perfil[-5:-1] == ".jp")):
-                erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
+            if validacaoLinks(banner, errado):
                 errado = True
+                erros[
+                    "urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
+
+            if validacaoLinks(perfil, errado):
+                errado = True
+                erros[
+                    "urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
+
+            if validar_cpf(cpf, errado):
+                errado = True
+                erros["cpferrado"] = "digite o cpf corretamente"
 
             if errado:
                 contexto["erros"] = erros
@@ -600,7 +614,14 @@ def editar_loja(request, loja):
         return render(request, "editLoja.html", context=contexto)
 
 def realizar_compra(request):
-    contexto = dict()
+    usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
     usuario = request.user
     compras = list(usuario.carrinho_set.all())
     produtos = list()
@@ -608,7 +629,7 @@ def realizar_compra(request):
     for nome in compras:
         produto = Produto.objects.get(id=nome.produto.id)
         produtos.append(produto)
-        soma += produto.qntd * produto.preco
+        soma += nome.quantidade * produto.preco
     oplojas = list()
     for item in produtos:
         loja = item.loja
@@ -631,17 +652,78 @@ def realizar_compra(request):
 
         destino = f"{endereco}, {complemento}, {cidade}, {estado}"
 
-        #validações a fazer
+        erros = dict()
 
-        #else:
-        #try:
-            #Compra.objects.create(usuario=usuario, )
+        errado = False
 
+        if validar_cpf(cpf, errado):
+            errado = True
+            erros["cpferrado"] = "digite o cpf corretamente"
+
+
+        if errado:
+            contexto = {
+                "temloja": temloja,
+                "erros": erros,
+                "compras": sepcompras,
+                "valormax": soma,
+                "cpf": cpf,
+                "cidade": cidade,
+                "estado": estado,
+                "endereco": endereco,
+                "complemento": complemento,
+                "transportadora":transportadora
+            }
+            return render(request, "realcompra.html", context=contexto)
+        else:
+            try:
+                for nomeloja in oplojas:
+                    loja = Loja.objects.get(NomeLoja=nomeloja)
+                    for opcao in sepcompras:
+                        if opcao["loja"] == loja.NomeLoja:
+                            compra = ''
+                            for itens in opcao["produtos"]:
+                                quantidade = usuario.carrinho_set.filter(produto=itens)
+                                compra += f"{itens.nome_produto};{quantidade.quantidade}"
+                Compra.objects.create(usuario=usuario, loja=loja, transportadora=transportadora,
+                                      destinatario=destino, valor=soma, itens=compra)
+            except:
+                erros["invalido"] = "preencha os valores corretamente"
+                contexto = {
+                    "temloja": temloja,
+                    "erros": erros,
+                    "compras": sepcompras,
+                    "valormax": soma,
+                    "cpf": cpf,
+                    "cidade": cidade,
+                    "estado": estado,
+                    "endereco": endereco,
+                    "complemento": complemento,
+                    "transportadora": transportadora
+                }
+                return render(request, "realcompra.html", context=contexto)
+    else:
+        return redirect(historico_compras)
     contexto = {
-        "temloja":True,
-        "compras": sepcompras
+        "temloja": temloja,
+        "compras": sepcompras,
+        "valormax": soma
     }
     return render(request, "realcompra.html", context=contexto)
 
 def historico_compras(request):
-    pass
+    usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
+
+    compras = list(Compra.objects.filter(usuario=usuario))
+    contexto = {
+        "temloja": temloja,
+        "compras": compras
+    }
+    return render(request, "historico_compras.html", context=contexto)
