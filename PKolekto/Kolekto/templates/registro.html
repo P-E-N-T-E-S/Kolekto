@@ -1,75 +1,165 @@
 {% extends "layout.html" %}
-{% block title %} Registro {% endblock %} 
 {% block main %}
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<style>
+  a {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100vh;
+    background: palevioletred;
+  }
+
+  .wrapper{
+    width: 420px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px;
+  }
+
+  .wrapper h1{
+    font-size: 36px;
+    text-align: center;
+  }
+
+  .wrapper .input-box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+  }
+
+  .input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
+  }
+
+  .input-box input::placeholder{
+    color: #fff;
+  }
+
+  .input-box i{ 
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+  }
+
+  .wrapper .remember-forgot{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+  }
+
+  .wrapper .btn {
+    width: 100%;
+    height: 45px;
+    background-color: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 010px rgba(0, 0, 0, .1);
+    cursor: #333;
+    font-weight: 600;
+  }
+
+  .wrapper .register-link{
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+  }
+
+  .register-link p a{
+    color: #fff;
+    text-decoration: none;
+    font-size: 600;
+  }
+
+  .register-link{
+    text-decoration: underline;
+  }
+
+</style>
+
 <div class="container-fluid py-5 text-center">
-<div class="container">
-  <div class="row justify-content-center align-items-center" style="height: 100%;">
-    <div class="col-md-6">
-      <h1>Registro:</h1>
-      {% if erro %}
-      <div class="alert alert-primary" role="alert">
-        {{ erro }}
+  <div class="wrapper">
+    <form action="" method="post">
+      {% csrf_token %}
+      <h1>Registro<h1>
+
+      <div class="input-box">
+        <input 
+        type="text" 
+        placeholder="Usuário" 
+        id="username"
+        name="username"
+        value="{{username}}"
+        required>
+        <i class='bx bx-user'></i>
       </div>
-      {% endif %}
-      <form method="post">
-        {% csrf_token %}
-        <div class="mb-3">
-          <label for="username" class="form-label">Nome de Usuário:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="username"
-            name="username"
-            value="{{username}}"
-            required
-          />
-        </div>
 
-        <div class="mb-3">
-          <label for="nome" class="form-label">Nome Completo:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="nome"
-            name="nome"
-            value="{{nome}}"
-            required
-          />
-        </div>
+      <div class="input-box">
+        <input type="text"
+        placeholder="Nome Completo"
+        id="nome"
+        name="nome"
+        value="{{nome}}"
+        required>
+        <i class='bx bxs-rename' ></i>
+      </div>
 
-        <div class="mb-3">
-          <label for="email" class="form-label">Email:</label>
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            name="email"
-            value="{{email}}"
-            required
-          />
-        </div>
+      <div class="input-box">
+        <input type="email"
+        placeholder="Email"
+        id="email"
+        name="email"
+        value="{{email}}"
+        required>
+        <i class='bx bxs-envelope' ></i>
+      </div>
 
-        <div class="mb-3">
-          <label for="password" class="form-label">Senha:</label>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            name="senha"
-            value="{{senha}}"
-            required
-          />
-        </div>
+      <div class="input-box">
+        <input type="password"
+        placeholder="Senha"
+        id="password"
+        name="senha"
+        value="{{senha}}"
+        required>
+        <i class='bx bxs-lock-alt' ></i>
+      </div>
 
-        <button type="submit" class="btn btn-primary" name="registro">Registrar</button>
-      </form>
+      <button 
+      type="submit" 
+      class="btn"
+      name="Logar"
+      >Registrar</button>
 
-      <p>
-        <br />
-        Já possui uma conta? <a href="{% url 'login' %}">Faça login aqui</a>
-      </p>
-    </div>
+      <div class="register-link">
+        <p>Já possui uma conta? <a href="{% url 'login' %}">Faça login aqui</a></p>
+      </div>
+
+    </form>
   </div>
-</div>
-</div>
 {% endblock %}
