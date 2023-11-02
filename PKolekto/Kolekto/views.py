@@ -726,4 +726,4 @@ def historico_compras(request):
         "temloja": temloja,
         "compras": compras
     }
-    return render(request, "historico_compras.html", context=contexto)
+    return HttpResponse("WIP")
