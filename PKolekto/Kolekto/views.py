@@ -685,6 +685,7 @@ def realizar_compra(request):
                             for itens in opcao["produtos"]:
                                 quantidade = usuario.carrinho_set.filter(produto=itens)
                                 compra += f"{itens.nome_produto};{quantidade.quantidade}"
+                                quantidade.delete()
                 Compra.objects.create(usuario=usuario, loja=loja, transportadora=transportadora,
                                       destinatario=destino, valor=soma, itens=compra)
             except:
