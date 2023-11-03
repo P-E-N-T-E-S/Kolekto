@@ -39,3 +39,10 @@ def validar_cpf(cpf, validacao):
             return True
     else:
         return True
+
+
+def valida_senha(senha, request):
+    if senha == request.user.password:
+        return True
+    else:
+        return False

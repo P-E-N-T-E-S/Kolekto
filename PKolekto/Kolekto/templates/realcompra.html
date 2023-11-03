@@ -239,26 +239,26 @@
               <div class="input-group">
                   <div class="input-box">
                       <label for="nome">Nome para entrega <i class='bx bx-edit-alt'></i></label>
-                      <input id="nome" type="text" name="nome" placeholder="Digite seu nome" required>
+                      <input id="nome" type="text" name="nome" placeholder="Digite seu nome" value="{{ nome }}" required>
                   </div>
 
                   <div class="input-box">
                       <label for="Cidade">Cidade <i class='bx bx-map-alt' ></i></label>
-                      <input id="cidade" type="text" name="cidade" placeholder="Cidade-Estado" required>
+                      <input id="cidade" type="text" name="cidade" placeholder="Cidade-Estado" value="{{ cidade }}" required>
                   </div>
                   <div class="input-box">
                       <label for="Rua/Avenida">Rua/Avenida <i class='bx bx-map-pin' ></i></label>
-                      <input id="endereço" type="text" name="endereço" placeholder="Informe seu endereço" required>
+                      <input id="Rua/Avenida" type="text" name="endereço" placeholder="Informe seu endereço" value="{{ endereco }}" required>
                   </div>
 
                   <div class="input-box">
-                      <label for="Complemento">Complemento <i class='bx bx-street-view' ></i></label>
-                      <input id="Complemento" type="Complemento" name="Complemento" placeholder="Complemento" required>
+                      <label for="Complemento">Numero/Complemento <i class='bx bx-street-view' ></i></label>
+                      <input id="Complemento" type="Complemento" name="Complemento" placeholder="Complemento" value="{{ complemento }}" required>
                   </div>
 
                   <div class="input-box">
                       <label for="CPF">CPF <i class='bx bxs-file-doc' ></i></label>
-                      <input id="CPF" type="text" name="CPF" placeholder="Ex: xxx.xxx.xxx-xx" required>
+                      <input id="CPF" type="text" name="CPF" placeholder="Ex: xxx.xxx.xxx-xx" value="{{ cpf }}" required>
                   </div>
 
 
@@ -276,22 +276,22 @@
 
                   <div class="Transportadora-group">
                       <div class="Transportadora-input">
-                          <input id="PAC" type="radio" name="Transportadora">
+                          <input id="PAC" type="radio" name="Transportadora" value="PAC">
                           <label for="PAC">PAC</label>
                       </div>
 
                       <div class="Transportadora-input">
-                          <input id="Sedex" type="radio" name="Transportadora">
+                          <input id="Sedex" type="radio" name="Transportadora" value="Sedex">
                           <label for="Sedex">Sedex</label>
                       </div>
 
                       <div class="Transportadora-input">
-                          <input id="Fedex" type="radio" name="Transportadora">
+                          <input id="Fedex" type="radio" name="Transportadora" value="Fedex">
                           <label for="Fedex">Fedex</label>
                       </div>
 
                       <div class="Transportadora-input">
-                          <input id="Bertolini" type="radio" name="Transportadora">
+                          <input id="Bertolini" type="radio" name="Transportadora" value="Bertolini">
                           <label for="Bertolini">Prefiro não dizer</label>
                       </div>
                   </div>
