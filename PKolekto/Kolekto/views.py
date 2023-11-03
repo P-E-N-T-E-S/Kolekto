@@ -92,7 +92,6 @@ def Cadastro_Loja(request):
         Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
         cpf = request.POST.get("cpf")
         nome_loja = request.POST.get("nome_loja")
-        banner = request.POST.get("banner")
         perfil = request.POST.get("perfil")
         associado = usuario
         descricao = request.POST.get("descricao")
@@ -100,10 +99,6 @@ def Cadastro_Loja(request):
         if nomeLojaExiste(nome_loja, errado):
             errado = True
             erros["nomedaloja"] = "Já existe uma loja com esse nome."
-
-        if validacaoLinks(banner, errado):
-            errado = True
-            erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
 
         if validacaoLinks(perfil, errado):
             errado = True
@@ -120,13 +115,12 @@ def Cadastro_Loja(request):
             contexto["estado"] = True
             contexto["cpf"] = cpf
             contexto["nome_loja"] = nome_loja
-            contexto["banner"] = banner
             contexto["perfil"] = perfil
             contexto["descrito"] = descricao
             return render(request, "cadastro_loja.html", context=contexto)
         else:
             try:
-                Loja.objects.create(Banner=banner, Perfil=perfil, NomeLoja=nome_loja, associado=associado, Cpf=cpf,
+                Loja.objects.create(Perfil=perfil, NomeLoja=nome_loja, associado=associado, Cpf=cpf,
                             DataNascimento=data_nascimento, Localizacao=Localizacao, descricao=descricao)
             except:
                 contexto["erros"] = "Preencha todos os campos corretamente."
@@ -135,7 +129,6 @@ def Cadastro_Loja(request):
                 contexto["estado"] = True
                 contexto["cpf"] = cpf
                 contexto["nome_loja"] = nome_loja
-                contexto["banner"] = banner
                 contexto["perfil"] = perfil
                 contexto["descrito"] = descricao
                 return render(request, "cadastro_loja.html", context=contexto)
@@ -341,7 +334,6 @@ def pagina_loja(request, nome_loja):
         produtos = list(loja.produto_set.all())
         contexto = {
             "minhaloja": False,
-            "banner": loja.Banner,
             "perfil": loja.Perfil,
             "nome_loja": loja.NomeLoja,
             "localizacao": loja.Localizacao,
@@ -406,7 +398,6 @@ def minha_loja(request):
         produtos = list(loja.produto_set.all())
         contexto = {
             "minhaloja": True,
-            "banner": loja.Banner,
             "perfil": loja.Perfil,
             "nome_loja": loja.NomeLoja,
             "localizacao": loja.Localizacao,
@@ -543,7 +534,6 @@ def editar_loja(request, loja):
             "estado": localizacao[1],
             "cpf": userloja.Cpf,
             "nome_loja": userloja.NomeLoja,
-            "banner": userloja.Banner,
             "perfil": userloja.Perfil,
             "descrito": userloja.descricao
         }
@@ -556,18 +546,12 @@ def editar_loja(request, loja):
             Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
             cpf = request.POST.get("cpf")
             nome_loja = request.POST.get("nome_loja")
-            banner = request.POST.get("banner")
             perfil = request.POST.get("perfil")
             descricao = request.POST.get("descricao")
 
             if nomeLojaExiste(nome_loja, errado):
                 errado = True
                 erros["nomedaloja"] = "Já existe uma loja com esse nome."
-
-            if validacaoLinks(banner, errado):
-                errado = True
-                erros[
-                    "urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
 
             if validacaoLinks(perfil, errado):
                 errado = True
@@ -585,7 +569,6 @@ def editar_loja(request, loja):
                 contexto["estado"] = localizacao[1]
                 contexto["cpf"] = cpf
                 contexto["nome_loja"] = nome_loja
-                contexto["banner"] = banner
                 contexto["perfil"] = perfil
                 contexto["descrito"] = descricao
                 return render(request, "editLoja.html", context=contexto)
@@ -594,7 +577,6 @@ def editar_loja(request, loja):
                     userloja.NomeLoja = nome_loja
                     userloja.Perfil = perfil
                     userloja.Cpf = cpf
-                    userloja.Banner = banner
                     userloja.DataNascimento = data_nascimento
                     userloja.Localizacao = Localizacao
                     userloja.descricao = descricao
@@ -605,7 +587,6 @@ def editar_loja(request, loja):
                     contexto["estado"] = True
                     contexto["cpf"] = cpf
                     contexto["nome_loja"] = nome_loja
-                    contexto["banner"] = banner
                     contexto["perfil"] = perfil
                     contexto["descrito"] = descricao
                     return render(request, "editLoja.html", context=contexto)
