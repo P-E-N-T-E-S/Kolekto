@@ -5,6 +5,16 @@
 {% block main %}
 
 <style>
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  td {
+    font-weight: bold;
+  }
+
   #wish-container table {
     width: 100%;
     border-collapse: collapse;
@@ -12,8 +22,11 @@
   }
 
   #wish-container table thead {
-    background-color: #fd8c66;
-    color: #fff;
+    color: #ff7420; 
+  }
+
+  #wish-container table td h5{
+    font-weight: bold;
   }
 
   #wish-container table th,
@@ -53,27 +66,6 @@
     margin-top: 20px;
   }
 
-  #total {
-    font-weight: bold;
-    font-size: 20px;
-    margin-top: 20px;
-  }
-
-  .qntd_botao {
-    background-color: #fd8c66;
-    color: #fff;
-    border: none;
-    padding: 4px 8px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s;
-    border-radius: 20%; 
-  }
-
-  .qntd_botao:hover {
-    background-color: #ff6633;
-  }
-
   #removerCarrinho {
     background-color: #ff4d4d;
     color: #fff;
@@ -95,31 +87,57 @@
 
   .total-price table{
     border-top: 3px solid #ff523b;
+    margin-bottom: 30px;
     width: 100%;
     max-width: 350px;
   }
 
   .btn-link {
-    text-decoration: none; /* Remove o sublinhado */
-    display: inline-block; /* Torna o link um bloco inline como um botão */
-    padding: 10px 20px; /* Adapte o padding ao seu gosto */
-    background-color: #28a745; /* Cor de fundo do botão */
-    color: #fff; /* Cor do texto do botão */
-    font-size: 140%; /* Tamanho da fonte do texto */
+    text-decoration: none;
+    padding: 10px 20px; 
+    background-color: #28a745; 
+    color: #fff; 
+    font-size: 140%;
     float: right;
-    border: none; /* Remove a borda padrão do link */
-    border-radius: 5px; /* Adicione cantos arredondados ao botão */
-    cursor: pointer; /* Transforma o cursor em uma mão ao passar o mouse */
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer;
   }
   
   .btn-link:hover {
-    background-color: #218838; /* Cor de fundo do botão ao passar o mouse */
+    background-color: #218838;
+    color: white;
+  }
+
+  .quantity-input {
+    width: 30px;
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+    text-align: center;
+    outline: none;
+    margin-left: 15px;
+  }
+
+  .qntd_botao {
+    background-color: #fd8c66;
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    border-radius: 20%;
+  }
+
+  .qntd_botao:hover {
+    background-color: #ff6633;
   }
 
 </style>
 
 <div class="container-fluid py-5 text-center">
-<h1 class="text-start" style="margin-left: 200px;">Meu carrinho:</h1>
+<h1 class="text-start" style="margin-left: 200px;">Meu carrinho de compras:</h1>
 
 <section id="wish-container" class="container my-5">
   <table width="100%">
@@ -129,22 +147,20 @@
         <td style="font-size: 20px;">Produto</td>
         <td style="font-size: 20px;">Preço</td>
         <td style="font-size: 20px;">Quantidade</td>
-        <td style="font-size: 20px;">Detalhes</td>
-        <td style="font-size: 20px;">Remover</td>
+        <td style="font-size: 20px;"></td>
       </tr>
     </thead>
     <tbody>
       {% for item in produtos %}
       <tr>
-        <td><img src="{{ item.foto1 }}" alt="{{ item.nome_item }}"></td>
-        <td><h5>{{ item.nome_produto }}</h5></td>
-        <td><h5 class='preco'>R${{ item.preco }}</h5></td>
+        <td><a href="{% url 'pagina_produto' item.id %}"><img src="{{ item.foto1 }}" alt="{{ item.nome_item }}"></a></td>
+        <td><a href="{% url 'pagina_produto' item.id %}"><h5>{{ item.nome_produto }}</h5></a></td>
+        <td><a href="{% url 'pagina_produto' item.id %}"><h5 class='preco'>R${{ item.preco }}</h5></a></td>
         <td>
           <button class="qntd_botao" data-max="{{ item.qntd }}" data-product-id="{{ item.id }}">-</button>
-          <input style="width: 50px; font-size: 20px;" type="number" id="qntd{{ item.id }}" name="qntd" min="1" max="{{ item.qntd }}" value="1" disabled>
+          <input class="quantity-input" type="number" id="qntd{{ item.id }}" name="qntd" min="1" max="{{ item.qntd }}" value="1" readonly>
           <button class="qntd_botao" data-max="{{ item.qntd }}" data-product-id="{{ item.id }}" id="addQntd">+</button>
         </td>
-        <td><a href="{% url 'pagina_produto' item.id %}" class="btn btn-primary">Detalhes</a></td>
         <td><button id="removerCarrinho" class="btn btn-lg mx-1 btn-danger" onclick="rem_carrinho('{{ item.id }}')">
           <i class="fa-solid fa-trash-can"></i>
           </button></td>
@@ -155,7 +171,13 @@
     </tbody>
   </table>
 
-  <p style="font-weight: bold; font-size: 20px; margin-top: 20px;" id="total">Total: R${{ soma }}</p>
+  <div class="total-price">
+    <table>
+      <tr>
+        <td style="text-align: right; font-size: 22px;">Subtotal: R${{ soma }}</td>
+      </tr>
+    </table>
+  </div>
 
   <a href="realizar_compra" class="btn-link">
     Comprar

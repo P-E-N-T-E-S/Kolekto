@@ -5,6 +5,16 @@
 {% block main %}
 
 <style>
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  td {
+    font-weight: bold;
+  }
+
   #wish-container table {
     width: 100%;
     border-collapse: collapse;
@@ -12,8 +22,11 @@
   }
 
   #wish-container table thead {
-    background-color: #fd8c66;
-    color: #fff;
+    color: #ff7420; 
+  }
+
+  #wish-container table td h5{
+    font-weight: bold;
   }
 
   #wish-container table th,
@@ -30,9 +43,12 @@
   #wish-container table th:nth-child(3) {
     width: 170px;
   }
+  #wish-container table th:nth-child(4){
+    width: 10px;
+  }
 
-  #wish-container table th:nth-child(4),
-  #wish-container table th:nth-child(5) {
+  #wish-container table th:nth-child(5),
+  #wish-container table th:nth-child(6) {
     width: 100px;
   }
 
@@ -50,7 +66,7 @@
     margin-top: 20px;
   }
 
-  #removerCarrinho {
+  #removerlistadesejo {
     background-color: #ff4d4d;
     color: #fff;
     border: none;
@@ -58,11 +74,13 @@
     cursor: pointer;
     font-size: 18px;
     transition: background-color 0.3s;
+    border-radius: 20%;
   }
 
-  #removerCarrinho:hover {
+  #removerlistadesejo:hover {
     background-color: #cc0000;
   }
+
 </style>
 
 <div class="container-fluid py-5 text-center">
@@ -76,17 +94,15 @@
         <td style="font-size: 20px;">Imagem</td>
         <td style="font-size: 20px;">Produto</td>
         <td style="font-size: 20px;">Preço</td>
-        <td style="font-size: 20px;">Detalhes</td>
-        <td style="font-size: 20px;">Remover</td>
+        <td style="font-size: 20px;"></td>
       </tr>
     </thead>
     <tbody>
       {% for item in produtos %}
       <tr>
-        <td><img src="{{ item.foto1 }}" alt="{{ item.nome_produto }}"></td>
-        <td><h5 id="{{ item.nome_produto }}" name="{{ item.id }}">{{ item.nome_produto }}</h5></td>
-        <td><h5>${{ item.preco }}</h5></td>
-        <td><a href="{% url 'pagina_produto' item.id %}" class="btn btn-primary">Detalhes</a></td>
+        <td><a href="{% url 'pagina_produto' item.id %}"><img src="{{ item.foto1 }}" alt="{{ item.nome_produto }}"></a></td>
+        <td><a href="{% url 'pagina_produto' item.id %}"><h5 id="{{ item.nome_produto }}" name="{{ item.id }}">{{ item.nome_produto }}</h5></a></td>
+        <td><a href="{% url 'pagina_produto' item.id %}"><h5>${{ item.preco }}</h5></a></td>
         <td><button id="removerlistadesejo" class="btn btn-lg mx-1 btn-danger" onclick="rem_lista_desejo('{{ item.id }}')">
           <i class="fa-solid fa-trash-can"></i>
           </button></td>
