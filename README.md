@@ -43,7 +43,7 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 <p>Links Importantes</p>
 <ul>
   <li>
-    <a  href="https://kolekto.azurewebsites.net"
+    <a  href="https://kolekto2.azurewebsites.net"
       >Link do Site</a
     >
   </li>
