@@ -218,6 +218,11 @@
     }
   }
 
+  .erros {
+    font-size: medium;
+    color: red;
+  }
+
 </style>
 
 <div class="corpo">
@@ -297,8 +302,10 @@
                   </div>
               </div>
 
+              <p class="erros">{{ erros.cpferrado }}{{ erros.senhaerrada }}{{ erros.invalido }}</p>
+
               <div class="continue-button">
-                <button type="submit"><a href="historico_de_compra">Continuar</a></button>
+                <button type="submit"><a>Continuar</a></button>
               </div>
           </form>
       </div>
