@@ -5,274 +5,301 @@
 {% block main %}
 
 <style>
-  #wish-container table {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+  }
+
+  body {
     width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0c0ce94d;
   }
 
-  #wish-container table thead {
-    background-color: #fd8c66;
-    color: #fff;
+  .container {
+    width: 80%;
+    height: 80vh;
+    display: flex;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
   }
 
-  #wish-container table th,
-  #wish-container table td {
-    padding: 8px;
-    text-align: center;
+  .form-image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fde3a7d7;
+    padding: 1rem;
   }
 
-  #wish-container table th:nth-child(1) {
-    width: 200px;
+  .form-image img {
+    width: 31rem;
   }
 
-  #wish-container table th:nth-child(2),
-  #wish-container table th:nth-child(3) {
-    width: 170px;
+  .form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 3rem;
   }
 
-  #wish-container table th:nth-child(4),
-  #wish-container table th:nth-child(5) {
-    width: 100px;
+  .form-header {
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
   }
 
-  #wish-container table tbody img {
-    width: 100px;
-    height: 80px;
-    object-fit: cover;
+  .login-button {
+    display: flex;
+    align-items: center;
   }
 
-  h1.text-start {
-    margin-left: 200px;
-  }
-
-  #wish-container {
-    margin-top: 20px;
-  }
-
-  #removerCarrinho {
-    background-color: #ff4d4d;
-    color: #fff;
+  .login-button button {
     border: none;
-    padding: 4px 8px;
+    background-color: #6c63ff;
+    padding: 0.4rem 1rem;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s;
   }
 
-  #removerCarrinho:hover {
-    background-color: #cc0000;
+  .login-button button:hover {
+    background-color: #6b63fff1;
   }
 
-  .btn-link {
-    text-decoration: none; /* Remove o sublinhado */
-    display: inline-block; /* Torna o link um bloco inline como um botão */
-    padding: 10px 20px; /* Adapte o padding ao seu gosto */
-    background-color: #28a745; /* Cor de fundo do botão */
-    color: #fff; /* Cor do texto do botão */
-    font-size: 140%; /* Tamanho da fonte do texto */
-    float: right;
-    border: none; /* Remove a borda padrão do link */
-    border-radius: 5px; /* Adicione cantos arredondados ao botão */
-    cursor: pointer; /* Transforma o cursor em uma mão ao passar o mouse */
+  .login-button button a {
+    text-decoration: none;
+    font-weight: 500;
+    color: #fff;
   }
-  
-  .btn-link:hover {
-    background-color: #218838; /* Cor de fundo do botão ao passar o mouse */
+
+  .form-header h1::after {
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 0.3rem;
+    background-color: #6c63ff;
+    margin: 0 auto;
+    position: absolute;
+    border-radius: 10px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem 0;
+  }
+
+  .input-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.1rem;
+  }
+
+  .input-box input {
+    margin: 0.6rem 0;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #0000001c;
+    font-size: 0.8rem;
+  }
+
+  .input-box input:hover {
+    background-color: #eeeeee75;
+  }
+
+.input-box input:focus-visible {
+    outline: 1px solid #6c63ff;
+  }
+
+  .input-box label,
+  .Transportadora-title h6 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #000000c0;
+  }
+
+  .input-box input::placeholder {
+    color: #000000be;
+  }
+
+  .Transportadora-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.62rem;
+    padding: 0 .5rem;
+  }
+
+  .Transportadora-input {
+    display: flex;
+    align-items: center;
+  }
+
+  .Transportadora-input input {
+    margin-right: 0.35rem;
+  }
+
+  .Transportadora-input label {
+    font-size: 0.81rem;
+    font-weight: 600;
+    color: #000000c0;
+  }
+
+  .continue-button button {
+    width: 100%;
+    margin-top: 2.5rem;
+    border: none;
+    background-color: #6c63ff;
+    padding: 0.62rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .continue-button button:hover {
+    background-color: #6b63fff1;
+  }
+
+  .continue-button button a {
+    text-decoration: none;
+    font-size: 0.93rem;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  @media screen and (max-width: 1330px) {
+    .form-image {
+        display: none;
+    }
+    .container {
+        width: 50%;
+    }
+    .form {
+        width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 1064px) {
+    .container {
+        width: 90%;
+        height: auto;
+    }
+    .input-group {
+        flex-direction: column;
+        z-index: 5;
+        padding-right: 5rem;
+        max-height: 10rem;
+        overflow-y: scroll;
+        flex-wrap: nowrap;
+    }
+    .Transportadora-inputs {
+        margin-top: 2rem;
+    }
+    .Transportadora-group {
+        flex-direction: column;
+    }
+    .Transportadora-title h6 {
+        margin: 0;
+    }
+    .Transportadora-input {
+        margin-top: 0.5rem;
+    }
   }
 
 </style>
 
-<div class="container-fluid py-5 text-center">
-<h1 class="text-start" style="margin-left: 200px;">Revisar Itens:</h1>
-
-
-<section id="wish-container" class="container my-5">
-  <table width="100%">
-      {%for loja in compras%}
-      <thead>
-      <tr>
-          <td style="font-size: 20px;">{{ loja.loja }}</td>
-      </tr>
-      </thead>
-    <thead>
-      <tr>
-        <td style="font-size: 20px;">Imagem</td>
-        <td style="font-size: 20px;">Produto</td>
-        <td style="font-size: 20px;">Preço</td>
-        <td style="font-size: 20px;">Detalhes</td>
-        <td style="font-size: 20px;">Remover</td>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in loja.produtos %}
-      <tr>
-        <td><img src="{{ item.foto1 }}" alt="{{ item.nome_produto }}"></td>
-        <td><h5 id="{{ item.nome_produto }}" name="{{ item.id }}">{{ item.nome_produto }}</h5></td>
-        <td><h5>${{ item.preco }}</h5></td>
-        <td><a href="{% url 'pagina_produto' item.id %}" class="btn btn-primary">Detalhes</a></td>
-        <td><button id="removerlistadesejo" class="btn btn-lg mx-1 btn-danger" onclick="rem_carrinho('{{ item.id }}')">
-          <i class="fa-solid fa-trash-can"></i>
-          </button></td>
-      </tr>
-      {% empty %}
-      <h4>Nenhum item disponível.</h4>
-      {% endfor %}
-    {% endfor %}
-    </tbody>
-  </table>
-</section>
-</div>
-<script>
-  async function rem_carrinho(produtoId){
-    const produto = document.getElementById("removerCarrinho")
-    const request = await fetch("/rem_carrinho", {
-      method:"POST",
-      body:JSON.stringify({produtoId}),
-      headers:{
-        "X-CSRFToken":"{{ csrf_token }}"
-      }
-    })
-    const response = await request.json()
-    location.reload();
-  }
-</script>
-
-<div class="container-fluid py-5 text-center">
+<body>
   <div class="container">
-    <form
-      method="POST"
-      enctype="multipart/form-data"
-    >
-    <div class="row row-cols-2">
-    <fieldset disabled>
-      <div class="col-md-6">
-        <label for="nome_vendedor" class="form-label">Nome completo</label>
-        <input
-          type="text"
-          class="form-control"
-          id="nome_vendedor"
-          placeholder="{{ nome_vendedor }}"
-        />
+      <div class="form-image">
+          <img src="PKolekto\Kolekto\static\Images\PngItem_1218494.png" alt="">
       </div>
-    </fieldset>
-    <div class="col-md-6">
-      <label class="form-label">Selecione seu estado</label>
-      <br />
-      <div style="padding-left: -5%">
-        <select
-          class="form-select form-select-lg mb-3 pb-0"
-          name="estado"
-          style="padding-right: 80%"
-        >
-          {% if cidade %}
-          <option value="">Escolha seu estado novamente</option>
-          {% endif %}
-          <option value="ac">AC</option>
-          <option value="al">AL</option>
-          <option value="ap">AP</option>
-          <option value="am">AM</option>
-          <option value="ba">BA</option>
-          <option value="ce">CE</option>
-          <option value="es">ES</option>
-          <option value="go">GO</option>
-          <option value="ma">MA</option>
-          <option value="mt">MT</option>
-          <option value="ms">MS</option>
-          <option value="mg">MG</option>
-          <option value="pb">PB</option>
-          <option value="pr">PR</option>
-          <option value="pe">PE</option>
-          <option value="pi">PI</option>
-          <option value="rj">RJ</option>
-          <option value="rn">RN</option>
-          <option value="rs">RS</option>
-          <option value="ro">RO</option>
-          <option value="rr">RR</option>
-          <option value="sc">SC</option>
-          <option value="sp">SP</option>
-          <option value="se">SE</option>
-          <option value="to">TO</option>
-          <option value="df">DF</option>
-        </select>
+      <div class="form">
+          <form action="#">
+              <div class="form-header">
+                  <div class="title">
+                      <h1>Como você quer receber a sua compra?</h1>
+                  </div>
+                  <div class="login-button">
+                      <button><a href="historico_de_compra">Continuar</a></button>
+                  </div>
+              </div>
+
+              <div class="input-group">
+                  <div class="input-box">
+                      <label for="nome">Nome para entrega</label>
+                      <input id="nome" type="text" name="nome" placeholder="Digite seu nome" required>
+                  </div>
+
+                  <div class="input-box">
+                      <label for="lastname">Cidade</label>
+                      <input id="cidade" type="text" name="cidade" placeholder="Cidade-Estado" required>
+                  </div>
+                  <div class="input-box">
+                      <label for="email">Rua/Avenida</label>
+                      <input id="endereço" type="text" name="endereço" placeholder="Informe seu endereço" required>
+                  </div>
+
+                  <div class="input-box">
+                      <label for="number">Complemento</label>
+                      <input id="Complemento" type="Complemento" name="Complemento" placeholder="Complemento" required>
+                  </div>
+
+                  <div class="input-box">
+                      <label for="password">CPF</label>
+                      <input id="CPF" type="text" name="CPF" placeholder="Ex: xxx.xxx.xxx-xx" required>
+                  </div>
+
+
+                  <div class="input-box">
+                      <label for="confirmPassword">Confirme sua Senha</label>
+                      <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Digite sua senha novamente" required>
+                  </div>
+
+              </div>
+
+              <div class="Transportadora-inputs">
+                  <div class="Transportadora-title">
+                      <h6>Transportadora</h6>
+                  </div>
+
+                  <div class="Transportadora-group">
+                      <div class="Transportadora-input">
+                          <input id="PAC" type="radio" name="Transportadora">
+                          <label for="PAC">PAC</label>
+                      </div>
+
+                      <div class="Transportadora-input">
+                          <input id="Sedex" type="radio" name="Transportadora">
+                          <label for="Sedex">Sedex</label>
+                      </div>
+
+                      <div class="Transportadora-input">
+                          <input id="Fedex" type="radio" name="Transportadora">
+                          <label for="Fedex">Fedex</label>
+                      </div>
+
+                      <div class="Transportadora-input">
+                          <input id="Bertolini" type="radio" name="Transportadora">
+                          <label for="Bertolini">Prefiro não dizer</label>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="continue-button">
+                  <button><a href="historico_de_compra">Continuar</a> </button>
+              </div>
+          </form>
       </div>
-    </div>
-    <div class="col-md-6">
-      <label for="cidade" class="form-label">Digite sua cidade</label>
-      <input
-        type="text"
-        class="form-control"
-        id="cidade"
-        name="cidade"
-        value="{{ cidade }}"
-      />
-    </div>
-    <div class="col-md-6">
-      <label for="nome_loja" class="form-label"
-        >Digite seu Endereço</label
-      >
-      <input
-        type="text"
-        class="form-control"
-        id="endereco"
-        name="endereco"
-        value="{{endereco}}"
-      />
-    </div>
-    <div class="col-md-6">
-      <label for="perfil" class="form-label">Informe o Complemento</label>
-      <input
-        type="text"
-        class="form-control"
-        id="complemento"
-        aria-describedby="complemento"
-        name="complemento"
-        value="{{ complemento }}"
-      />
-    </div>
-
-    <div class="col-md-6">
-      <label for="cpf" class="form-label">Informe o seu CPF</label>
-      <input
-        type="text"
-        class="form-control"
-        id="cpf"
-        aria-describedby="cpf_"
-        name="cpf"
-        value="{{ cpf }}"
-      />
-      <div id="cpf_" class="form_text">Ex: 999.999.999-99</div>
-    </div>
-
-    <div class="col-md-6">
-      <label class="form-label">Selecione a Transportadora</label>
-      <br />
-      <div>
-        <select
-          class="form-select form-select-lg mb-3 pb-0"
-          name="transportadora"
-          id="transportadora"
-          style="padding-right: 80%"
-        >
-          <option value="PAC">PAC 15,00 R$ 7-15 dias</option>
-          <option value="Sedex">Sedex 18,00 R$ 5-12 dias</option>
-          <option value="Fedex">Fedex 23,00 R$ 4-10 dias</option>
-          <option value="BPM">BPM 25,00 R$ 4-10 dias</option>
-          <option value="Bertolini">Bertolini 25,00 R$ 4-10 dias</option>
-          <option value="GFL">GFL 30,00 R$ 1-5 dias</option>
-        </select>
-      </div>
-    </div>
   </div>
-
-  <div class="d-flex justify-content-end w-100">
-
-    <a href="historico_de_compra" class="btn-link">
-      Finalizar Compra
-    </a>
-
-  </div>
-  </form>
-  </div>
+</body>
 
 {% endblock %}
