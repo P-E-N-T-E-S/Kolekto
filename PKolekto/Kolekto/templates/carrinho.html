@@ -83,17 +83,17 @@
   }
 
   .quantity-input {
-    width: 30px;
+    width: 45px;
     font-size: 20px;
     border: none;
     background-color: transparent;
     text-align: center;
     outline: none;
-    margin-left: 15px;
+    margin-left: 14px;
   }
 
   .qntd_botao {
-    background-color: #ff7420;
+    background-color: #fd8c66;
     color: #fff;
     border: none;
     padding: 4px 8px;
@@ -122,7 +122,7 @@
           <div style="margin-left: 20px; text-align: left;">
             <a href="{% url 'pagina_produto' item.id %}"><h5 style="font-size: 26px; margin: 0;">{{ item.nome_produto }}</h5></a>
             <a href="{% url 'pagina_produto' item.id %}"><p>{{ item.loja }}</p></a>
-            <a href="{% url 'pagina_produto' item.id %}"><h5 style="font-size: 24px;" class='preco'>R${{ item.preco }}</h5></a>
+            <a href="{% url 'pagina_produto' item.id %}"><h5 style="font-size: 24px;" id='preco' class='preco'>R${{ item.preco }}</h5></a>
             <a href="{% url 'pagina_produto' item.id %}"><p >{{ item.categoria }}</p></a>
           </div>
         </td>
@@ -144,11 +144,10 @@
   <div class="total-price">
     <table>
       <tr>
-        <td style="text-align: right; font-size: 22px; font-weight: bold;">Subtotal: R${{ soma }}</td>
+        <td style="text-align: right; font-size: 22px; font-weight: bold;"><p id="total">Subtotal: R${{ soma }}</p></td>
       </tr>
     </table>
   </div>
-
   
   <a href="realizar_compra" class="btn-link">
     Comprar
@@ -164,15 +163,17 @@
   
     rows.forEach(function(row) {
       const input = row.querySelector("input[name='qntd']");
-      const precoElement = row.querySelector("h5.preco").textContent;
-      const preco = parseFloat(precoElement.replace('R$', '').trim());
-      console.log(preco)
-      const quantidade = parseInt(input.value);
-      soma += quantidade * preco;
+      const precoElement = row.querySelector("h5.preco");
+      if (precoElement) { // Verifica se o elemento não é nulo
+        const preco = parseFloat(precoElement.textContent.replace('R$', '').trim());
+        const quantidade = parseInt(input.value);
+        soma += quantidade * preco;
+        console.log(soma)
+      }
     });
   
     const totalElement = document.getElementById("total");
-    totalElement.textContent = "Total: R$" + soma.toFixed(2);
+    totalElement.textContent = "Subtotal: R$" + soma.toFixed(2);
   }
 
   async function rem_carrinho(produtoId){

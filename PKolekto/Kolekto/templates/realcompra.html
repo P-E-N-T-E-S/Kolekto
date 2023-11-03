@@ -5,28 +5,24 @@
 {% block main %}
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Open+Sans:wght@300;400;500;600&display=swap');
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
   }
 
-  body {
-    width: 100%;
-    height: 100vh;
+  .corpo {
+    background: #0c0ce94d;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #0c0ce94d;
   }
 
   .container {
-    width: 80%;
-    height: 80vh;
+
     display: flex;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
+    
   }
 
   .form-image {
@@ -217,10 +213,10 @@
 
 </style>
 
-<body>
+<div class="corpo">
   <div class="container">
       <div class="form-image">
-          <img src="PKolekto\Kolekto\static\Images\PngItem_1218494.png" alt="">
+          <img src="https://i.imgur.com/OkWQ7jF.png" alt="Kolekto">
       </div>
       <div class="form">
           <form action="#">
@@ -300,6 +296,6 @@
           </form>
       </div>
   </div>
-</body>
+</div>
 
 {% endblock %}
