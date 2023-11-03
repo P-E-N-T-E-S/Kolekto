@@ -12,7 +12,6 @@ class Usuario(models.Model):
     
     
 class Loja(models.Model):
-    Banner = models.CharField(max_length=100)
     Perfil = models.CharField(max_length=100)
     NomeLoja = models.CharField(max_length=30)
     Cpf = models.CharField(max_length=14)
