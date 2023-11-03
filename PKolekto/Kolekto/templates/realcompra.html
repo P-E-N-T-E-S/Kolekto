@@ -12,7 +12,8 @@
   }
 
   .corpo {
-    background: #0c0ce94d;
+    margin-top: 2vh;
+    background: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,6 +23,7 @@
 
     display: flex;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
+    border-radius: 10px;
     
   }
 
@@ -61,14 +63,14 @@
 
   .login-button button {
     border: none;
-    background-color: #6c63ff;
+    background-color: #ff7420;
     padding: 0.4rem 1rem;
     border-radius: 5px;
     cursor: pointer;
   }
 
   .login-button button:hover {
-    background-color: #6b63fff1;
+    background-color: #cf5c17;
   }
 
   .login-button button a {
@@ -82,7 +84,7 @@
     display: block;
     width: 5rem;
     height: 0.3rem;
-    background-color: #6c63ff;
+    background-color: #ff7420;
     margin: 0 auto;
     position: absolute;
     border-radius: 10px;
@@ -115,7 +117,7 @@
   }
 
 .input-box input:focus-visible {
-    outline: 1px solid #6c63ff;
+    outline: 1px solid #ff7420;
   }
 
   .input-box label,
@@ -153,16 +155,19 @@
 
   .continue-button button {
     width: 100%;
-    margin-top: 2.5rem;
+    height: 45px;
+    background-color: #ff7420;
     border: none;
-    background-color: #6c63ff;
-    padding: 0.62rem;
-    border-radius: 5px;
-    cursor: pointer;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 010px rgba(0, 0, 0, .1);
+    cursor: #333;
+    font-weight: 600;
+    margin-top: 15px;
   }
 
   .continue-button button:hover {
-    background-color: #6b63fff1;
+    background-color: #cf5c17;
   }
 
   .continue-button button a {
@@ -225,7 +230,7 @@
                       <h1>Como você quer receber a sua compra?</h1>
                   </div>
                   <div class="login-button">
-                      <button><a href="historico_de_compra">Continuar</a></button>
+                      <button type="submit"><a href="historico_de_compra">Continuar</a></button>
                   </div>
               </div>
 
@@ -236,21 +241,21 @@
                   </div>
 
                   <div class="input-box">
-                      <label for="lastname">Cidade</label>
+                      <label for="Cidade">Cidade</label>
                       <input id="cidade" type="text" name="cidade" placeholder="Cidade-Estado" required>
                   </div>
                   <div class="input-box">
-                      <label for="email">Rua/Avenida</label>
+                      <label for="Rua/Avenida">Rua/Avenida</label>
                       <input id="endereço" type="text" name="endereço" placeholder="Informe seu endereço" required>
                   </div>
 
                   <div class="input-box">
-                      <label for="number">Complemento</label>
+                      <label for="Complemento">Complemento</label>
                       <input id="Complemento" type="Complemento" name="Complemento" placeholder="Complemento" required>
                   </div>
 
                   <div class="input-box">
-                      <label for="password">CPF</label>
+                      <label for="CPF">CPF</label>
                       <input id="CPF" type="text" name="CPF" placeholder="Ex: xxx.xxx.xxx-xx" required>
                   </div>
 
@@ -291,7 +296,7 @@
               </div>
 
               <div class="continue-button">
-                  <button><a href="historico_de_compra">Continuar</a> </button>
+                <button type="submit"><a href="historico_de_compra">Continuar</a></button>
               </div>
           </form>
       </div>
