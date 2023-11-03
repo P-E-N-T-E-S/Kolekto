@@ -28,11 +28,16 @@ jobs:
           source venv/bin/activate
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r PKolekto/requirements.txt
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+      - name: Cleaning testing files
+        run: |
+          cd PKolekto/
+          rm .env
+          cd ..
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: zip release.zip ./PKolekto/* -r
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v3
