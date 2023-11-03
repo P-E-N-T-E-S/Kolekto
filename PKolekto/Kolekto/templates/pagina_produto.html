@@ -14,7 +14,6 @@ body{
 }
 .card-wrapper{
     max-width: 1100px;
-    
     margin: 0 auto;
 }
 
@@ -248,7 +247,6 @@ body{
         <p class = "last-price"><span></span></p>
         <p class = "new-price"><span>R${{ preco }}</span></p>
       </div>
-
       <div class = "product-detail">
         <h2>Detalhes: </h2>
         <p>{{ descricao }}</p>
@@ -296,22 +294,22 @@ body{
         <p>Compartilhar:</p>
       </div>
       <div class = "social-links">
-        <br>
-        <a href = "#">
+        <a href = "#" id="copyButton" title="Copiar">
+          <i class="fa-solid fa-copy"></i>
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:8000/Produto/{{ id_produto }}/" title="Facebook">
           <i class = "fab fa-facebook-f"></i>
         </a>
-        <a href = "#">
+        <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:8000/Produto/{{ id_produto }}/&text=Melhor do que isso só dois disso!" title="Twitter">
           <i class = "fab fa-twitter"></i>
         </a>
-        <a href = "#">
-          <i class = "fab fa-instagram"></i>
+        <a href="https://www.reddit.com/submit?url=http://127.0.0.1:8000/Produto/{{ id_produto }}/&title=Melhor do que isso só dois disso!" title="Reddit">
+          <i class = "fa-brands fa-reddit"></i>
         </a>
-        <a href = "#">
+        <a href = "https://api.whatsapp.com/send?text=http://127.0.0.1:8000/Produto/{{ id_produto }}/" title="Whatsapp">
           <i class = "fab fa-whatsapp"></i>
         </a>
-        <a href = "#">
-          <i class = "fab fa-pinterest"></i>
-        </a>
+
       </div>
     </div>
   </div>
@@ -382,6 +380,25 @@ body{
       })
     }
   }
+
+
+  const copyButton = document.getElementById('copyButton');
+
+  copyButton.addEventListener('click', function() {
+    const linkToCopy = "127.0.0.1:8000/Produto{{id_produto}}/";
+
+    const textArea = document.createElement('textarea');
+    textArea.value = linkToCopy;
+
+    document.body.appendChild(textArea);
+
+    textArea.select();
+
+    document.execCommand('copy');
+
+    document.body.removeChild(textArea);
+
+  });
 
 </script>
 {% endblock %}

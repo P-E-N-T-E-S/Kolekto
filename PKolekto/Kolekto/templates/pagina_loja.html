@@ -26,7 +26,6 @@
 <div class="container-fluid py-5 text-center">
   <header>
     <div style="position: relative;">
-      <img src="{{ banner }}" alt="{{ nome_loja }}" width="100%" height="350px" style="margin-top: -30px;">
       <img src="{{ perfil }}" class="rounded-circle border border-dark border-3" style="position: absolute; top: 250px; left: 10px; width: 100px; height: 100px;">
       <br/>  
     </div>
@@ -38,7 +37,7 @@
       <button class="btn btn-secondary" id="Editar">Editar Dados</button>
       {% else %}
       <a href="denuncia">
-      <button class="btn btn-warning" style="justify-content-end" id="Denuncia">Denunciar</button>
+      <button class="btn btn-warning" style="justify-content: flex-end" id="Denuncia">Denunciar</button>
       {% endif %}
     </a>
     </div>
