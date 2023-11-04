@@ -231,7 +231,11 @@
           <img src="https://i.imgur.com/OkWQ7jF.png" alt="Kolekto">
       </div>
       <div class="form">
-          <form action="#">
+          <form
+              action="{% url 'realizar_compra' %}"
+              method="POST"
+              enctype="multipart/form-data">
+              {% csrf_token %}
               <div class="form-header">
                   <div class="title">
                       <h1>Como você quer receber a sua compra?</h1>

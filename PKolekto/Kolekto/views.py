@@ -626,13 +626,18 @@ def realizar_compra(request):
         cpf = request.POST.get("CPF")
         nome_comprador = request.POST.get("nome")
         cidade = request.POST.get("cidade")
-        endereco = request.POST.get("Rua/Avenida")
+        endereco = request.POST.get("endereço")
         complemento = request.POST.get("Complemento")
-        transportadora = request.POST.get("transportadora")
+        transportadora = request.POST.get("Transportadora")
         senha = request.POST.get("confirmPassword")
 
         destino = f"{endereco}, {complemento}, {cidade}"
-
+        print(cpf)
+        print(nome_comprador)
+        print(cidade)
+        print(endereco)
+        print(transportadora)
+        print(senha)
         erros = dict()
 
         errado = False
@@ -660,21 +665,22 @@ def realizar_compra(request):
             }
             return render(request, "realcompra.html", context=contexto)
         else:
-            try:
-                for nomeloja in oplojas:
-                    loja = Loja.objects.get(NomeLoja=nomeloja)
-                    for opcao in sepcompras:
-                        if opcao["loja"] == loja.NomeLoja:
-                            compra = ''
-                            for itens in opcao["produtos"]:
-                                quantidade = usuario.carrinho_set.filter(produto=itens)
-                                compra += f"{itens.nome_produto};{quantidade.quantidade}"
-                                quantidade.delete()
-                Compra.objects.create(usuario=usuario, loja=loja, transportadora=transportadora,
-                                      destinatario=destino, valor=soma, itens=compra, nome_comprador=nome_comprador)
-            except:
-                erros["invalido"] = "preencha os valores corretamente"
-                contexto = {
+            #try:
+            for nomeloja in oplojas:
+                loja = Loja.objects.get(NomeLoja=nomeloja)
+                for opcao in sepcompras:
+                    if opcao["loja"] == loja.NomeLoja:
+                        compra = ''
+                        for itens in opcao["produtos"]:
+                            quantidade = list(usuario.carrinho_set.filter(produto=itens))
+                            print(quantidade)
+                            compra += f"{itens.nome_produto};{quantidade[0].quantidade}"
+                            quantidade[0].delete()
+            Compra.objects.create(usuario=usuario, loja=loja, transportadora=transportadora,
+                                  destinatario=destino, valor=soma, itens=compra, nome_comprador=nome_comprador)
+            #except:
+            erros["invalido"] = "Preencha os valores corretamente"
+            contexto = {
                     "temloja": temloja,
                     "erros": erros,
                     "nome": nome_comprador,
@@ -686,9 +692,9 @@ def realizar_compra(request):
                     "complemento": complemento,
                     "transportadora": transportadora
                 }
-                return render(request, "realcompra.html", context=contexto)
-            else:
-                return redirect(historico_compras)
+            return render(request, "realcompra.html", context=contexto)
+        #else:
+            #return redirect(historico_compras)
     contexto = {
         "temloja": temloja,
         "compras": sepcompras,
