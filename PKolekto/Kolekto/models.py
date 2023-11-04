@@ -65,6 +65,7 @@ class Denuncia(models.Model):
 
 class Compra(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    nome_comprador = models.CharField(max_length=50)
     loja = models.ForeignKey(Loja, on_delete=models.CASCADE)
     data = models.DateTimeField(auto_now_add=True)
     destinatario = models.CharField(max_length=100, default="padrao")

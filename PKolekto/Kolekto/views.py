@@ -621,17 +621,17 @@ def realizar_compra(request):
         sepcompras[i] = dict()
         sepcompras[i]["loja"] = lojas[i]
         sepcompras[i]["produtos"] = [produto for produto in produtos if produto.loja.NomeLoja == lojas[i]]
-        print(sepcompras)
 
     if request.method == "POST":
-        cpf = request.POST.get("cpf")
+        cpf = request.POST.get("CPF")
+        nome_comprador = request.POST.get("nome")
         cidade = request.POST.get("cidade")
-        estado = request.POST.get("estado")
-        endereco = request.POST.get("endereço")
-        complemento = request.POST.get("complemento")
+        endereco = request.POST.get("Rua/Avenida")
+        complemento = request.POST.get("Complemento")
         transportadora = request.POST.get("transportadora")
+        senha = request.POST.get("confirmPassword")
 
-        destino = f"{endereco}, {complemento}, {cidade}, {estado}"
+        destino = f"{endereco}, {complemento}, {cidade}"
 
         erros = dict()
 
@@ -639,21 +639,24 @@ def realizar_compra(request):
 
         if validar_cpf(cpf, errado):
             errado = True
-            erros["cpferrado"] = "digite o cpf corretamente"
+            erros["cpferrado"] = "Digite o CPF corretamente"
+
+        if valida_senha(senha, request):
+            errado = True
+            erros["senhaerrada"] = "Insira sua senha corretamente"
 
 
         if errado:
             contexto = {
-                "temloja": temloja,
+                "temloja":temloja,
                 "erros": erros,
+                "nome": nome_comprador,
                 "compras": sepcompras,
                 "valormax": soma,
                 "cpf": cpf,
                 "cidade": cidade,
-                "estado": estado,
                 "endereco": endereco,
                 "complemento": complemento,
-                "transportadora":transportadora
             }
             return render(request, "realcompra.html", context=contexto)
         else:
@@ -668,17 +671,17 @@ def realizar_compra(request):
                                 compra += f"{itens.nome_produto};{quantidade.quantidade}"
                                 quantidade.delete()
                 Compra.objects.create(usuario=usuario, loja=loja, transportadora=transportadora,
-                                      destinatario=destino, valor=soma, itens=compra)
+                                      destinatario=destino, valor=soma, itens=compra, nome_comprador=nome_comprador)
             except:
                 erros["invalido"] = "preencha os valores corretamente"
                 contexto = {
                     "temloja": temloja,
                     "erros": erros,
+                    "nome": nome_comprador,
                     "compras": sepcompras,
                     "valormax": soma,
                     "cpf": cpf,
                     "cidade": cidade,
-                    "estado": estado,
                     "endereco": endereco,
                     "complemento": complemento,
                     "transportadora": transportadora
