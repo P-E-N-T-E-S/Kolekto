@@ -97,6 +97,7 @@ def Cadastro_Loja(request):
         descricao = request.POST.get("descricao")
         print(perfil)
         print(cpf)
+        print(nome_loja)
 
         if nomeLojaExiste(nome_loja):
             errado = True
@@ -551,16 +552,16 @@ def editar_loja(request, loja):
             perfil = request.POST.get("perfil")
             descricao = request.POST.get("descricao")
 
-            if nomeLojaExiste(nome_loja, errado):
+            if nomeLojaExiste(nome_loja):
                 errado = True
                 erros["nomedaloja"] = "Já existe uma loja com esse nome."
 
-            if validacaoLinks(perfil, errado):
+            if validacaoLinks(perfil):
                 errado = True
                 erros[
                     "urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
 
-            if validar_cpf(cpf, errado):
+            if validar_cpf(cpf):
                 errado = True
                 erros["cpferrado"] = "digite o cpf corretamente"
 
@@ -638,7 +639,7 @@ def realizar_compra(request):
 
         errado = False
 
-        if validar_cpf(cpf, errado):
+        if validar_cpf(cpf):
             errado = True
             erros["cpferrado"] = "Digite o CPF corretamente"
 
@@ -725,9 +726,3 @@ def historico_compras(request):
         "infocompras": compras
     }
     return render(request, "historico.html", contexto)
-
-
-
-
-
-

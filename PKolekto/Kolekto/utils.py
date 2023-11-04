@@ -8,8 +8,10 @@ def nomeLojaExiste(nome_loja):
         return False
 
 def validacaoLinks(link):
-    if link[-4:-1] != ".jp" or link[-5:-1] != ".jpe":
+    if link[-4:-1] != ".jp" and link[-5:-1] != ".jpe":
         return True
+    else:
+        return False
 
 
 def validar_cpf(cpf):
