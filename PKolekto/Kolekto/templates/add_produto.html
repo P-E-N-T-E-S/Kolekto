@@ -1,101 +1,274 @@
 {% extends "layout.html" %} {% block title %} Adicionar produto {% endblock %}
 {% block main %}
-<div class="container-fluid py-5 text-center">
-<h1>Adicionar produto</h1>
-<br />
-<br />
-<div class="container">
-  <form
-    action="{% url 'add_produto' %}"
-    method="post"
-    enctype="multipart/form-data"
-  >
-    {% csrf_token %}
-    <div class="row">
-      <div class="col-md-6">
-        <div class="mb-3">
-          <label for="foto1" class="form-label">Fotos</label>
-          <input
-            type="text"
-            class="form-control"
-            id="foto1"
-            name="foto1"
-            ,
-            value="{{foto1}}"
-          />
-          <div id="foto1" class="form-text">
-            Coloque um url de imagem da web, como do imgur, PostImage, ImgBB,
-            etc...
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="nome_produto" class="form-label">Nome do produto</label>
-          <input
-            type="text"
-            class="form-control"
-            id="nome_produto"
-            name="nome_produto"
-            value="{{ nome_produto }}"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="descricao" class="form-label">Descrição</label>
-          <input
-            type="text"
-            class="form-control"
-            id="descricao"
-            name="descricao"
-            value="{{ descricao }}"
-          />
-        </div>
+
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<style>
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .corpo {
+    margin-top: 2vh;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+
+    display: flex;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
+    border-radius: 10px;
+    
+  }
+
+  .form-image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fde3a7d7;
+    padding: 1rem;
+  }
+
+  .form-image img {
+    width: 31rem;
+  }
+
+  .form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 3rem;
+  }
+
+  .form-header {
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .form-header h1::after {
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 0.3rem;
+    background-color: #ff7420;
+    margin: 0 auto;
+    position: absolute;
+    border-radius: 10px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem 0;
+  }
+
+  .input-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.1rem;
+  }
+
+  .input-box input {
+    margin: 0.6rem 0;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #0000001c;
+    font-size: 0.8rem;
+  }
+
+  .input-box input:hover {
+    background-color: #eeeeee75;
+  }
+
+.input-box input:focus-visible {
+    outline: 1px solid #ff7420;
+  }
+
+  .input-box label,
+  .Transportadora-title h6 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #000000c0;
+  }
+
+  .input-box input::placeholder {
+    color: #000000be;
+  }
+
+  .Transportadora-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.62rem;
+    padding: 0 .5rem;
+  }
+
+  .Transportadora-input {
+    display: flex;
+    align-items: center;
+  }
+
+  .Transportadora-input input {
+    margin-right: 0.35rem;
+  }
+
+  .Transportadora-input label {
+    font-size: 0.81rem;
+    font-weight: 600;
+    color: #000000c0;
+  }
+
+  .continue-button button {
+    width: 100%;
+    height: 45px;
+    background-color: #ff7420;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 010px rgba(0, 0, 0, .1);
+    cursor: #333;
+    font-weight: 600;
+    margin-top: 15px;
+  }
+
+  .continue-button button:hover {
+    background-color: #cf5c17;
+  }
+
+  .continue-button button a {
+    text-decoration: none;
+    font-size: 0.93rem;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  @media screen and (max-width: 1330px) {
+    .form-image {
+        display: none;
+    }
+    .container {
+        width: 50%;
+    }
+    .form {
+        width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 1064px) {
+    .container {
+        width: 90%;
+        height: auto;
+    }
+    .input-group {
+        flex-direction: column;
+        z-index: 5;
+        padding-right: 5rem;
+        max-height: 10rem;
+        overflow-y: scroll;
+        flex-wrap: nowrap;
+    }
+    .Transportadora-inputs {
+        margin-top: 2rem;
+    }
+    .Transportadora-group {
+        flex-direction: column;
+    }
+    .Transportadora-title h6 {
+        margin: 0;
+    }
+    .Transportadora-input {
+        margin-top: 0.5rem;
+    }
+  }
+
+  .erros {
+    font-size: medium;
+    color: red;
+  }
+
+</style>
+
+<div class="corpo">
+  <div class="container">
+      <div class="form-image">
+          <img src="https://i.imgur.com/mplDxDI.png" alt="Kolekto">
       </div>
-      <div class="col-md-6">
-        <div class="mb-3">
-          <label for="preco" class="form-label">Preço</label>
-          <input
-            type="text"
-            class="form-control"
-            id="preco"
-            name="preco"
-            value="{{ preco }}"
-          />
-          <div id="preco" class="form-text">
-            Coloque os valores decimais usando ponto
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="qntd" class="form-label">Quantidade</label>
-          <input
-            type="number"
-            class="form-control"
-            id="qntd"
-            name="qntd"
-            value="{{ qntd }}"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="categoria" class="form-label">Categoria</label>
-          <select
-            class="form-select"
-            id="categoria"
-            name="select"
-            value="{{ categoria }}"
-          >
-            {% for categoria in categorias %}
-            <option value="{{ categoria }}">{{ categoria }}</option>
-            {% endfor %}
-          </select>
-        </div>
+      <div class="form">
+          <form
+            action="{% url 'add_produto' %}"
+            method="post"
+            enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-header">
+                  <div class="title">
+                      <h1>Adicionar produto</h1>
+                  </div>
+              </div>
+
+              {% csrf_token %}
+              <div class="input-group">
+                  <div class="input-box">
+                      <label for="foto1">Fotos <i class='bx bx-edit-alt'></i></label>
+                      <input id="foto1" type="text" name="foto1" placeholder="Link da Foto" value="{{foto1}}" required>
+                  </div>
+
+                  <div class="input-box">
+                    <label for="nome_produto">Nome do Produto <i class='bx bx-map-pin' ></i></label>
+                    <input id="nome_produto" type="text" name="nome_produto" placeholder="Produto" value="{{ nome_produto }}" required>
+                  </div>
+
+                  <div class="input-box">
+                      <label for="nome_produto">Descrição <i class='bx bx-map-pin' ></i></label>
+                      <input id="descricao" type="text" name="descricao" placeholder="Descrição" value="{{ descricao }}" required>
+                  </div>
+
+                  <div class="input-box">
+                      <label for="Complemento">Preço <i class='bx bx-street-view' ></i></label>
+                      <input id="preco" type="text" name="preco" placeholder="XX,YY" value="{{ preco }}" required>
+                  </div>
+
+                  <div class="input-box">
+                      <label for="qntd">Quantidade <i class='bx bxs-lock-alt' ></i></label>
+                      <input id="qntd" type="number" name="qntd" placeholder="Quantidade" required>
+                  </div>
+
+                  <div class="input-box">
+                    <label for="categoria" class="form-label">Categoria <i class='bx bxs-file-doc' ></i></label>
+                    <select
+                      class="form-select"
+                      id="categoria"
+                      name="select"
+                      value="{{ categoria }}"
+                    >
+                      {% for categoria in categorias %}
+                      <option value="{{ categoria }}">{{ categoria }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+              </div>
+
+              <p class="erros">{{ erros.campos }}</p>
+              <p class="erros">{{ erros.url }}</p>
+              <p class="erros">{{ erros.precos }}</p>
+
+              <div class="continue-button">
+                <button type="submit"><a>Anunciar produto</a></button>
+              </div>
+          </form>
       </div>
-    </div>
-    <p class="text-danger">{{ erros.campos }}</p>
-    <p class="text-danger">{{ erros.url }}</p>
-    <p class="text-danger">{{ erros.precos }}</p>
-    <div class="d-flex justify-content-end w-100">
-      <button type="submit" class="btn btn-primary" name="Add">Anunciar produto</button>
-      <a href="{% url 'index' %}" class="btn btn-danger mx-3">Cancelar</a>
-    </div>
-  </form>
+  </div>
 </div>
-</div>
+
 {% endblock %}
