@@ -95,16 +95,18 @@ def Cadastro_Loja(request):
         perfil = request.POST.get("perfil")
         associado = usuario
         descricao = request.POST.get("descricao")
+        print(perfil)
+        print(cpf)
 
-        if nomeLojaExiste(nome_loja, errado):
+        if nomeLojaExiste(nome_loja):
             errado = True
             erros["nomedaloja"] = "Já existe uma loja com esse nome."
 
-        if validacaoLinks(perfil, errado):
+        if validacaoLinks(perfil):
             errado = True
             erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
 
-        if validar_cpf(cpf, errado):
+        if validar_cpf(cpf):
             errado = True
             erros["cpferrado"] = "digite o cpf corretamente"
 
@@ -709,8 +711,8 @@ def historico_compras(request):
     compras = list(usuario.compra_set.all())
     separador = list()
     for compra in compras:
-        chaves = [chave.split(";")[0] for chave in compra[i].itens.split("/") if chave.split(";")[0] != '']
-        quantidades = [chave.split(";")[1] for chave in compra[i].itens.split("/") if chave.split(";")[0] != '']
+        chaves = [chave.split(";")[0] for chave in compra.itens.split("/") if chave.split(";")[0] != '']
+        quantidades = [chave.split(";")[1] for chave in compra.itens.split("/") if chave.split(";")[0] != '']
         separador.append({
             "loja": compra.loja,
             "produtos": [Produto.objects.get(pk=chave) for chave in chaves],
