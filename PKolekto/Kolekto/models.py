@@ -67,11 +67,11 @@ class Compra(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     nome_comprador = models.CharField(max_length=50, default="Não Informado")
     loja = models.ForeignKey(Loja, on_delete=models.CASCADE)
-    data = models.DateTimeField(auto_now_add=True)
+    data = models.DateField(auto_now_add=True)
     destinatario = models.CharField(max_length=100, default="padrao")
-    trasportadora = models.CharField(max_length=100)
+    transportadora = models.CharField(max_length=100)
     itens = models.TextField()
     valor = models.FloatField()
 
     def __str__(self):
-        return f"{self.loja} - {self.valor} - {self.data}"
+        return f"{self.loja} - R${self.valor} - {self.data}"

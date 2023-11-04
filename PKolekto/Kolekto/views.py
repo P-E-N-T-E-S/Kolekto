@@ -665,36 +665,36 @@ def realizar_compra(request):
             }
             return render(request, "realcompra.html", context=contexto)
         else:
-            #try:
-            for nomeloja in oplojas:
-                loja = Loja.objects.get(NomeLoja=nomeloja)
-                for opcao in sepcompras:
-                    if opcao["loja"] == loja.NomeLoja:
-                        compra = ''
-                        for itens in opcao["produtos"]:
-                            quantidade = list(usuario.carrinho_set.filter(produto=itens))
-                            print(quantidade)
-                            compra += f"{itens.nome_produto};{quantidade[0].quantidade}"
-                            quantidade[0].delete()
-            Compra.objects.create(usuario=usuario, loja=loja, transportadora=transportadora,
-                                  destinatario=destino, valor=soma, itens=compra, nome_comprador=nome_comprador)
-            #except:
-            erros["invalido"] = "Preencha os valores corretamente"
-            contexto = {
-                    "temloja": temloja,
-                    "erros": erros,
-                    "nome": nome_comprador,
-                    "compras": sepcompras,
-                    "valormax": soma,
-                    "cpf": cpf,
-                    "cidade": cidade,
-                    "endereco": endereco,
-                    "complemento": complemento,
-                    "transportadora": transportadora
-                }
-            return render(request, "realcompra.html", context=contexto)
-        #else:
-            #return redirect(historico_compras)
+            try:
+                for nomeloja in lojas:
+                    loja = Loja.objects.get(NomeLoja=nomeloja)
+                    for opcao in sepcompras:
+                        if opcao["loja"] == loja.NomeLoja:
+                            compra = ''
+                            for itens in opcao["produtos"]:
+                                quantidade = list(usuario.carrinho_set.filter(produto=itens))
+                                if len(quantidade) > 0:
+                                    compra += f"{itens.nome_produto};{quantidade[0].quantidade}"
+                                    quantidade[0].delete()
+                    Compra.objects.create(usuario=usuario, loja=loja, transportadora=transportadora,
+                                        destinatario=destino, valor=soma, itens=compra, nome_comprador=nome_comprador)
+            except:
+                erros["invalido"] = "Preencha os valores corretamente"
+                contexto = {
+                        "temloja": temloja,
+                        "erros": erros,
+                        "nome": nome_comprador,
+                        "compras": sepcompras,
+                        "valormax": soma,
+                        "cpf": cpf,
+                        "cidade": cidade,
+                        "endereco": endereco,
+                        "complemento": complemento,
+                        "transportadora": transportadora
+                    }
+                return render(request, "realcompra.html", context=contexto)
+            else:
+                return redirect(historico_compras)
     contexto = {
         "temloja": temloja,
         "compras": sepcompras,
@@ -717,4 +717,4 @@ def historico_compras(request):
         "temloja": temloja,
         "compras": compras
     }
-    return HttpResponse("WIP")
+    return render(request, "historico.html", contexto)
