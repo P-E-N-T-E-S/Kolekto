@@ -222,7 +222,7 @@
               <div class="input-group">
                   <div class="input-box">
                       <label for="nome_vendedor">Nome <i class='bx bx-edit-alt'></i></label>
-                      <input id="nome_vendedor" type="text" name="nome_vendedor" placeholder="{{ nome_vendedor }}" value="{{ nome }}" required>
+                      <input id="nome_vendedor" type="text" name="nome_vendedor" placeholder="{{ nome_vendedor }}" value="{{ nome_vendedor }}" disabled>
                       </fieldset>
                   </div>
 
@@ -239,6 +239,11 @@
                   <div class="input-box">
                     <label for="date">CPF <i class='bx bx-map-alt' ></i></label>
                     <input id="cpf" type="text" name="cpf" placeholder="Ex: 999.999.999-99" value="{{ cpf }}" required>
+                  </div>
+
+                  <div class="input-box">
+                    <label for="nome_loja">Nome da Loja <i class='bx bxs-lock-alt' ></i></label>
+                    <input id="nome_loja" type="text" name="nome_loja" placeholder="Nome da sua Loja" value="{{ nome_loja }}" required>
                   </div>
 
                   <div class="input-box">
