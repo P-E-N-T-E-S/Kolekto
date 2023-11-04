@@ -632,12 +632,6 @@ def realizar_compra(request):
         senha = request.POST.get("confirmPassword")
 
         destino = f"{endereco}, {complemento}, {cidade}"
-        print(cpf)
-        print(nome_comprador)
-        print(cidade)
-        print(endereco)
-        print(transportadora)
-        print(senha)
         erros = dict()
 
         errado = False
@@ -674,7 +668,7 @@ def realizar_compra(request):
                             for itens in opcao["produtos"]:
                                 quantidade = list(usuario.carrinho_set.filter(produto=itens))
                                 if len(quantidade) > 0:
-                                    compra += f"{itens.nome_produto};{quantidade[0].quantidade}"
+                                    compra += f"{itens.pk};{quantidade[0].quantidade}/"
                                     quantidade[0].delete()
                     Compra.objects.create(usuario=usuario, loja=loja, transportadora=transportadora,
                                         destinatario=destino, valor=soma, itens=compra, nome_comprador=nome_comprador)
@@ -712,9 +706,26 @@ def historico_compras(request):
         else:
             temloja = False
 
-    compras = list(Compra.objects.filter(usuario=usuario))
+    compras = list(usuario.compra_set.all())
+    separador = list()
+    for compra in compras:
+        chaves = [chave.split(";")[0] for chave in compra[i].itens.split("/") if chave.split(";")[0] != '']
+        quantidades = [chave.split(";")[1] for chave in compra[i].itens.split("/") if chave.split(";")[0] != '']
+        separador.append({
+            "loja": compra.loja,
+            "produtos": [Produto.objects.get(pk=chave) for chave in chaves],
+            "quantidade": quantidades
+        })
+
     contexto = {
         "temloja": temloja,
-        "compras": compras
+        "compras": separador,
+        "infocompras": compras
     }
     return render(request, "historico.html", contexto)
+
+
+
+
+
+
