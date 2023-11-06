@@ -719,7 +719,7 @@ def historico_compras(request):
             "produtos": [Produto.objects.get(pk=chave) for chave in chaves],
             "quantidade": quantidades
         })
-
+        print(Produto)
     contexto = {
         "temloja": temloja,
         "compras": separador,
