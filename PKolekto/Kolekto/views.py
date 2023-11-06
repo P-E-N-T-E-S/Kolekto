@@ -724,7 +724,7 @@ def historico_compras(request):
             "loja": compra.loja,
             "produtos": produtos
         })
-
+        print(Produto)
     contexto = {
         "temloja": temloja,
         "compras": separador,
