@@ -26,6 +26,35 @@ categorias = [
                 "Outro"
             ]
 
+estados_brasileiros = [
+    "Acre",
+    "Alagoas",
+    "Amapá",
+    "Amazonas",
+    "Bahia",
+    "Ceará",
+    "Distrito Federal",
+    "Espírito Santo",
+    "Goiás",
+    "Maranhão",
+    "Mato Grosso",
+    "Mato Grosso do Sul",
+    "Minas Gerais",
+    "Pará",
+    "Paraíba",
+    "Paraná",
+    "Pernambuco",
+    "Piauí",
+    "Rio de Janeiro",
+    "Rio Grande do Norte",
+    "Rio Grande do Sul",
+    "Rondônia",
+    "Roraima",
+    "Santa Catarina",
+    "São Paulo",
+    "Sergipe",
+    "Tocantins"
+]
 
 def Registro(request):
     if request.method == 'POST':
@@ -81,7 +110,8 @@ def Cadastro_Loja(request):
         
     contexto = {
         "nome_vendedor": usuario.first_name,
-        "temloja": temloja
+        "temloja": temloja,
+        "estados_brasileiros": estados_brasileiros
     }
     
     if request.method == "POST":
@@ -111,15 +141,21 @@ def Cadastro_Loja(request):
             errado = True
             erros["cpferrado"] = "digite o cpf corretamente"
 
+        if request.POST.get("estado") == None:
+            errado = True
+            erros["selecestado"] = "selecione o seu estado"
+
         if errado:
             contexto["erros"] = erros
             contexto["data_nascimento"] = data_nascimento
             contexto["localizacao"] = request.POST.get("cidade")
             contexto["estado"] = True
+            contexto["selecao"] = {request.POST.get('estado')}
             contexto["cpf"] = cpf
             contexto["nome_loja"] = nome_loja
             contexto["perfil"] = perfil
             contexto["descrito"] = descricao
+            contexto["estados_brasileiros"] = estados_brasileiros
             return render(request, "cadastro_loja.html", context=contexto)
         else:
             try:
@@ -130,10 +166,12 @@ def Cadastro_Loja(request):
                 contexto["data_nascimento"] = data_nascimento
                 contexto["localizacao"] = request.POST.get("cidade")
                 contexto["estado"] = True
+                contexto["selecao"] = {request.POST.get('estado')}
                 contexto["cpf"] = cpf
                 contexto["nome_loja"] = nome_loja
                 contexto["perfil"] = perfil
                 contexto["descrito"] = descricao
+                contexto["estados_brasileiros"] = estados_brasileiros
                 return render(request, "cadastro_loja.html", context=contexto)
             else:
                 return redirect(home)
@@ -538,7 +576,8 @@ def editar_loja(request, loja):
             "cpf": userloja.Cpf,
             "nome_loja": userloja.NomeLoja,
             "perfil": userloja.Perfil,
-            "descrito": userloja.descricao
+            "descrito": userloja.descricao,
+            "estados_brasileiros": estados_brasileiros
         }
 
         if request.method == "POST":
@@ -592,6 +631,7 @@ def editar_loja(request, loja):
                     contexto["nome_loja"] = nome_loja
                     contexto["perfil"] = perfil
                     contexto["descrito"] = descricao
+                    contexto["estados_brasileiros"] = estados_brasileiros
                     return render(request, "editLoja.html", context=contexto)
                 else:
                     return redirect(minha_loja)
