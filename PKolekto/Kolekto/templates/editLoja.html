@@ -29,7 +29,7 @@
           id="nascimento"
           name="nascimento"
           placeholder="{{ data_nascimento }}"
-          value="{{ data_nascimento }}"
+          value="{{ data_nascimento|date:'Y-m-d' }}"
         />
       </div>
       <div class="col-md-6">
