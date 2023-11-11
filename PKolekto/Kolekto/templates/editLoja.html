@@ -1,168 +1,283 @@
-{% extends "layout.html" %} {% block title %} Editar loja {% endblock %}
-{% block main %}
-<div class="container-fluid py-5 text-center">
-<h1>Editar Dados</h1>
-<div class="container">
-  <form
-    method="POST"
-  >
-    {% csrf_token %}
-    <div class="row row-cols-2">
-      <fieldset disabled>
-        <div class="col-md-6">
-          <label for="nome_vendedor" class="form-label">Nome do vendedor</label>
-          <input
-            type="text"
-            class="form-control"
-            id="nome_vendedor"
-            placeholder="{{ nome_vendedor }}"
-          />
-        </div>
-      </fieldset>
-      <div class="col-md-6">
-        <label for="nascimento" class="form-label"
-          >Selecione sua data de nascimento</label
-        >
-        <input
-          type="date"
-          class="form-control"
-          id="nascimento"
-          name="nascimento"
-          placeholder="{{ data_nascimento }}"
-          value="{{ data_nascimento|date:'Y-m-d' }}"
-        />
-      </div>
-      <div class="col-md-6">
-        <label class="form-label">Selecione seu estado</label>
-        <br />
-        <div style="padding-left: -5%">
-          <select
-            class="form-select form-select-lg mb-3 pb-0"
-            name="estado"
-            style="padding-right: 80%"
-          >
-            {% if cidade %}
-            <option value="{{ estado }}">{{ estado }}</option>
-            {% endif %}
-            <option value="AC">AC</option>
-            <option value="AL">AL</option>
-            <option value="AP">AP</option>
-            <option value="AM">AM</option>
-            <option value="BA">BA</option>
-            <option value="CE">CE</option>
-            <option value="ES">ES</option>
-            <option value="GO">GO</option>
-            <option value="MA">MA</option>
-            <option value="MT">MT</option>
-            <option value="MS">MS</option>
-            <option value="MG">MG</option>
-            <option value="PB">PB</option>
-            <option value="PR">PR</option>
-            <option value="PE">PE</option>
-            <option value="PI">PI</option>
-            <option value="RJ">RJ</option>
-            <option value="RN">RN</option>
-            <option value="RS">RS</option>
-            <option value="RO">RO</option>
-            <option value="RR">RR</option>
-            <option value="SC">SC</option>
-            <option value="SP">SP</option>
-            <option value="SE">SE</option>
-            <option value="TO">TO</option>
-            <option value="DF">DF</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <label for="cidade" class="form-label">Digite sua cidade</label>
-        <input
-          type="text"
-          class="form-control"
-          id="cidade"
-          name="cidade"
-          value="{{ cidade }}"
-        />
-      </div>
-      <div class="col-md-6">
-        <label for="cpf" class="form-label">Informe o seu CPF</label>
-        <input
-          type="text"
-          class="form-control"
-          id="cpf"
-          aria-describedby="cpf_"
-          name="cpf"
-          value="{{ cpf }}"
-        />
-        <div id="cpf_" class="form_text">Ex: 999.999.999-99</div>
-      </div>
-      <div class="col-md-6">
-        <label for="nome_loja" class="form-label"
-          >Digite o nome da sua Loja</label
-        >
-        <input
-          type="text"
-          class="form-control"
-          id="nome_loja"
-          name="nome_loja"
-          value="{{nome_loja}}"
-        />
-      </div>
-      <div class="col-md-6">
-        <label for="perfil" class="form-label">Imagem de perfil</label>
-        <input
-          type="text"
-          class="form-control"
-          id="perfil"
-          aria-describedby="perfil_"
-          name="perfil"
-          value="{{ perfil }}"
-        />
-        <div id="perfil_" class="form-text">
-          Coloque um url de imagem da web, como do imgur, PostImage, ImgBB,
-          etc...
-        </div>
-      </div>
-      <div class="col-md-6">
-        <label for="banner" class="form-label">Imagem de banner</label>
-        <input
-          type="text"
-          class="form-control"
-          id="banner"
-          aria-describedby="banner_"
-          name="banner"
-          value="{{ banner }}"
-        />
-        <div id="banner_" class="form-text">
-          Coloque um url de imagem da web, como do imgur, PostImage, ImgBB,
-          etc...
-        </div>
-      </div>
+{% extends "layout.html" %}
 
-      <div class="container text-left">
-        <label for="desc" class="form-label">Descrição da loja</label>
-        <input
-          type="text"
-          class="form-control"
-          id="desc"
-          name="descricao"
-          value="{{ descrito }}"
-        />
+{% block title %} Lista de desejos {% endblock %}
+
+{% block main %}
+
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<style>
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .corpo {
+    margin-top: 2vh;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+
+    display: flex;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.212);
+    border-radius: 10px;
+
+  }
+
+  .form-image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fde3a7d7;
+    padding: 1rem;
+  }
+
+  .form-image img {
+    width: 31rem;
+  }
+
+  .form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 3rem;
+  }
+
+  .form-header {
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .form-header h1::after {
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 0.3rem;
+    background-color: #ff7420;
+    margin: 0 auto;
+    position: absolute;
+    border-radius: 10px;
+  }
+
+  .input-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem 0;
+  }
+
+  .input-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.1rem;
+  }
+
+  .input-box input {
+    margin: 0.6rem 0;
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #0000001c;
+    font-size: 0.8rem;
+  }
+
+  .input-box input:hover {
+    background-color: #eeeeee75;
+  }
+
+.input-box input:focus-visible {
+    outline: 1px solid #ff7420;
+  }
+
+  .input-box label,
+  .Transportadora-title h6 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #000000c0;
+  }
+
+  .input-box input::placeholder {
+    color: #000000be;
+  }
+
+  .Transportadora-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.62rem;
+    padding: 0 .5rem;
+  }
+
+  .Transportadora-input {
+    display: flex;
+    align-items: center;
+  }
+
+  .Transportadora-input input {
+    margin-right: 0.35rem;
+  }
+
+  .Transportadora-input label {
+    font-size: 0.81rem;
+    font-weight: 600;
+    color: #000000c0;
+  }
+
+  .continue-button button {
+    width: 100%;
+    height: 45px;
+    background-color: #ff7420;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 010px rgba(0, 0, 0, .1);
+    cursor: #333;
+    font-weight: 600;
+    margin-top: 15px;
+  }
+
+  .continue-button button:hover {
+    background-color: #cf5c17;
+  }
+
+  .continue-button button a {
+    text-decoration: none;
+    font-size: 0.93rem;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  @media screen and (max-width: 1330px) {
+    .form-image {
+        display: none;
+    }
+    .container {
+        width: 50%;
+    }
+    .form {
+        width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 1064px) {
+    .container {
+        width: 90%;
+        height: auto;
+    }
+    .input-group {
+        flex-direction: column;
+        z-index: 5;
+        padding-right: 5rem;
+        max-height: 10rem;
+        overflow-y: scroll;
+        flex-wrap: nowrap;
+    }
+    .Transportadora-inputs {
+        margin-top: 2rem;
+    }
+    .Transportadora-group {
+        flex-direction: column;
+    }
+    .Transportadora-title h6 {
+        margin: 0;
+    }
+    .Transportadora-input {
+        margin-top: 0.5rem;
+    }
+  }
+
+  .erros {
+    font-size: medium;
+    color: red;
+  }
+
+</style>
+
+<div class="corpo">
+  <div class="container">
+      <div class="form-image">
+          <img src="https://i.imgur.com/svquz0h.png" alt="Kolekto">
       </div>
-    </div>
-    <!--class="row"-->
-    <br />
-    <p id="erro">{{ erros.cpferrado }} {{ erros.nomedaloja }} {{ erros.urlerrado }}</p>
-    <div class="d-flex justify-content-end w-100">
-      <button type="submit" class="btn btn-primary" name="criar">Salvar</button>
-      <a href="{% url 'index' %}" class="btn btn-danger mx-3">Cancelar</a>
-    </div>
-  </form>
+      <div class="form">
+          <form
+            action="#"
+            method="POST"
+            enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-header">
+                  <div class="title">
+                      <h1>Editar Loja</h1>
+                  </div>
+              </div>
+
+              <div class="input-group">
+                  <div class="input-box">
+                      <label for="nome_vendedor">Nome <i class='bx bx-edit-alt'></i></label>
+                      <input id="nome_vendedor" type="text" name="nome_vendedor" placeholder="{{ nome_vendedor }}" value="{{ nome_vendedor }}" disabled>
+                      </fieldset>
+                  </div>
+
+                  <div class="input-box">
+                    <label for="perfil">Imagem de perfil <i class='bx bxs-camera' ></i></label>
+                    <input id="perfil" type="text" name="perfil" aria-describedby="perfil_" placeholder="Foto" value="{{ perfil }}" required>
+                  </div>
+
+                  <div class="input-box">
+                    <label for="Cidade">Data de nascimento <i class='bx bx-calendar' ></i></i></label>
+                    <input id="nascimento" type="date" name="nascimento" value="{{ data_nascimento|date:'Y-m-d' }}" required>
+                  </div>
+
+                  <div class="input-box">
+                    <label for="date">CPF <i class='bx bx-id-card'></i></label>
+                    <input id="cpf" type="text" name="cpf" placeholder="Ex: 999.999.999-99" value="{{ cpf }}" required>
+                  </div>
+
+                  <div class="input-box">
+                    <label for="nome_loja">Nome da Loja <i class='bx bx-store-alt' ></i></label>
+                    <input id="nome_loja" type="text" name="nome_loja" placeholder="Nome da sua Loja" value="{{ nome_loja }}" required>
+                  </div>
+
+                  <div class="input-box">
+                    <label for="descricao">Descrição da loja <i class='bx bx-rename' ></i></label>
+                    <input id="descricao" type="text" name="descricao" placeholder="Descrição da loja" value="{{ descrito }}" required>
+                  </div>
+
+                  <div class="input-box">
+                    <label for="Rua/Avenida">Digite sua cidade <i class='bx bx-map-pin' ></i></label>
+                    <input id="Rua/Avenida" type="text" name="cidade" placeholder="Sua Cidade" value="{{ cidade }}" required>
+                  </div>
+
+                  <div class="input-box">
+                      <label for="CPF">Seu estado <i class='bx bx-map' ></i></label>
+                      <select
+                        class="form-select form-select-lg mb-3 pb-0"
+                        name="estado"
+                      >
+                        {% for estado in estados_brasileiros %}
+                          <option value="{{ estado }}" {% if estado == contexto.estado %}selected{% endif %}>{{ estado }}</option>
+                        {% endfor %}
+                      </select>
+                  </div>
+
+              </div>
+
+              <p id="erros">{{ erros.nomedaloja }} {{ erros.urlerrado }} {{ erros.cpferrado }}</p>
+
+              <div class="continue-button">
+                <button type="submit"><a>Criar</a></button>
+              </div>
+          </form>
+      </div>
+  </div>
 </div>
-</div>
-<!--class="container"-->
-<script
-  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-  crossorigin="anonymous"
-></script>
+
 {% endblock %}

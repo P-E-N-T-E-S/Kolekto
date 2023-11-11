@@ -26,11 +26,10 @@
 <div class="container-fluid py-5 text-center">
   <header>
     <div style="position: relative;">
-      <img src="{{ perfil }}" class="rounded-circle border border-dark border-3" style="position: absolute; top: 250px; left: 10px; width: 100px; height: 100px;">
-      <br/>  
-    </div>
-    <div class="d-flex flex-row aling-items-center mb-" style="margin-top: 30px; margin-left: 20px; font-size: 30px;">
+      <img src="{{ perfil }}" class="rounded-circle border border-dark border-3" style="width: 100px">
+      <br/>
       <p class="mb-0 me-2" style="font-weight: bold;" name="tituloLoja">{{ nome_loja }}</p> 
+    </div>
     <div style=" width: 83%; text-align: right;">
       {% if minhaloja %}
       <a href="editar/{{ nome_loja }}">

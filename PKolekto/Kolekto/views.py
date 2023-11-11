@@ -26,6 +26,35 @@ categorias = [
                 "Outro"
             ]
 
+estados_brasileiros = [
+    "Acre",
+    "Alagoas",
+    "Amapá",
+    "Amazonas",
+    "Bahia",
+    "Ceará",
+    "Distrito Federal",
+    "Espírito Santo",
+    "Goiás",
+    "Maranhão",
+    "Mato Grosso",
+    "Mato Grosso do Sul",
+    "Minas Gerais",
+    "Pará",
+    "Paraíba",
+    "Paraná",
+    "Pernambuco",
+    "Piauí",
+    "Rio de Janeiro",
+    "Rio Grande do Norte",
+    "Rio Grande do Sul",
+    "Rondônia",
+    "Roraima",
+    "Santa Catarina",
+    "São Paulo",
+    "Sergipe",
+    "Tocantins"
+]
 
 def Registro(request):
     if request.method == 'POST':
@@ -81,7 +110,8 @@ def Cadastro_Loja(request):
         
     contexto = {
         "nome_vendedor": usuario.first_name,
-        "temloja": temloja
+        "temloja": temloja,
+        "estados_brasileiros": estados_brasileiros
     }
     
     if request.method == "POST":
@@ -95,28 +125,37 @@ def Cadastro_Loja(request):
         perfil = request.POST.get("perfil")
         associado = usuario
         descricao = request.POST.get("descricao")
+        print(perfil)
+        print(cpf)
+        print(nome_loja)
 
-        if nomeLojaExiste(nome_loja, errado):
+        if nomeLojaExiste(nome_loja):
             errado = True
             erros["nomedaloja"] = "Já existe uma loja com esse nome."
 
-        if validacaoLinks(perfil, errado):
+        if validacaoLinks(perfil):
             errado = True
             erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
 
-        if validar_cpf(cpf, errado):
+        if validar_cpf(cpf):
             errado = True
             erros["cpferrado"] = "digite o cpf corretamente"
+
+        if request.POST.get("estado") == None:
+            errado = True
+            erros["selecestado"] = "selecione o seu estado"
 
         if errado:
             contexto["erros"] = erros
             contexto["data_nascimento"] = data_nascimento
             contexto["localizacao"] = request.POST.get("cidade")
             contexto["estado"] = True
+            contexto["selecao"] = {request.POST.get('estado')}
             contexto["cpf"] = cpf
             contexto["nome_loja"] = nome_loja
             contexto["perfil"] = perfil
             contexto["descrito"] = descricao
+            contexto["estados_brasileiros"] = estados_brasileiros
             return render(request, "cadastro_loja.html", context=contexto)
         else:
             try:
@@ -127,10 +166,12 @@ def Cadastro_Loja(request):
                 contexto["data_nascimento"] = data_nascimento
                 contexto["localizacao"] = request.POST.get("cidade")
                 contexto["estado"] = True
+                contexto["selecao"] = {request.POST.get('estado')}
                 contexto["cpf"] = cpf
                 contexto["nome_loja"] = nome_loja
                 contexto["perfil"] = perfil
                 contexto["descrito"] = descricao
+                contexto["estados_brasileiros"] = estados_brasileiros
                 return render(request, "cadastro_loja.html", context=contexto)
             else:
                 return redirect(home)
@@ -535,7 +576,8 @@ def editar_loja(request, loja):
             "cpf": userloja.Cpf,
             "nome_loja": userloja.NomeLoja,
             "perfil": userloja.Perfil,
-            "descrito": userloja.descricao
+            "descrito": userloja.descricao,
+            "estados_brasileiros": estados_brasileiros
         }
 
         if request.method == "POST":
@@ -549,16 +591,16 @@ def editar_loja(request, loja):
             perfil = request.POST.get("perfil")
             descricao = request.POST.get("descricao")
 
-            if nomeLojaExiste(nome_loja, errado):
+            if nomeLojaExiste(nome_loja):
                 errado = True
                 erros["nomedaloja"] = "Já existe uma loja com esse nome."
 
-            if validacaoLinks(perfil, errado):
+            if validacaoLinks(perfil):
                 errado = True
                 erros[
                     "urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
 
-            if validar_cpf(cpf, errado):
+            if validar_cpf(cpf):
                 errado = True
                 erros["cpferrado"] = "digite o cpf corretamente"
 
@@ -589,6 +631,7 @@ def editar_loja(request, loja):
                     contexto["nome_loja"] = nome_loja
                     contexto["perfil"] = perfil
                     contexto["descrito"] = descricao
+                    contexto["estados_brasileiros"] = estados_brasileiros
                     return render(request, "editLoja.html", context=contexto)
                 else:
                     return redirect(minha_loja)
@@ -632,17 +675,11 @@ def realizar_compra(request):
         senha = request.POST.get("confirmPassword")
 
         destino = f"{endereco}, {complemento}, {cidade}"
-        print(cpf)
-        print(nome_comprador)
-        print(cidade)
-        print(endereco)
-        print(transportadora)
-        print(senha)
         erros = dict()
 
         errado = False
 
-        if validar_cpf(cpf, errado):
+        if validar_cpf(cpf):
             errado = True
             erros["cpferrado"] = "Digite o CPF corretamente"
 
@@ -674,7 +711,7 @@ def realizar_compra(request):
                             for itens in opcao["produtos"]:
                                 quantidade = list(usuario.carrinho_set.filter(produto=itens))
                                 if len(quantidade) > 0:
-                                    compra += f"{itens.nome_produto};{quantidade[0].quantidade}"
+                                    compra += f"{itens.pk};{quantidade[0].quantidade}/"
                                     quantidade[0].delete()
                     Compra.objects.create(usuario=usuario, loja=loja, transportadora=transportadora,
                                         destinatario=destino, valor=soma, itens=compra, nome_comprador=nome_comprador)
@@ -712,9 +749,25 @@ def historico_compras(request):
         else:
             temloja = False
 
-    compras = list(Compra.objects.filter(usuario=usuario))
+    compras = list(usuario.compra_set.all())
+    separador = list()
+    produtos = list()
+    for compra in compras:
+        chaves = [chave.split(";")[0] for chave in compra.itens.split("/") if chave.split(";")[0] != '']
+        quantidades = [chave.split(";")[1] for chave in compra.itens.split("/") if chave.split(";")[0] != '']
+        for chave in range(len(chaves)):
+            produtos.append({
+                "produto": Produto.objects.get(pk=chaves[chave]),
+                "quantidade": quantidades[chave]
+            })
+        separador.append({
+            "loja": compra.loja,
+            "produtos": produtos
+        })
+        print(Produto)
     contexto = {
         "temloja": temloja,
-        "compras": compras
+        "compras": separador,
+        "infocompras": compras
     }
     return render(request, "historico.html", contexto)
