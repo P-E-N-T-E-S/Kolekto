@@ -215,7 +215,7 @@
               {% csrf_token %}
               <div class="form-header">
                   <div class="title">
-                      <h1>Cadastro de Loja</h1>
+                      <h1>Editar Loja</h1>
                   </div>
               </div>
 
@@ -233,7 +233,7 @@
 
                   <div class="input-box">
                     <label for="Cidade">Data de nascimento <i class='bx bx-calendar' ></i></i></label>
-                    <input id="nascimento" type="date" name="nascimento" value="{{ data_nascimento }}" required>
+                    <input id="nascimento" type="date" name="nascimento" value="{{ data_nascimento|date:'Y-m-d' }}" required>
                   </div>
 
                   <div class="input-box">
@@ -262,35 +262,9 @@
                         class="form-select form-select-lg mb-3 pb-0"
                         name="estado"
                       >
-                        {% if cidade %}
-                        <option value="">Escolha seu estado novamente</option>
-                        {% endif %}
-                        <option value="ac">AC</option>
-                        <option value="al">AL</option>
-                        <option value="ap">AP</option>
-                        <option value="am">AM</option>
-                        <option value="ba">BA</option>
-                        <option value="ce">CE</option>
-                        <option value="es">ES</option>
-                        <option value="go">GO</option>
-                        <option value="ma">MA</option>
-                        <option value="mt">MT</option>
-                        <option value="ms">MS</option>
-                        <option value="mg">MG</option>
-                        <option value="pb">PB</option>
-                        <option value="pr">PR</option>
-                        <option value="pe">PE</option>
-                        <option value="pi">PI</option>
-                        <option value="rj">RJ</option>
-                        <option value="rn">RN</option>
-                        <option value="rs">RS</option>
-                        <option value="ro">RO</option>
-                        <option value="rr">RR</option>
-                        <option value="sc">SC</option>
-                        <option value="sp">SP</option>
-                        <option value="se">SE</option>
-                        <option value="to">TO</option>
-                        <option value="df">DF</option>
+                        {% for estado in estados_brasileiros %}
+                          <option value="{{ estado }}" {% if estado == contexto.estado %}selected{% endif %}>{{ estado }}</option>
+                        {% endfor %}
                       </select>
                   </div>
 

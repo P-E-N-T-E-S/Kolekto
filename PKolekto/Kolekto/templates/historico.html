@@ -61,30 +61,30 @@
 
 
 <section id="wish-container" class="container my-5">
+  {% for compra in compras %}
   <table width="100%">
-    <tbody>
-      {% for item in separador %}
-      <tr>
-        <td style="margin-left: 40px; display: flex; align-items: center;">
-          <img src="{{ item.produto.foto1 }}" alt="{{ item.nome_item }}"></a>
-          <div style="margin-left: 20px; text-align: left;">
-            <h5 style="font-size: 26px; margin: 0;">{{ item.nome_produto }}</h5></a>
-            <p>{{ item.loja }}</p></a>
-            <h5 style="font-size: 24px;" class='preco'>R${{ item.preco }}</h5></a>
-            <p >{{ item.categoria }}</p></a>
-          </div>
-        </td>
-        <td><button id="removerlistadesejo" class="btn btn-lg mx-1 btn-danger" onclick="rem_lista_desejo('{{ item.id }}')">
-          <i class="fa-solid fa-x"></i>
-          </button></td>
-      </tr>
-      {% empty %}
-      <h4>Nada por aqui :/</h4>
+    <thead><tr><td>{{ compra.loja }}</td></tr></thead>
+  {% for item  in compra.produtos %}
+          <tbody>
+            <tr>
+              <td style="margin-left: 40px; display: flex; align-items: center;">
+                <img src="{{ item.produto.foto1 }}" alt="{{ item.produto.nome_item }}"></a>
+                <div style="margin-left: 20px; text-align: left;">
+                  <h5 style="font-size: 26px; margin: 0;">{{ item.produto.nome_produto }}</h5></a>
+                  <p>{{ item.produto.loja }}</p></a>
+                  <h5 style="font-size: 24px;" class='preco'>R${{ item.produto.preco }}</h5></a>
+                  <p >{{ item.produto.categoria }}</p></a>
+                </div>
+              </td>
+            </tr>
+          {% empty %}
+          <h4>Nada por aqui :/</h4>
+        </tbody>
+      </table>
       {% endfor %}
-    </tbody>
-  </table>
-</section>
-</div>
+    {% endfor %}
+      </section>
+    </div>
 
 <script>
   async function rem_lista_desejo(produtoId){
