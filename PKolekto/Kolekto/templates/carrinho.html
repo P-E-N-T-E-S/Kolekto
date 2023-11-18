@@ -115,7 +115,7 @@
   <table width="100%">
     <tbody>
       {% for item in produtos %}
-      <tr>
+      <tr id="{{ item.nome_produto }}">
         <td style="margin-left: 40px; display: flex; align-items: center;">
           <a href="{% url 'pagina_produto' item.id %}"><img src="{{ item.foto1 }}" alt="{{ item.nome_item }}"></a>
           <div style="margin-left: 20px; text-align: left;">
@@ -148,7 +148,7 @@
     </table>
   </div>
 
-  <button class="btn-link" type="submit"><a href="realizar_compra">Comprar</a></button>
+  <button class="btn-link" type="submit" id="Comprar"><a href="realizar_compra">Comprar</a></button>
 
 </section>
 </div>

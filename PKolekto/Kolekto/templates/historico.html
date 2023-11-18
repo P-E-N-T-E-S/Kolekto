@@ -67,12 +67,12 @@
   {% for item  in compra.produtos %}
           <tbody>
             <tr>
-              <td style="margin-left: 40px; display: flex; align-items: center;">
-                <img src="{{ item.produto.foto1 }}" alt="{{ item.produto.nome_item }}"></a>
+              <td style="margin-left: 40px; display: flex; align-items: center;" id="{{ item.produto.nome_produto }}">
+                <img src="{{ item.produto.foto1 }}" alt="{{ item.produto.nome_produto }}"></a>
                 <div style="margin-left: 20px; text-align: left;">
-                  <h5 style="font-size: 26px; margin: 0;">{{ item.produto.nome_produto }}</h5></a>
+                  <h5 style="font-size: 26px; margin: 0;" id="nome">{{ item.produto.nome_produto }}</h5></a>
                   <p>{{ item.produto.loja }}</p></a>
-                  <h5 style="font-size: 24px;" class='preco'>R${{ item.produto.preco }}</h5></a>
+                  <h5 style="font-size: 24px;" class='preco' id="preco">R${{ item.produto.preco }}</h5></a>
                   <p >{{ item.produto.categoria }}</p></a>
                 </div>
               </td>
