@@ -290,7 +290,8 @@ def pagina_produto(request, id_produto):
             "qntd": id_produto.qntd,
             "nome_loja": nome_loja,
             "temloja": temloja,
-            "foto_loja": foto_loja
+            "foto_loja": foto_loja,
+            "avaliacoes": list(id_produto.avaliacao_set.all())
         }
 
         return render(request, "pagina_produto.html", context=contexto)

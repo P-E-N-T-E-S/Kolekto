@@ -313,7 +313,11 @@ body{
       </div>
     </div>
   </div>
-</div>
+</div><!--cardwrapper-->
+{%for avaliacao in avaliacoes%}
+comentario = {{avaliacao.comentario}} </br>
+nota = {{avaliacao.nota}}</br>
+{%endfor%}
 
 
 <script> 
