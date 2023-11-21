@@ -76,7 +76,7 @@
                   <p >{{ item.produto.categoria }}</p></a>
                 </div>
                   <div class="continue-button">
-                <button type="button"><a href="{% url 'avaliacao' item.produto.id%}">Criar</a></button>
+                <button type="button"><a href="{% url 'avaliacao' item.produto.id%}" id="avaliar {{item.produto.nome_produto}}">Criar</a></button>
               </div>
               </td>
             </tr>

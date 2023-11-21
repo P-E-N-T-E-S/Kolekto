@@ -78,10 +78,10 @@ class Compra(models.Model):
 
 
 class Avaliacao(models.Model):
-    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    loja = models.ForeignKey(Loja, on_delete=models.CASCADE, null=True)
     avaliador = models.ForeignKey(User, on_delete=models.CASCADE)
     nota = models.IntegerField()
     comentario = models.TextField()
 
     def __str__(self):
-        return f"{self.avaliador} - {self.produto}"
+        return f"{self.avaliador} - {self.loja}"

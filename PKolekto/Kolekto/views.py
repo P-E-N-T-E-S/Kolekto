@@ -291,7 +291,6 @@ def pagina_produto(request, id_produto):
             "nome_loja": nome_loja,
             "temloja": temloja,
             "foto_loja": foto_loja,
-            "avaliacoes": list(id_produto.avaliacao_set.all())
         }
 
         return render(request, "pagina_produto.html", context=contexto)
@@ -382,6 +381,7 @@ def pagina_loja(request, nome_loja):
             "descricao": loja.descricao,
             "produtos": produtos,
             "temloja": temloja,
+            "avaliacoes": list(loja.avaliacao_set.all())
         }
         return render(request, "pagina_loja.html", context=contexto)
     else:
@@ -445,7 +445,8 @@ def minha_loja(request):
             "localizacao": loja.Localizacao,
             "descricao": loja.descricao,
             "produtos": produtos,
-            "temloja": temloja
+            "temloja": temloja,
+            "avaliacoes": list(loja.avaliacao_set.all())
         }
         return render(request, "pagina_loja.html", context=contexto)
     else:
@@ -779,14 +780,15 @@ def avaliacao(request, id):
     usuario = request.user
     produto = Produto.objects.get(id=id)
     contexto={
-        "produto": produto
+        "loja": produto.loja
     }
-    if Avaliacao.objects.filter(avaliador=usuario, produto=produto).exists():
+    if Avaliacao.objects.filter(avaliador=usuario, loja=produto.loja).exists():
         return JsonResponse({'mensagem': 'Produto já avaliado.'}, status=200)
     else:
         if request.method == "POST":
             nota = request.POST.get("nota")
             comentario = request.POST.get("comentario")
-            Avaliacao.objects.create(avaliador=usuario, produto=produto, nota=nota, comentario=comentario)
+            Avaliacao.objects.create(avaliador=usuario, loja=produto.loja, nota=nota, comentario=comentario)
+            return redirect(historico_compras)
 
         return render(request, "avaliacao.html", contexto)

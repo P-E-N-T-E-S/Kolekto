@@ -1,4 +1,4 @@
-'''from selenium_setup import setup_selenium, finalizar_selenium
+from selenium_setup import setup_selenium, finalizar_selenium
 from django.test import LiveServerTestCase
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -204,7 +204,7 @@ class Historia7(LiveServerTestCase):
         descricao = driver.find_element(by=By.NAME, value="detalhes")
 
         motivo.click()
-        descricao.send_keys("Vacilou muito esse vendedor")'''
+        descricao.send_keys("Vacilou muito esse vendedor")
 
 
 
