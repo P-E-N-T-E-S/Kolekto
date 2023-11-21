@@ -33,12 +33,12 @@ class Historia8(LiveServerTestCase):
 
             usuario.send_keys(f"Teste10{i}")
             nome_usuario.send_keys(f"Marcílio10{i}")
-            email.send_keys(f"hist10{1}@teste.com")
+            email.send_keys(f"hist10{i}@teste.com")
             senha.send_keys("Teste12345")
             time.sleep(segundos)
             botao.send_keys(Keys.ENTER)
 
-            if i == 1:
+            if i == 0:
                 time.sleep(segundos)
                 driver.get("http://127.0.0.1:8000/nova_loja")
                 nascimento = driver.find_element(by=By.NAME, value="nascimento")
@@ -105,7 +105,7 @@ class Historia8(LiveServerTestCase):
         senha = driver.find_element(by=By.NAME, value="senha")
         enviar = driver.find_element(by=By.NAME, value="Logar")
 
-        usuario.send_keys("Teste100")
+        usuario.send_keys("Teste101")
         senha.send_keys("Teste12345")
         time.sleep(segundos)
         enviar.send_keys(Keys.ENTER)
@@ -115,8 +115,7 @@ class Historia8(LiveServerTestCase):
         nome = tabela.find_element(by=By.TAG_NAME, value="h5").text
         preco = tabela.find_element(by=By.ID, value="preco").text
         self.assertTrue(
-            nome == produto_nome and
-            preco == produto_preco
+            nome == produto_nome and preco == produto_preco
         )
 
     def test_002_cenario2(self):
@@ -127,7 +126,7 @@ class Historia8(LiveServerTestCase):
         senha = driver.find_element(by=By.NAME, value="senha")
         enviar = driver.find_element(by=By.NAME, value="Logar")
 
-        usuario.send_keys("Teste100")
+        usuario.send_keys("Teste101")
         senha.send_keys("Teste12345")
         time.sleep(segundos)
         enviar.send_keys(Keys.ENTER)
@@ -150,7 +149,7 @@ class Historia8(LiveServerTestCase):
         senha = driver.find_element(by=By.NAME, value="senha")
         enviar = driver.find_element(by=By.NAME, value="Logar")
 
-        usuario.send_keys("Teste100")
+        usuario.send_keys("Teste101")
         senha.send_keys("Teste12345")
         time.sleep(segundos)
         enviar.send_keys(Keys.ENTER)
@@ -186,6 +185,5 @@ class Historia8(LiveServerTestCase):
         preco = tabela.find_element(by=By.ID, value="preco").text
 
         self.assertTrue(
-            nome == produto_nome and
-            preco == produto_preco
+            nome == produto_nome and preco == produto_preco
         )
