@@ -75,6 +75,9 @@
                   <h5 style="font-size: 24px;" class='preco' id="preco">R${{ item.produto.preco }}</h5></a>
                   <p >{{ item.produto.categoria }}</p></a>
                 </div>
+                  <div class="continue-button">
+                <button type="button"><a href="{% url 'avaliacao' item.produto.id%}">Criar</a></button>
+              </div>
               </td>
             </tr>
           {% empty %}

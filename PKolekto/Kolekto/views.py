@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
-from .models import Produto, Loja, ListaDesejos, Carrinho, Compra
+from .models import Produto, Loja, ListaDesejos, Carrinho, Compra, Avaliacao
 from django.http import Http404, JsonResponse
 from django.db.models import Q
 from django.core.mail import send_mail
@@ -637,6 +637,7 @@ def editar_loja(request, loja):
                     return redirect(minha_loja)
         return render(request, "editLoja.html", context=contexto)
 
+
 def realizar_compra(request):
     usuario = request.user
     if request.user.is_anonymous:
@@ -739,6 +740,7 @@ def realizar_compra(request):
     }
     return render(request, "realcompra.html", context=contexto)
 
+
 def historico_compras(request):
     usuario = request.user
     if request.user.is_anonymous:
@@ -770,3 +772,20 @@ def historico_compras(request):
         "infocompras": compras
     }
     return render(request, "historico.html", contexto)
+
+@login_required
+def avaliacao(request, id):
+    usuario = request.user
+    produto = Produto.objects.get(id=id)
+    contexto={
+        "produto": produto
+    }
+    if Avaliacao.objects.filter(avaliador=usuario, produto=produto).exists():
+        return JsonResponse({'mensagem': 'Produto já avaliado.'}, status=200)
+    else:
+        if request.method == "POST":
+            nota = request.POST.get("nota")
+            comentario = request.POST.get("comentario")
+            Avaliacao.objects.create(avaliador=usuario, produto=produto, nota=nota, comentario=comentario)
+
+        return render(request, "avaliacao.html", contexto)

@@ -75,3 +75,13 @@ class Compra(models.Model):
 
     def __str__(self):
         return f"{self.loja} - R${self.valor} - {self.data}"
+
+
+class Avaliacao(models.Model):
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    avaliador = models.ForeignKey(User, on_delete=models.CASCADE)
+    nota = models.IntegerField()
+    comentario = models.TextField()
+
+    def __str__(self):
+        return f"{self.avaliador} - {self.produto}"

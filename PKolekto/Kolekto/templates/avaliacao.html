@@ -1,0 +1,15 @@
+{% extends "layout.html" %} {% block title %} Adicionar produto {% endblock %}
+{% block main %}
+
+<h5>{{ produto.nome_produto }}</h5>
+
+<form method="post">
+    {%csrf_token%}
+    <label for="comentario">Comentario</label>
+    <input type="text" id="comentario" name="comentario">
+    <label for="nota">Nota</label>
+    <input type="number" id="nota" name="nota">
+    <button type="submit">Enviar</button>
+</form>
+
+{% endblock %}
