@@ -5,10 +5,10 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import time
 
-segundos = 0
+segundos = 5
 
 
-class Historia8(LiveServerTestCase):
+class Historia08(LiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -27,7 +27,7 @@ class Historia8(LiveServerTestCase):
             nome_usuario = driver.find_element(by=By.NAME, value="nome")
             email = driver.find_element(by=By.NAME, value="email")
             senha = driver.find_element(by=By.NAME, value="senha")
-            botao = driver.find_element(by=By.NAME, value="registro")
+            botao = driver.find_element(by=By.NAME, value="Logar")
 
             usuario.send_keys(f"Teste8{i}")
             nome_usuario.send_keys(f"Marcílio{i}")

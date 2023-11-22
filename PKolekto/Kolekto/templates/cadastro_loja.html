@@ -257,12 +257,12 @@
                   </div>
 
                   <div class="input-box">
-                    <label for="categoria" class="form-label">Categoria <i class='bx bxs-inbox' ></i></label>
+                    <label for="estado" class="form-label">Estado <i class='bx bx-current-location'></i></label>
                     <select
                       class="form-select"
-                      id="categoria"
+                      id="estado"
                       name="select"
-                      value="{{ categoria }}"
+                      value="{{ estado_resposta }}"
                     >
                     {% if estado %}
                       <option value="{{selecao}}">{{selecao}}</option>
@@ -280,7 +280,7 @@
               <p id="erros">{{ erros.nomedaloja }} {{ erros.urlerrado }} {{ erros.cpferrado }} {{ erros.selecestado }}</p>
 
               <div class="continue-button">
-                <button type="submit"><a>Criar</a></button>
+                <button type="submit" id="cadastro"><a>Criar</a></button>
               </div>
           </form>
       </div>

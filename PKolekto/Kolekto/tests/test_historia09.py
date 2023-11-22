@@ -10,7 +10,7 @@ segundos = 5
 lojas = ['MagicTreasures', 'TechWonders', 'FashionEmporium']
 produtos = ['X', 'Y', 'Z']
 
-class Historia9(LiveServerTestCase):
+class Historia09(LiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -28,7 +28,7 @@ class Historia9(LiveServerTestCase):
             nome_usuario = driver.find_element(by=By.NAME, value="nome")
             email = driver.find_element(by=By.NAME, value="email")
             senha = driver.find_element(by=By.NAME, value="senha")
-            botao = driver.find_element(by=By.NAME, value="registro")
+            botao = driver.find_element(by=By.NAME, value="Logar")
 
             usuario.send_keys(f"Teste9{i}")
             nome_usuario.send_keys(f"Marcílio9{i}")

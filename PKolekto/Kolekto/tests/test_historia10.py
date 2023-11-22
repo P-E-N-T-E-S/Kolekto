@@ -29,7 +29,7 @@ class Historia10(LiveServerTestCase):
             nome_usuario = driver.find_element(by=By.NAME, value="nome")
             email = driver.find_element(by=By.NAME, value="email")
             senha = driver.find_element(by=By.NAME, value="senha")
-            botao = driver.find_element(by=By.NAME, value="registro")
+            botao = driver.find_element(by=By.NAME, value="Logar")
 
             usuario.send_keys(f"Teste10{i}")
             nome_usuario.send_keys(f"Marcílio10{i}")

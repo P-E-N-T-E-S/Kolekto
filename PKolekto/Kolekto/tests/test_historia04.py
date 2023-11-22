@@ -6,10 +6,10 @@ from selenium.webdriver.support.select import Select
 import time
 
 
-segundos = 0
+segundos = 5
 
 
-class Historia4(LiveServerTestCase):
+class Historia04(LiveServerTestCase):
 
 
     @classmethod
@@ -29,7 +29,7 @@ class Historia4(LiveServerTestCase):
             nome_usuario = driver.find_element(by=By.NAME, value="nome")
             email = driver.find_element(by=By.NAME, value="email")
             senha = driver.find_element(by=By.NAME, value="senha")
-            botao = driver.find_element(by=By.NAME, value="registro")
+            botao = driver.find_element(by=By.NAME, value="Logar")
 
             usuario.send_keys(f"Teste4{i}")
             nome_usuario.send_keys(f"João{i}")
@@ -39,24 +39,25 @@ class Historia4(LiveServerTestCase):
 
             if i >= 2:
                 driver.get("http://127.0.0.1:8000/nova_loja")
-                nascimento = driver.find_element(by=By.NAME, value="nascimento")
-                cidade = driver.find_element(by=By.NAME, value="cidade")
-                cpf = driver.find_element(by=By.NAME, value="cpf")
-                nome_loja = driver.find_element(by=By.NAME, value="nome_loja")
-                imgperfil = driver.find_element(by=By.NAME, value="perfil")
-                imgbanner = driver.find_element(by=By.NAME, value="banner")
-                descloja = driver.find_element(by=By.NAME, value="descricao")
-                enviar = driver.find_element(by=By.NAME, value="criar")
+                perfil = driver.find_element(by=By.ID, value="perfil")
+                nascimento = driver.find_element(by=By.ID, value="nascimento")
+                cpf = driver.find_element(by=By.ID, value="cpf")
+                nome_loja = driver.find_element(by=By.ID, value="nome_loja")
+                descricao = driver.find_element(by=By.ID, value="descricao")
+                rua = driver.find_element(by=By.ID, value="Rua/Avenida")
+                botao = driver.find_element(by=By.ID, value="cadastro")
+                estado = driver.find_element(by=By.ID, value="estado")
+                estado = Select(estado)
 
                 nascimento.send_keys("29082003")
-                cidade.send_keys("Rio Branco")
+                rua.send_keys("Rua dos bobos")
                 cpf.send_keys("000.000.000-00")
                 nome_loja.send_keys(listloja[i])
-                imgperfil.send_keys("https://i.imgur.com/6K0TQwo.jpeg")
-                imgbanner.send_keys("https://i.imgur.com/6K0TQwo.jpeg")
-                descloja.send_keys("lorem impsum etc e talz")
+                perfil.send_keys("https://i.imgur.com/FWUCFTF.jpeg")
+                descricao.send_keys("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+                estado.select_by_visible_text("Pernambuco")
                 time.sleep(segundos)
-                enviar.send_keys(Keys.ENTER)
+                botao.click()
         self.assertTrue(
             True
         )
@@ -76,25 +77,26 @@ class Historia4(LiveServerTestCase):
         enviar.send_keys(Keys.ENTER)
 
         driver.get("http://127.0.0.1:8000/nova_loja")
-        nascimento = driver.find_element(by=By.NAME, value="nascimento")
-        cidade = driver.find_element(by=By.NAME, value="cidade")
-        cpf = driver.find_element(by=By.NAME, value="cpf")
-        nome_loja = driver.find_element(by=By.NAME, value="nome_loja")
-        imgperfil = driver.find_element(by=By.NAME, value="perfil")
-        imgbanner = driver.find_element(by=By.NAME, value="banner")
-        descloja = driver.find_element(by=By.NAME, value="descricao")
-        time.sleep(segundos)
-        enviar = driver.find_element(by=By.NAME, value="criar")
+        perfil = driver.find_element(by=By.ID, value="perfil")
+        nascimento = driver.find_element(by=By.ID, value="nascimento")
+        cpf = driver.find_element(by=By.ID, value="cpf")
+        nome_loja = driver.find_element(by=By.ID, value="nome_loja")
+        descricao = driver.find_element(by=By.ID, value="descricao")
+        rua = driver.find_element(by=By.ID, value="Rua/Avenida")
+        botao = driver.find_element(by=By.ID, value="cadastro")
+        estado = driver.find_element(by=By.ID, value="estado")
+        estado = Select(estado)
 
         nascimento.send_keys("29082003")
-        cidade.send_keys("Rio Branco")
+        rua.send_keys("Rua dos bobos")
         cpf.send_keys("000.000.000-00")
         nome_loja.send_keys("Minis Recife")
-        imgperfil.send_keys("https://i.imgur.com/6K0TQwo.jpeg")
-        imgbanner.send_keys("https://i.imgur.com/6K0TQwo.jpeg")
-        descloja.send_keys("lorem impsum etc e talz")
+        perfil.send_keys("https://i.imgur.com/FWUCFTF.jpeg")
+        descricao.send_keys(
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+        estado.select_by_visible_text("Pernambuco")
         time.sleep(segundos)
-        enviar.send_keys(Keys.ENTER)
+        botao.click()
 
         time.sleep(segundos)
         minhaloja = driver.find_element(by=By.NAME, value="MLoja")
@@ -120,24 +122,26 @@ class Historia4(LiveServerTestCase):
         enviar.send_keys(Keys.ENTER)
 
         driver.get("http://127.0.0.1:8000/nova_loja")
-        nascimento = driver.find_element(by=By.NAME, value="nascimento")
-        cidade = driver.find_element(by=By.NAME, value="cidade")
-        cpf = driver.find_element(by=By.NAME, value="cpf")
-        nome_loja = driver.find_element(by=By.NAME, value="nome_loja")
-        imgperfil = driver.find_element(by=By.NAME, value="perfil")
-        imgbanner = driver.find_element(by=By.NAME, value="banner")
-        descloja = driver.find_element(by=By.NAME, value="descricao")
-        enviar = driver.find_element(by=By.NAME, value="criar")
+        perfil = driver.find_element(by=By.ID, value="perfil")
+        nascimento = driver.find_element(by=By.ID, value="nascimento")
+        cpf = driver.find_element(by=By.ID, value="cpf")
+        nome_loja = driver.find_element(by=By.ID, value="nome_loja")
+        descricao = driver.find_element(by=By.ID, value="descricao")
+        rua = driver.find_element(by=By.ID, value="Rua/Avenida")
+        botao = driver.find_element(by=By.ID, value="cadastro")
+        estado = driver.find_element(by=By.ID, value="estado")
+        estado = Select(estado)
 
         nascimento.send_keys("29082003")
-        cidade.send_keys("Rio Branco")
+        rua.send_keys("Rua dos bobos")
         cpf.send_keys("000.000.000-00")
         nome_loja.send_keys("Gêmeos das Minis")
-        imgperfil.send_keys("https://i.imgur.com/6K0TQwo.jpeg")
-        imgbanner.send_keys("https://i.imgur.com/6K0TQwo.jpeg")
-        descloja.send_keys("lorem impsum etc e talz")
+        perfil.send_keys("https://i.imgur.com/FWUCFTF.jpeg")
+        descricao.send_keys(
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+        estado.select_by_visible_text("Pernambuco")
         time.sleep(segundos)
-        enviar.send_keys(Keys.ENTER)
+        botao.click()
 
         self.assertEquals(
             driver.find_element(by=By.XPATH, value="/html/body/main/div/form/p").text,

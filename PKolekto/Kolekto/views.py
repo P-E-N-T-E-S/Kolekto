@@ -117,17 +117,15 @@ def Cadastro_Loja(request):
     if request.method == "POST":
         errado = False
         erros = {}
-
+        cidade = request.POST.get("Rua/Avenida")
+        estado = request.POST.get("estado")
         data_nascimento = request.POST.get("nascimento")
-        Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
+        Localizacao = f"{cidade}, {estado}"
         cpf = request.POST.get("cpf")
         nome_loja = request.POST.get("nome_loja")
         perfil = request.POST.get("perfil")
         associado = usuario
         descricao = request.POST.get("descricao")
-        print(perfil)
-        print(cpf)
-        print(nome_loja)
 
         if nomeLojaExiste(nome_loja):
             errado = True
@@ -155,6 +153,7 @@ def Cadastro_Loja(request):
             contexto["nome_loja"] = nome_loja
             contexto["perfil"] = perfil
             contexto["descrito"] = descricao
+            contexto["estado_resposta"] = estado
             contexto["estados_brasileiros"] = estados_brasileiros
             return render(request, "cadastro_loja.html", context=contexto)
         else:
@@ -171,6 +170,7 @@ def Cadastro_Loja(request):
                 contexto["nome_loja"] = nome_loja
                 contexto["perfil"] = perfil
                 contexto["descrito"] = descricao
+                contexto["estado_resposta"] = estado
                 contexto["estados_brasileiros"] = estados_brasileiros
                 return render(request, "cadastro_loja.html", context=contexto)
             else:
@@ -774,6 +774,7 @@ def historico_compras(request):
         "infocompras": compras
     }
     return render(request, "historico.html", contexto)
+
 
 @login_required
 def avaliacao(request, id):
