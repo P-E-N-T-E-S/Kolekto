@@ -117,8 +117,8 @@ def Cadastro_Loja(request):
     if request.method == "POST":
         errado = False
         erros = {}
-        cidade = request.POST.get("Rua/Avenida")
-        estado = request.POST.get("estado")
+        cidade = request.POST.get("cidade")
+        estado = request.POST.get("select")
         data_nascimento = request.POST.get("nascimento")
         Localizacao = f"{cidade}, {estado}"
         cpf = request.POST.get("cpf")
@@ -139,7 +139,7 @@ def Cadastro_Loja(request):
             errado = True
             erros["cpferrado"] = "digite o cpf corretamente"
 
-        if request.POST.get("estado") == None:
+        if request.POST.get("select") == None:
             errado = True
             erros["selecestado"] = "selecione o seu estado"
 
@@ -165,7 +165,7 @@ def Cadastro_Loja(request):
                 contexto["data_nascimento"] = data_nascimento
                 contexto["localizacao"] = request.POST.get("cidade")
                 contexto["estado"] = True
-                contexto["selecao"] = {request.POST.get('estado')}
+                contexto["selecao"] = estado
                 contexto["cpf"] = cpf
                 contexto["nome_loja"] = nome_loja
                 contexto["perfil"] = perfil
