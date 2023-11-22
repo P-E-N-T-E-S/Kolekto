@@ -11,7 +11,7 @@ produto_nome = "Carta Pokemon: Charmander"
 produto_preco = "10"
 
 
-class Historia8(LiveServerTestCase):
+class Historia10(LiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):

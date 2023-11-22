@@ -68,40 +68,24 @@
           <tbody>
             <tr>
               <td style="margin-left: 40px; display: flex; align-items: center;" id="{{ item.produto.nome_produto }}">
-                <img src="{{ item.produto.foto1 }}" alt="{{ item.produto.nome_produto }}"></a>
+                <img src="{{ item.produto.foto1 }}" alt="{{ item.produto.nome_produto }}">
                 <div style="margin-left: 20px; text-align: left;">
-                  <h5 style="font-size: 26px; margin: 0;" id="nome">{{ item.produto.nome_produto }}</h5></a>
-                  <p>{{ item.produto.loja }}</p></a>
-                  <h5 style="font-size: 24px;" class='preco' id="preco">R${{ item.produto.preco }}</h5></a>
-                  <p >{{ item.produto.categoria }}</p></a>
+                  <h5 style="font-size: 26px; margin: 0;" id="nome">{{ item.produto.nome_produto }}</h5>
+                  <p>{{ item.produto.loja }}</p>
+                  <h5 style="font-size: 24px;" class='preco' id="preco">R${{ item.produto.preco }}</h5>
+                  <p >{{ item.produto.categoria }}</p>
                 </div>
                   <div class="continue-button">
-                <button type="button"><a href="{% url 'avaliacao' item.produto.id%}" id="avaliar {{item.produto.nome_produto}}">Criar</a></button>
+                <button type="button"><a href="{% url 'avaliacao' item.produto.id%}" id="avaliar {{item.produto.nome_produto}}">Avaliar</a></button>
               </div>
               </td>
             </tr>
-          {% empty %}
-          <h4>Nada por aqui :/</h4>
+                {% endfor %}
         </tbody>
       </table>
-      {% endfor %}
+
     {% endfor %}
       </section>
     </div>
-
-<script>
-  async function rem_lista_desejo(produtoId){
-    const produto = document.getElementById("removerlistadesejo")
-    const request = await fetch("/rem_lista_desejos", {
-      method:"POST",
-      body:JSON.stringify({produtoId}),
-      headers:{
-        "X-CSRFToken":"{{ csrf_token }}"
-      }
-    })
-    const response = await request.json()
-    location.reload();
-  }
-</script>
 
 {% endblock %}

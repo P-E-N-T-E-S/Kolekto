@@ -755,8 +755,8 @@ def historico_compras(request):
 
     compras = list(usuario.compra_set.all())
     separador = list()
-    produtos = list()
     for compra in compras:
+        produtos = list()
         chaves = [chave.split(";")[0] for chave in compra.itens.split("/") if chave.split(";")[0] != '']
         quantidades = [chave.split(";")[1] for chave in compra.itens.split("/") if chave.split(";")[0] != '']
         for chave in range(len(chaves)):
@@ -765,7 +765,7 @@ def historico_compras(request):
                 "quantidade": quantidades[chave]
             })
         separador.append({
-            "loja": compra.loja,
+            "loja": f"{compra.loja} - {compra.data}",
             "produtos": produtos
         })
     contexto = {

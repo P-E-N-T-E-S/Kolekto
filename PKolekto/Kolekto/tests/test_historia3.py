@@ -8,7 +8,7 @@ import time
 segundos = 0
 
 
-class Historia3(LiveServerTestCase):
+class Historia03(LiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):

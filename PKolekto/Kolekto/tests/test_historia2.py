@@ -9,7 +9,7 @@ import time
 segundos = 0
 
 
-class Historia2(LiveServerTestCase):
+class Historia02(LiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         setup_selenium()
