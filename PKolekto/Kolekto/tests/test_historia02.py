@@ -6,7 +6,7 @@ from selenium.webdriver.support.select import Select
 import time
 
 
-segundos = 5
+segundos = 0
 
 
 class Historia02(LiveServerTestCase):
@@ -50,7 +50,7 @@ class Historia02(LiveServerTestCase):
 
                 nascimento.send_keys("29082003")
                 rua.send_keys("Rua dos bobos")
-                cpf.send_keys("000.000.000-00")
+                cpf.send_keys("164.718.030-95")
                 nome_loja.send_keys("Logrec")
                 perfil.send_keys("https://i.imgur.com/FWUCFTF.jpeg")
                 descricao.send_keys("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
@@ -91,10 +91,10 @@ class Historia02(LiveServerTestCase):
         prod.send_keys("Charizard 1999 - 1° Edição")
         descricao.send_keys("Carta Charizard 1999 - 1° Edição")
         preco.send_keys("1700000")
-        qntd.send_keys("1")
+        qntd.send_keys("5")
         categoria.select_by_visible_text("Cartas")
         time.sleep(segundos)
-        enviar.send_keys(Keys.ENTER)
+        enviar.click()
 
         self.assertEquals(
             driver.find_element(by=By.TAG_NAME, value="h5").text,
@@ -122,6 +122,8 @@ class Historia02(LiveServerTestCase):
         descricao = driver.find_element(by=By.NAME, value="descricao")
         preco = driver.find_element(by=By.NAME, value="preco")
         qntd = driver.find_element(by=By.NAME, value="qntd")
+        categoria = driver.find_element(by=By.ID, value='categoria')
+        categoria = Select(categoria)
         enviar = driver.find_element(by=By.NAME, value="Add")
 
         foto.send_keys("https://i.ebayimg.com/images/g/HbYAAOSwKeVjOsBa/s-l1600.jpg")
@@ -129,8 +131,9 @@ class Historia02(LiveServerTestCase):
         descricao.send_keys("Black Lotus - Beta, uma das cartas mais raras do Magic")
         preco.send_keys("4039553")
         qntd.send_keys("1")
+        categoria.select_by_visible_text("Cartas")
         time.sleep(segundos)
-        enviar.send_keys(Keys.ENTER)
+        enviar.click()
 
         time.sleep(segundos)
         minhaloja = driver.find_element(by=By.NAME, value="MLoja")
@@ -159,5 +162,5 @@ class Historia02(LiveServerTestCase):
         driver.get("http://127.0.0.1:8000/add_produto")
         self.assertEquals(
             driver.title,
-            "Kolekto: Criar loja"
+            "Kolekto: Criar Loja"
         )

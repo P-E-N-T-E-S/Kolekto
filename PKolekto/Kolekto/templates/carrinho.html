@@ -118,10 +118,10 @@
       <tr id="{{ item.nome_produto }}">
         <td style="margin-left: 40px; display: flex; align-items: center;">
           <a href="{% url 'pagina_produto' item.id %}"><img src="{{ item.foto1 }}" alt="{{ item.nome_item }}"></a>
-          <div style="margin-left: 20px; text-align: left;">
+          <div style="margin-left: 20px; text-align: left;" id="divisoria">
             <a href="{% url 'pagina_produto' item.id %}"><h5 style="font-size: 26px; margin: 0;">{{ item.nome_produto }}</h5></a>
             <a href="{% url 'pagina_produto' item.id %}"><p>{{ item.loja }}</p></a>
-            <a href="{% url 'pagina_produto' item.id %}"><h5 style="font-size: 24px;" id='preco' class='preco'>R${{ item.preco }}</h5></a>
+            <a href="{% url 'pagina_produto' item.id %}" id="precoa"><h5 style="font-size: 24px;" id='preco' class='preco'>R${{ item.preco }}</h5></a>
             <a href="{% url 'pagina_produto' item.id %}"><p >{{ item.categoria }}</p></a>
           </div>
         </td>

@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import time
 
-segundos = 5
+segundos = 0
 
 
 class Historia03(LiveServerTestCase):
@@ -49,7 +49,7 @@ class Historia03(LiveServerTestCase):
 
                 nascimento.send_keys("29082003")
                 rua.send_keys("Rua dos bobos")
-                cpf.send_keys("000.000.000-00")
+                cpf.send_keys("164.718.030-95")
                 nome_loja.send_keys("Lojateste3")
                 perfil.send_keys("https://i.imgur.com/FWUCFTF.jpeg")
                 descricao.send_keys("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
@@ -75,7 +75,7 @@ class Historia03(LiveServerTestCase):
                 qntd.send_keys("1")
                 categoria.select_by_visible_text("Cartas")
                 time.sleep(segundos)
-                enviar.send_keys(Keys.ENTER)
+                enviar.click()
         self.assertTrue(
             True
         )
@@ -95,21 +95,25 @@ class Historia03(LiveServerTestCase):
         enviar.send_keys(Keys.ENTER)
         time.sleep(segundos)
 
-        div = driver.find_element(by=By.NAME, value="Charizard 1999 - 1° Edição")
-        idproduto = div.find_element(by=By.TAG_NAME, value="a").get_attribute("name")
+        idproduto = driver.find_element(by=By.NAME, value="Charizard 1999 - 1° Edição card").get_attribute("id")
 
         driver.get(f"http://127.0.0.1:8000/Produto/{idproduto}")
         time.sleep(segundos)
 
         favorito = driver.find_element(By.ID, value="adicionarListaDesejos")
 
-        favorito.click()
+        favorito.send_keys(Keys.ENTER)
         time.sleep(segundos)
 
         driver.get("http://127.0.0.1:8000/lista_desejos")
 
+        tabeladiv = driver.find_element(by=By.NAME, value="Charizard 1999 - 1° Edição")
+        tabela = tabeladiv.find_element(by=By.ID, value="Charizard 1999 - 1° Edição")
+        div = tabela.find_element(by=By.ID, value="Charizard 1999 - 1° Edição")
+        texto = div.find_element(by=By.ID, value="nome").text
+
         self.assertEquals(
-            driver.find_element(by=By.ID, value="Charizard 1999 - 1° Edição").text,
+            texto,
             "Charizard 1999 - 1° Edição"
         )
         driver.get("http://127.0.0.1:8000/logout")
@@ -117,12 +121,11 @@ class Historia03(LiveServerTestCase):
     def test_002_cenario2(self):
         driver = setup_selenium()
         driver.get("http://127.0.0.1:8000")
-        div = driver.find_element(by=By.NAME, value="Black Lotus - Beta")
-        idproduto = div.find_element(by=By.TAG_NAME, value="a").get_attribute("name")
+        idproduto = driver.find_element(by=By.NAME, value="Charizard 1999 - 1° Edição card").get_attribute("id")
         driver.get(f"http://127.0.0.1:8000/Produto/{idproduto}")
         favorito = driver.find_element(By.ID, value="adicionarListaDesejos")
 
-        favorito.click()
+        favorito.send_keys(Keys.ENTER)
         time.sleep(segundos)
         self.assertEquals(
             driver.title,
@@ -143,15 +146,13 @@ class Historia03(LiveServerTestCase):
         enviar.send_keys(Keys.ENTER)
         time.sleep(segundos)
 
-        driver.get("http://127.0.0.1:8000/lista_desejos")
-
-        idproduto = driver.find_element(by=By.ID, value="Charizard 1999 - 1° Edição").get_attribute("name")
+        idproduto = driver.find_element(by=By.NAME, value="Charizard 1999 - 1° Edição card").get_attribute("id")
 
         driver.get(f"http://127.0.0.1:8000/Produto/{idproduto}")
 
         favorito = driver.find_element(By.ID, value="adicionarListaDesejos")
 
-        favorito.click()
+        favorito.send_keys(Keys.ENTER)
         time.sleep(segundos)
 
         driver.get("http://127.0.0.1:8000/lista_desejos")

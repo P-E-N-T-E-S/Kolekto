@@ -55,7 +55,7 @@
       alt="{{ produto.nome_produto }}"
       name = "{{ produto.nome_produto }}"
     />
-    <div class="card-body d-flex justify-content-between flex-column" name="{{produto.nome_produto}}">
+    <div class="card-body d-flex justify-content-between flex-column" name="{{produto.nome_produto}} card" id="{{ produto.id }}">
       <h5 class="card-title text-start">{{ produto.nome_produto }}</h5>
       <p class="card-text text-start" style="height: 100px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">{{ produto.descricao }}</p>
       <p class="card-text text-start" style="font-weight: bold; font-size:28px;">R${{ produto.preco }}</p>

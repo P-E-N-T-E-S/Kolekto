@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import time
 
-segundos = 5
+segundos = 0
 
 
 class Historia05(LiveServerTestCase):
@@ -36,24 +36,25 @@ class Historia05(LiveServerTestCase):
 
             if i == 1:
                 driver.get("http://127.0.0.1:8000/nova_loja")
-                nascimento = driver.find_element(by=By.NAME, value="nascimento")
-                cidade = driver.find_element(by=By.NAME, value="cidade")
-                cpf = driver.find_element(by=By.NAME, value="cpf")
-                nome_loja = driver.find_element(by=By.NAME, value="nome_loja")
-                imgperfil = driver.find_element(by=By.NAME, value="perfil")
-                imgbanner = driver.find_element(by=By.NAME, value="banner")
-                descloja = driver.find_element(by=By.NAME, value="descricao")
-                enviar = driver.find_element(by=By.NAME, value="criar")
+                perfil = driver.find_element(by=By.ID, value="perfil")
+                nascimento = driver.find_element(by=By.ID, value="nascimento")
+                cpf = driver.find_element(by=By.ID, value="cpf")
+                nome_loja = driver.find_element(by=By.ID, value="nome_loja")
+                descricao = driver.find_element(by=By.ID, value="descricao")
+                rua = driver.find_element(by=By.ID, value="Rua/Avenida")
+                botao = driver.find_element(by=By.ID, value="cadastro")
+                estado = driver.find_element(by=By.ID, value="estado")
+                estado = Select(estado)
 
                 nascimento.send_keys("29082003")
-                cidade.send_keys("Rio Branco")
-                cpf.send_keys("000.000.000-00")
-                nome_loja.send_keys("Minis Recife")
-                imgperfil.send_keys("https://i.imgur.com/bXZHIgO.jpeg")
-                imgbanner.send_keys("https://i.imgur.com/qbLig65.jpeg")
-                descloja.send_keys("lorem impsum etc e talz")
+                rua.send_keys("Rua dos bobos")
+                cpf.send_keys("164.718.030-95")
+                nome_loja.send_keys("Cartas Hype")
+                perfil.send_keys("https://i.imgur.com/FWUCFTF.jpeg")
+                descricao.send_keys("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+                estado.select_by_visible_text("Pernambuco")
                 time.sleep(segundos)
-                enviar.send_keys(Keys.ENTER)
+                botao.click()
 
                 driver.get("http://127.0.0.1:8000/add_produto")
                 foto = driver.find_element(by=By.NAME, value="foto1")
@@ -68,11 +69,11 @@ class Historia05(LiveServerTestCase):
                 categoria.select_by_visible_text("Cartas")
                 foto.send_keys("https://i.imgur.com/10WPEMV.jpeg")
                 prod.send_keys("Carta Pokemon: Charmander")
-                descricao.send_keys("Charmander")
+                descricao.send_keys("Carta Pokémon do Charmander feita a mão")
                 preco.send_keys("10")
                 qntd.send_keys("5")
                 time.sleep(segundos)
-                enviar.send_keys(Keys.ENTER)
+                enviar.click()
 
                 driver.get("http://127.0.0.1:8000/add_produto")
                 foto = driver.find_element(by=By.NAME, value="foto1")
@@ -103,8 +104,9 @@ class Historia05(LiveServerTestCase):
         driver.get("http://127.0.0.1:8000/")
         barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
         barra_de_pesquisa.send_keys("Teclado gamer")
+        barra_de_pesquisa.send_keys(Keys.ENTER)
         self.assertEquals(
-            driver.find_element(by=By.NAME, value="vazio").text,
+            driver.find_element(by=By.ID, value="vazio").text,
             "Nenhum produto disponível."
         )
 
@@ -113,21 +115,20 @@ class Historia05(LiveServerTestCase):
         driver.get("http://127.0.0.1:8000/")
         barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
         barra_de_pesquisa.send_keys("pokémon")
+        barra_de_pesquisa.send_keys(Keys.ENTER)
         self.assertIsNotNone(driver.find_element(by=By.CLASS_NAME, value="card"))
 
     def teste_003_cenario3(self):
         driver = setup_selenium()
-        driver.get("http://127.0.0.1:8000/")
-        barra_de_categoria = driver.find_element(by=By.NAME, value="select")
-        barra_de_categoria = Select(barra_de_categoria)
-        barra_de_categoria.select_by_visible_text("Cartas")
+        driver.get("http://127.0.0.1:8000/pesquisa?select=Cartas")
         self.assertIsNotNone(driver.find_element(by=By.CLASS_NAME, value="card"))
 
     def teste_004_cenario4(self):
         driver = setup_selenium()
         driver.get("http://127.0.0.1:8000/")
         barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
-        barra_de_pesquisa.send_keys("Minis Recife")
+        barra_de_pesquisa.send_keys("Cartas Hype")
+        barra_de_pesquisa.send_keys(Keys.ENTER)
         self.assertIsNotNone(driver.find_element(by=By.CLASS_NAME, value="card"))
 
 

@@ -6,7 +6,7 @@ from selenium.webdriver.support.select import Select
 import time
 
 
-segundos = 5
+segundos = 0
 
 
 class Historia04(LiveServerTestCase):
@@ -51,7 +51,7 @@ class Historia04(LiveServerTestCase):
 
                 nascimento.send_keys("29082003")
                 rua.send_keys("Rua dos bobos")
-                cpf.send_keys("000.000.000-00")
+                cpf.send_keys("164.718.030-95")
                 nome_loja.send_keys(listloja[i])
                 perfil.send_keys("https://i.imgur.com/FWUCFTF.jpeg")
                 descricao.send_keys("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
@@ -89,7 +89,7 @@ class Historia04(LiveServerTestCase):
 
         nascimento.send_keys("29082003")
         rua.send_keys("Rua dos bobos")
-        cpf.send_keys("000.000.000-00")
+        cpf.send_keys("164.718.030-95")
         nome_loja.send_keys("Minis Recife")
         perfil.send_keys("https://i.imgur.com/FWUCFTF.jpeg")
         descricao.send_keys(
@@ -134,7 +134,7 @@ class Historia04(LiveServerTestCase):
 
         nascimento.send_keys("29082003")
         rua.send_keys("Rua dos bobos")
-        cpf.send_keys("000.000.000-00")
+        cpf.send_keys("164.718.030-95")
         nome_loja.send_keys("Gêmeos das Minis")
         perfil.send_keys("https://i.imgur.com/FWUCFTF.jpeg")
         descricao.send_keys(
@@ -144,7 +144,7 @@ class Historia04(LiveServerTestCase):
         botao.click()
 
         self.assertEquals(
-            driver.find_element(by=By.XPATH, value="/html/body/main/div/form/p").text,
+            driver.find_element(by=By.ID, value="erros").text,
             "Já existe uma loja com esse nome."
         )
         driver.get("http://127.0.0.1:8000/logout")
@@ -176,14 +176,14 @@ class Historia04(LiveServerTestCase):
 
         nascimento = driver.find_element(by=By.ID, value="nascimento")
         nome_loja = driver.find_element(by=By.ID, value="nome_loja")
-        enviar = driver.find_element(by=By.NAME, value="criar")
+        enviar = driver.find_element(by=By.ID, value="Alterar")
 
         nascimento.send_keys("29082003")
 
         nome_loja.send_keys(Keys.CONTROL + 'a')
         nome_loja.send_keys("Estatuetas 10")
         time.sleep(segundos)
-        enviar.send_keys(Keys.ENTER)
+        enviar.click()
 
         self.assertEquals(
             driver.find_element(by=By.NAME, value="tituloLoja").text,

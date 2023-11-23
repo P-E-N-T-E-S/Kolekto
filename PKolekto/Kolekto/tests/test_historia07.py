@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import time
 
-segundos = 5
+segundos = 0
 
 class Historia07(LiveServerTestCase):
 
@@ -36,24 +36,25 @@ class Historia07(LiveServerTestCase):
 
             if i == 0:
                 driver.get("http://127.0.0.1:8000/nova_loja")
-                nascimento = driver.find_element(by=By.NAME, value="nascimento")
-                cidade = driver.find_element(by=By.NAME, value="cidade")
-                cpf = driver.find_element(by=By.NAME, value="cpf")
-                nome_loja = driver.find_element(by=By.NAME, value="nome_loja")
-                imgperfil = driver.find_element(by=By.NAME, value="perfil")
-                imgbanner = driver.find_element(by=By.NAME, value="banner")
-                descloja = driver.find_element(by=By.NAME, value="descricao")
-                enviar = driver.find_element(by=By.NAME, value="criar")
+                perfil = driver.find_element(by=By.ID, value="perfil")
+                nascimento = driver.find_element(by=By.ID, value="nascimento")
+                cpf = driver.find_element(by=By.ID, value="cpf")
+                nome_loja = driver.find_element(by=By.ID, value="nome_loja")
+                descricao = driver.find_element(by=By.ID, value="descricao")
+                rua = driver.find_element(by=By.ID, value="Rua/Avenida")
+                botao = driver.find_element(by=By.ID, value="cadastro")
+                estado = driver.find_element(by=By.ID, value="estado")
+                estado = Select(estado)
 
                 nascimento.send_keys("29082003")
-                cidade.send_keys("Rio Branco")
-                cpf.send_keys("222.333.444-55")
+                rua.send_keys("Rua dos bobos")
+                cpf.send_keys("164.718.030-95")
                 nome_loja.send_keys("Records")
-                imgperfil.send_keys("https://i.imgur.com/7i6SwKD.jpeg")
-                imgbanner.send_keys("https://i.imgur.com/AGdTdER.jpeg")
-                descloja.send_keys("lorem impsum etc e talz")
+                perfil.send_keys("https://i.imgur.com/FWUCFTF.jpeg")
+                descricao.send_keys("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+                estado.select_by_visible_text("Pernambuco")
                 time.sleep(segundos)
-                enviar.send_keys(Keys.ENTER)
+                botao.click()
 
                 driver.get("http://127.0.0.1:8000/add_produto")
                 foto = driver.find_element(by=By.NAME, value="foto1")
@@ -72,28 +73,29 @@ class Historia07(LiveServerTestCase):
                 preco.send_keys("300")
                 qntd.send_keys("30")
                 time.sleep(segundos)
-                enviar.send_keys(Keys.ENTER)
+                enviar.click()
 
             if i == 1:
                 driver.get("http://127.0.0.1:8000/nova_loja")
-                nascimento = driver.find_element(by=By.NAME, value="nascimento")
-                cidade = driver.find_element(by=By.NAME, value="cidade")
-                cpf = driver.find_element(by=By.NAME, value="cpf")
-                nome_loja = driver.find_element(by=By.NAME, value="nome_loja")
-                imgperfil = driver.find_element(by=By.NAME, value="perfil")
-                imgbanner = driver.find_element(by=By.NAME, value="banner")
-                descloja = driver.find_element(by=By.NAME, value="descricao")
-                enviar = driver.find_element(by=By.NAME, value="criar")
+                perfil = driver.find_element(by=By.ID, value="perfil")
+                nascimento = driver.find_element(by=By.ID, value="nascimento")
+                cpf = driver.find_element(by=By.ID, value="cpf")
+                nome_loja = driver.find_element(by=By.ID, value="nome_loja")
+                descricao = driver.find_element(by=By.ID, value="descricao")
+                rua = driver.find_element(by=By.ID, value="Rua/Avenida")
+                botao = driver.find_element(by=By.ID, value="cadastro")
+                estado = driver.find_element(by=By.ID, value="estado")
+                estado = Select(estado)
 
                 nascimento.send_keys("29082003")
-                cidade.send_keys("Rio Doce")
-                cpf.send_keys("111.333.124-23")
+                rua.send_keys("Rua dos bobos")
+                cpf.send_keys("164.718.030-95")
                 nome_loja.send_keys("Moedas Antigas")
-                imgperfil.send_keys("https://i.imgur.com/FWylmwo.jpeg")
-                imgbanner.send_keys("https://i.imgur.com/cjrf7Wb.jpeg")
-                descloja.send_keys("lorem impsum etc e talz")
+                perfil.send_keys("https://i.imgur.com/FWUCFTF.jpeg")
+                descricao.send_keys("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+                estado.select_by_visible_text("Pernambuco")
                 time.sleep(segundos)
-                enviar.send_keys(Keys.ENTER)
+                botao.click()
 
                 driver.get("http://127.0.0.1:8000/add_produto")
                 foto = driver.find_element(by=By.NAME, value="foto1")
@@ -112,28 +114,29 @@ class Historia07(LiveServerTestCase):
                 preco.send_keys("100")
                 qntd.send_keys("1")
                 time.sleep(segundos)
-                enviar.send_keys(Keys.ENTER)
+                enviar.click()
 
             if i == 2:
                 driver.get("http://127.0.0.1:8000/nova_loja")
-                nascimento = driver.find_element(by=By.NAME, value="nascimento")
-                cidade = driver.find_element(by=By.NAME, value="cidade")
-                cpf = driver.find_element(by=By.NAME, value="cpf")
-                nome_loja = driver.find_element(by=By.NAME, value="nome_loja")
-                imgperfil = driver.find_element(by=By.NAME, value="perfil")
-                imgbanner = driver.find_element(by=By.NAME, value="banner")
-                descloja = driver.find_element(by=By.NAME, value="descricao")
-                enviar = driver.find_element(by=By.NAME, value="criar")
+                perfil = driver.find_element(by=By.ID, value="perfil")
+                nascimento = driver.find_element(by=By.ID, value="nascimento")
+                cpf = driver.find_element(by=By.ID, value="cpf")
+                nome_loja = driver.find_element(by=By.ID, value="nome_loja")
+                descricao = driver.find_element(by=By.ID, value="descricao")
+                rua = driver.find_element(by=By.ID, value="Rua/Avenida")
+                botao = driver.find_element(by=By.ID, value="cadastro")
+                estado = driver.find_element(by=By.ID, value="estado")
+                estado = Select(estado)
 
                 nascimento.send_keys("29082003")
-                cidade.send_keys("Rio Branco")
-                cpf.send_keys("000.000.000-00")
-                nome_loja.send_keys("Arte em Miniatura")
-                imgperfil.send_keys("https://i.imgur.com/YovkzzM.jpeg")
-                imgbanner.send_keys("https://i.imgur.com/8FaMXR6.jpeg")
-                descloja.send_keys("lorem impsum etc e talz")
+                rua.send_keys("Rua dos bobos")
+                cpf.send_keys("164.718.030-95")
+                nome_loja.send_keys("Artes em miniatura")
+                perfil.send_keys("https://i.imgur.com/FWUCFTF.jpeg")
+                descricao.send_keys("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
+                estado.select_by_visible_text("Pernambuco")
                 time.sleep(segundos)
-                enviar.send_keys(Keys.ENTER)
+                botao.click()
 
                 driver.get("http://127.0.0.1:8000/add_produto")
                 foto = driver.find_element(by=By.NAME, value="foto1")
@@ -152,7 +155,7 @@ class Historia07(LiveServerTestCase):
                 preco.send_keys("50")
                 qntd.send_keys("5")
                 time.sleep(segundos)
-                enviar.send_keys(Keys.ENTER)
+                enviar.click()
 
                 driver.get("http://127.0.0.1:8000/add_produto")
                 foto = driver.find_element(by=By.NAME, value="foto1")
@@ -165,14 +168,13 @@ class Historia07(LiveServerTestCase):
                 categoria = Select(categoria)
 
                 categoria.select_by_visible_text("Arte")
-                driver.get("http://127.0.0.1:8000/add_produto")
                 foto.send_keys("https://i.imgur.com/qbZkY4J.jpeg")
                 prod.send_keys("Pessoas nadando")
                 descricao.send_keys("Arte feita com uma pessoa nadando")
                 preco.send_keys("150")
                 qntd.send_keys("15")
                 time.sleep(segundos)
-                enviar.send_keys(Keys.ENTER)
+                enviar.click()
 
 
         self.assertTrue(
@@ -183,7 +185,7 @@ class Historia07(LiveServerTestCase):
 
     def test_001_cenario1(self):
         driver = setup_selenium()
-        driver.get("http://127.0.0.1:8000/")
+        driver.get("http://127.0.0.1:8000/login")
 
         usuario = driver.find_element(by=By.NAME, value="username")
         senha = driver.find_element(by=By.NAME, value="senha")
@@ -192,7 +194,7 @@ class Historia07(LiveServerTestCase):
         usuario.send_keys("Teste30")
         senha.send_keys("Teste12345")
         time.sleep(segundos)
-        enviar.send_keys(Keys.ENTER)
+        enviar.click()
         time.sleep(segundos)
 
         driver.get("http://127.0.0.1:8000/Records/")
