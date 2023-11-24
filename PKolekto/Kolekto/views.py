@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from .models import Produto, Loja, ListaDesejos, Carrinho, Compra, Avaliacao
 from django.http import Http404, JsonResponse
-from django.db.models import Q
+from django.db.models import Q, Avg
 from django.core.mail import send_mail
 import json
 from .utils import *
@@ -277,6 +277,13 @@ def pagina_produto(request, id_produto):
     loja = id_produto.loja
     nome_loja = loja.NomeLoja
     foto_loja = loja.Perfil
+    avaliacao = Avaliacao.objects.filter(loja=loja)
+    media_notas = avaliacao.aggregate(media=Avg('nota'))['media']
+    if media_notas is not None:
+        media_notas = float(media_notas)
+    else:
+        media_notas = 0.0
+    produtos = list(loja.produto_set.all())
     if id_produto is not None:
         contexto = {
             "lista_existente":lista_existente,
@@ -291,6 +298,8 @@ def pagina_produto(request, id_produto):
             "nome_loja": nome_loja,
             "temloja": temloja,
             "foto_loja": foto_loja,
+            "media": f'{media_notas} ({avaliacao.count()})',
+            "media_notas": media_notas,
         }
 
         return render(request, "pagina_produto.html", context=contexto)
@@ -372,6 +381,12 @@ def pagina_loja(request, nome_loja):
 
     loja = Loja.objects.get(NomeLoja=nome_loja)
     if loja is not None:
+        avaliacao = Avaliacao.objects.filter(loja=loja)
+        media_notas = avaliacao.aggregate(media=Avg('nota'))['media']
+        if media_notas is not None:
+            media_notas = float(media_notas)
+        else:
+            media_notas = 0.0
         produtos = list(loja.produto_set.all())
         contexto = {
             "minhaloja": False,
@@ -381,7 +396,9 @@ def pagina_loja(request, nome_loja):
             "descricao": loja.descricao,
             "produtos": produtos,
             "temloja": temloja,
-            "avaliacoes": list(loja.avaliacao_set.all())
+            "avaliacoes": list(loja.avaliacao_set.all()),
+            "media": f'{media_notas} ({avaliacao.count()})',
+            "media_notas": media_notas,
         }
         return render(request, "pagina_loja.html", context=contexto)
     else:
@@ -437,6 +454,12 @@ def minha_loja(request):
 
     loja = Loja.objects.get(associado_id=usuario.id)
     if loja is not None:
+        avaliacao = Avaliacao.objects.filter(loja=loja)
+        media_notas = avaliacao.aggregate(media=Avg('nota'))['media']
+        if media_notas is not None:
+            media_notas = float(media_notas)
+        else:
+            media_notas = 0.0
         produtos = list(loja.produto_set.all())
         contexto = {
             "minhaloja": True,
@@ -446,7 +469,9 @@ def minha_loja(request):
             "descricao": loja.descricao,
             "produtos": produtos,
             "temloja": temloja,
-            "avaliacoes": list(loja.avaliacao_set.all())
+            "avaliacoes": list(loja.avaliacao_set.all()),
+            "media": f'{media_notas} ({avaliacao.count()})',
+            "media_notas": media_notas,
         }
         return render(request, "pagina_loja.html", context=contexto)
     else:
@@ -758,10 +783,15 @@ def historico_compras(request):
     compras = list(usuario.compra_set.all())
     separador = list()
     for compra in compras:
+        """if Avaliacao.objects.filter(avaliador=usuario, loja=compra.loja).exists():
+            ja_avaliou = True
+        else:
+            ja_avaliou = False"""
         produtos = list()
         chaves = [chave.split(";")[0] for chave in compra.itens.split("/") if chave.split(";")[0] != '']
         quantidades = [chave.split(";")[1] for chave in compra.itens.split("/") if chave.split(";")[0] != '']
         for chave in range(len(chaves)):
+ 
             produtos.append({
                 "produto": Produto.objects.get(pk=chaves[chave]),
                 "quantidade": quantidades[chave]
@@ -773,7 +803,8 @@ def historico_compras(request):
     contexto = {
         "temloja": temloja,
         "compras": separador,
-        "infocompras": compras
+        "infocompras": compras,
+        #"ja_avaliou": ja_avaliou,
     }
     return render(request, "historico.html", contexto)
 

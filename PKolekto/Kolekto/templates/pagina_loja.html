@@ -22,6 +22,18 @@
     max-height: 200px;
     overflow: hidden;
   }
+
+  .product-rating{
+    color: #ffc107;
+}
+  .product-rating span{
+      font-weight: 600;
+      color: #252525;
+  }
+
+  .avaliacao {
+    margin-top: 1rem;
+  }
 </style>
 <div class="container-fluid py-5 text-center">
   <header>
@@ -41,6 +53,20 @@
     </a>
     </div>
     </div>
+      <div class = "product-rating">
+        {% for _ in "12345" %}
+        {% if media_notas >= forloop.counter %}
+            {% if media_notas >= forloop.counter|add:"-0.5" %}
+                <i class="fas fa-star-half-alt"></i>
+            {% else %}
+                <i class="fas fa-star"></i> 
+            {% endif %}
+        {% else %}
+            <i class="far fa-star"></i> 
+        {% endif %}
+        {% endfor %}
+        <span>{{ media }}</span>
+      </div>
       <div class="col md-6 d-flex flex-wrap" style="margin-top: 10px;">
         <p class="form-control text-break text-start" id="descricao">{{descricao}}</p>
       </div>
@@ -77,7 +103,7 @@
       </div>
     </div>
     </div>
-    <h1>Produtos desta Loja:</h1>
+    <h2>Produtos desta Loja:</h2>
   <div class="produtos">
   {% for produto in produtos %}
   <a href="{% url 'pagina_produto' produto.id %}" class="card-link">
@@ -98,14 +124,35 @@
     </div>
     </a>
       {% empty %}
-          <h4>Nenhum produto disponível.</h4>
+          <h5>Nenhum produto disponível.</h5>
       {% endfor %}
   </div>
-    {%for avaliacao in avaliacoes%}
-    <label id="comentario {{avaliacao.avaliador}}">comentario = {{avaliacao.comentario}}</label> </br><!--independete de qual tag voce colocar, coloque o ID como "comentario {{avaliacao.avaliador}}"-->
-    <label id="nota {{avaliacao.avaliador}}">nota = {{avaliacao.nota}}</label></br><!--aqui coloca como "nota {{comentario.avaliador}}"-->
-    {%endfor%}
-  
+  <div>
+    <hr>
+    <div class="avaliacao">
+    <h2>Avaliações:</h2>
+    {% for avaliacao in avaliacoes %}
+    <div class="form-control col md-6" style="margin-top: 1rem; margin-bottom: 1rem;">
+      <div class = "product-rating" id="nota {{avaliacao.avaliador}}">
+        {% for _ in "12345" %}
+        {% if avaliacao.nota >= forloop.counter %}
+            {% if avaliacao.nota >= forloop.counter|add:"-0.5" %}
+                <i class="fas fa-star-half-alt"></i>
+            {% else %}
+                <i class="fas fa-star"></i> 
+            {% endif %}
+        {% else %}
+            <i class="far fa-star"></i> 
+        {% endif %}
+        {% endfor %}
+      </div>
+      <label class="text-break text-start" id="comentario {{avaliacao.avaliador}}">{{avaliacao.comentario}}</label>
+    </div>
+    {% empty %}
+    <h5>Nenhuma avaliação.</h5>
+    {% endfor %}
+    </div>
+  </div>
   </main>
 </div>
 {% endblock %}

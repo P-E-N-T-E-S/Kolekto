@@ -235,12 +235,18 @@ body{
         <a href="/{{ nome_loja }}" style="font-size: 140%">{{ nome_loja }}</a>
       </div>
       <div class = "product-rating">
-        <i class = "fas fa-star"></i>
-        <i class = "fas fa-star"></i>
-        <i class = "fas fa-star"></i>
-        <i class = "fas fa-star"></i>
-        <i class = "fas fa-star-half-alt"></i>
-        <span>4.7(21)</span>
+        {% for _ in "12345" %}
+        {% if media_notas >= forloop.counter %}
+            {% if media_notas >= forloop.counter|add:"-0.5" %}
+                <i class="fas fa-star-half-alt"></i>
+            {% else %}
+                <i class="fas fa-star"></i> 
+            {% endif %}
+        {% else %}
+            <i class="far fa-star"></i> 
+        {% endif %}
+        {% endfor %}
+        <span>{{ media }}</span>
       </div>
 
       <div class = "product-price">

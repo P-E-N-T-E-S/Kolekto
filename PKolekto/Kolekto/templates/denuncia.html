@@ -1,19 +1,69 @@
 {% extends "layout.html" %}
-{% block title %} Login {% endblock %}
+{% block title %} Denúncia {% endblock %}
 {% block main %}
+<style>
+    .center-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh; 
+      }
+      
+    .wrapper{
+        width: 420px;
+        background: transparent;
+        border: 2px solid rgba(255, 255, 255, .2);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+        color: #000000;
+        border-radius: 10px;
+        padding: 30px 40px;
+      }
+
+      .wrapper h3{
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      textarea{
+        margin-top: 1rem;
+        height: 100px;
+        width: 100%;
+        overflow: hidden;
+      }
+      textarea{
+        height: 100%;
+        width: 100%;
+        outline: none;      
+        border: 2px solid #dcdcdc;
+        border-radius: 1.5rem;
+        background: transparent;
+        padding: 10px;
+        font-size: 17px;
+        resize: none;
+      }
+      textarea:focus{
+        border-color: #444;
+      }
+
+</style>
 <div class="container-fluid py-5 text-center">
     <div class="container">
+        <div class="center-wrapper">
+            <div class="wrapper">
         <div class="text-align-center">
             <form action="" method="POST" class="form-denuncia">
                 {% csrf_token %}
-                <label style="font-size: 25px;">Motivo da denúncia</label> <br>
+                <h3>Motivo da denúncia</h3>
             <input type="radio" name="motivo" id="pcalunia" value="Produto não entregue ou não conforme"/> Produto não entregue ou não conforme <br>
             <input type="radio" name="motivo" id="vfraude" value="Vendedor fraudulento ou não confiável" /> Vendedor fraudulento ou não confiável <br>
             <input type="radio" name="motivo" id="cvendedor" value="Comportamento inadequado do vendedor" /> Comportamento inadequado do vendedor <br>
             <input type="radio" name="motivo" id="outro" value="Outro" /> Outro <br>
-            <input type="text" class="center-block" name="detalhes" style="left: 25%; right: 25%; width: 500px; height: 100px;"> </input> <br>
-            <button type="submit" class="btn btn-danger" style="margin-top: 10px;"> Enviar denuncia </button>
+            <textarea cols="5" placeholder="Descreva sua experiência..." name="detalhes"></textarea> <br>
+            <button type="submit" class="btn btn-danger" style="margin-top: 10px;"> Enviar denúncia </button>
         </form>
+    </div>
+    </div>
     </div>
 </div>
 {% endblock %}
