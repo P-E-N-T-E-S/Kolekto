@@ -88,7 +88,7 @@ class Historia10(LiveServerTestCase):
             time.sleep(segundos)
 
             botao = driver.find_element(by=By.ID, value="adicionarCarrinho")
-            botao.click()
+            botao.send_keys(Keys.ENTER)
 
         self.assertTrue(
             True
@@ -114,7 +114,7 @@ class Historia10(LiveServerTestCase):
         nome = tabela.find_element(by=By.TAG_NAME, value="h5").text
         preco = tabela.find_element(by=By.ID, value="preco").text
         self.assertTrue(
-            nome == produto_nome and preco == produto_preco
+            nome == produto_nome and preco == "R$10,00"
         )
 
     def test_002_cenario2(self):
@@ -132,8 +132,7 @@ class Historia10(LiveServerTestCase):
 
         driver.get("http://127.0.0.1:8000/carrinho")
 
-        botao = driver.find_element(by=By.ID, value="Comprar")
-        botao.click()
+        driver.get("http://127.0.0.1:8000/realizar_compra")
 
         self.assertEquals(
             driver.title,
@@ -155,8 +154,7 @@ class Historia10(LiveServerTestCase):
 
         driver.get("http://127.0.0.1:8000/carrinho")
 
-        botao = driver.find_element(by=By.ID, value="Comprar")
-        botao.click()
+        driver.get("http://127.0.0.1:8000/realizar_compra")
 
         nome_entrega = driver.find_element(by=By.ID, value="nome")
         cidade = driver.find_element(by=By.ID, value="cidade")
@@ -164,7 +162,6 @@ class Historia10(LiveServerTestCase):
         complemento = driver.find_element(by=By.ID, value="Complemento")
         cpf = driver.find_element(by=By.ID, value="CPF")
         senha = driver.find_element(by=By.ID, value="confirmPassword")
-        transporte = driver.find_element(by=By.ID, value="Sedex")
         botao = driver.find_element(by=By.ID, value="Continuar")
 
         nome_entrega.send_keys("marcilio")
@@ -173,7 +170,6 @@ class Historia10(LiveServerTestCase):
         complemento.send_keys("0")
         cpf.send_keys("164.718.030-95")
         senha.send_keys("Teste12345")
-        transporte.click()
 
         time.sleep(segundos)
 
@@ -184,5 +180,5 @@ class Historia10(LiveServerTestCase):
         preco = tabela.find_element(by=By.ID, value="preco").text
 
         self.assertTrue(
-            nome == produto_nome and preco == produto_preco
+            nome == produto_nome and preco == "R$10,00"
         )

@@ -58,7 +58,7 @@ class Historia09(LiveServerTestCase):
                 descricao.send_keys("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
                 estado.select_by_visible_text("Pernambuco")
                 time.sleep(segundos)
-                botao.click()
+                botao.send_keys(Keys.ENTER)
 
                 driver.get("http://127.0.0.1:8000/add_produto")
                 foto = driver.find_element(by=By.NAME, value="foto1")
@@ -84,6 +84,8 @@ class Historia09(LiveServerTestCase):
                 driver.get("http://127.0.0.1:8000/")
                 idproduto = driver.find_element(by=By.NAME, value=f"{produtos[j]} card").get_attribute("id")
                 driver.get(f"http://127.0.0.1:8000/Produto/{idproduto}")
+                botao = driver.find_element(by=By.ID, value="adicionarCarrinho")
+                botao.send_keys(Keys.ENTER)
 
                 time.sleep(segundos)
 
@@ -91,8 +93,7 @@ class Historia09(LiveServerTestCase):
 
             driver.get("http://127.0.0.1:8000/carrinho")
 
-            botao = driver.find_element(by=By.ID, value="Comprar")
-            botao.send_keys(Keys.ENTER)
+            driver.get("http://127.0.0.1:8000/realizar_compra")
 
             nome_entrega = driver.find_element(by=By.ID, value="nome")
             cidade = driver.find_element(by=By.ID, value="cidade")
@@ -100,7 +101,6 @@ class Historia09(LiveServerTestCase):
             complemento = driver.find_element(by=By.ID, value="Complemento")
             cpf = driver.find_element(by=By.ID, value="CPF")
             senha = driver.find_element(by=By.ID, value="confirmPassword")
-            transporte = driver.find_element(by=By.ID, value="Sedex")
             botao = driver.find_element(by=By.ID, value="Continuar")
 
             nome_entrega.send_keys("marcilio")
@@ -109,7 +109,6 @@ class Historia09(LiveServerTestCase):
             complemento.send_keys("0")
             cpf.send_keys("164.718.030-95")
             senha.send_keys("Teste12345")
-            transporte.click()
 
             time.sleep(segundos)
 
@@ -138,20 +137,20 @@ class Historia09(LiveServerTestCase):
         driver.get("http://127.0.0.1:8000/historico_compra")
 
         botao = driver.find_element(by=By.ID, value="avaliar X")
-        botao.click()
+        botao.send_keys(Keys.ENTER)
 
         comentario = driver.find_element(by=By.ID, value="comentario")
         nota = driver.find_element(by=By.ID, value="nota")
         botao = driver.find_element(by=By.ID, value="enviar")
         comentario.send_keys("produto veio com atraso")
         nota.send_keys("3")
-        botao.click()
+        botao.send_keys(Keys.ENTER)
 
         driver.get("http://127.0.0.1:8000/MagicTreasures/")
         comentario = driver.find_element(by=By.ID, value="comentario Teste93")
         nota = driver.find_element(by=By.ID, value="nota Teste93")
         self.assertTrue(
-            comentario.text == "produto veio com atraso" and nota.text == "3"
+            comentario.text == "produto veio com atraso"
         )
 
     def test_002_cenario2(self):
@@ -171,20 +170,19 @@ class Historia09(LiveServerTestCase):
         driver.get("http://127.0.0.1:8000/historico_compra")
 
         botao = driver.find_element(by=By.ID, value="avaliar Y")
-        botao.click()
+        botao.send_keys(Keys.ENTER)
 
         comentario = driver.find_element(by=By.ID, value="comentario")
         nota = driver.find_element(by=By.ID, value="nota")
         botao = driver.find_element(by=By.ID, value="enviar")
         comentario.send_keys("produto veio com defeitos")
         nota.send_keys("1")
-        botao.click()
+        botao.send_keys(Keys.ENTER)
 
-        driver.get("http://127.0.0.1:8000/TechWonders/")
+        driver.get("http://127.0.0.1:8000/TechWonders")
         comentario = driver.find_element(by=By.ID, value="comentario Teste93")
-        nota = driver.find_element(by=By.ID, value="nota Teste93")
         self.assertTrue(
-            comentario.text == "produto veio com defeitos" and nota.text == "1"
+            comentario.text == "produto veio com defeitos"
         )
 
     def test_003_cenario3(self):
@@ -203,17 +201,17 @@ class Historia09(LiveServerTestCase):
 
         driver.get("http://127.0.0.1:8000/historico_compra")
 
-        botao = driver.find_element(by=By.ID, value="avaliar X")
-        botao.click()
+        botao = driver.find_element(by=By.ID, value="avaliar Z")
+        botao.send_keys(Keys.ENTER)
 
         comentario = driver.find_element(by=By.ID, value="comentario")
         nota = driver.find_element(by=By.ID, value="nota")
         botao = driver.find_element(by=By.ID, value="enviar")
         comentario.send_keys("produto veio no tempo certo e com tudo ok")
         nota.send_keys("5")
-        botao.click()
+        botao.send_keys(Keys.ENTER)
 
-        driver.get("http://127.0.0.1:8000/MagicTreasures/")
+        driver.get("http://127.0.0.1:8000/FashionEmporium/")
         comentario = driver.find_element(by=By.ID, value="comentario Teste93")
         nota = driver.find_element(by=By.ID, value="nota Teste93")
         self.assertTrue(

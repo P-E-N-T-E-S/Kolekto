@@ -194,15 +194,12 @@ class Historia08(LiveServerTestCase):
         driver.get("http://127.0.0.1:8000/logout")
         driver.get("http://127.0.0.1:8000")
 
-        idproduto = driver.find_element(by=By.NAME, value="Black Lotus - Beta card").get_attribute("id")
-        driver.get(f"http://127.0.0.1:8000/Produto/{idproduto}")
-        carrinho = driver.find_element(By.ID, value="adicionarCarrinho")
+        driver.get("http://127.0.0.1:8000/carrinho")
 
-        carrinho.send_keys(Keys.ENTER)
         time.sleep(segundos)
         self.assertEquals(
             driver.title,
-            "Login"
+            "Kolekto: Login"
         )
         
     def test_003_cenario3(self):
@@ -224,6 +221,8 @@ class Historia08(LiveServerTestCase):
         remover = driver.find_element(by=By.ID, value="removerCarrinho")
         remover.send_keys(Keys.ENTER)
         time.sleep(segundos)
+
+        driver.refresh()
         
         mensagem_carrinho_vazio = driver.find_element(by=By.TAG_NAME, value="h4")
         self.assertEqual(mensagem_carrinho_vazio.text, "Seu carrinho está vazio.")
@@ -258,7 +257,6 @@ class Historia08(LiveServerTestCase):
         add_qntd = driver.find_element(by=By.ID, value="addQntd")
         add_qntd.send_keys(Keys.ENTER)
 
-        driver.get("http://127.0.0.1:8000/carrinho")
         tabeladiv = driver.find_element(by=By.ID, value="Charizard 1999 - 1° Edição")
         div = tabeladiv.find_element(by=By.ID, value="divisoria")
         texto = div.find_elements(by=By.TAG_NAME, value="h5")

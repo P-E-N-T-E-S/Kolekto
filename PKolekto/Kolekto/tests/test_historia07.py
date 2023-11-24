@@ -191,7 +191,7 @@ class Historia07(LiveServerTestCase):
         senha = driver.find_element(by=By.NAME, value="senha")
         enviar = driver.find_element(by=By.NAME, value="Logar")
 
-        usuario.send_keys("Teste30")
+        usuario.send_keys("Teste73")
         senha.send_keys("Teste12345")
         time.sleep(segundos)
         enviar.click()
