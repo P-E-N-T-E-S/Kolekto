@@ -640,6 +640,7 @@ def editar_loja(request, loja):
         return render(request, "editLoja.html", context=contexto)
 
 
+@login_required
 def realizar_compra(request):
     usuario = request.user
     if request.user.is_anonymous:
@@ -743,6 +744,7 @@ def realizar_compra(request):
     return render(request, "realcompra.html", context=contexto)
 
 
+@login_required
 def historico_compras(request):
     usuario = request.user
     if request.user.is_anonymous:
@@ -779,17 +781,32 @@ def historico_compras(request):
 @login_required
 def avaliacao(request, id):
     usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
+            
     produto = Produto.objects.get(id=id)
     contexto={
-        "loja": produto.loja
+        "loja": produto.loja,
+        "produto": produto,
+        "temloja": temloja,
     }
+    
     if Avaliacao.objects.filter(avaliador=usuario, loja=produto.loja).exists():
-        return JsonResponse({'mensagem': 'Produto já avaliado.'}, status=200)
+        return redirect(home)
     else:
         if request.method == "POST":
             nota = request.POST.get("nota")
             comentario = request.POST.get("comentario")
-            Avaliacao.objects.create(avaliador=usuario, loja=produto.loja, nota=nota, comentario=comentario)
-            return redirect(historico_compras)
+            
+            if nota is not None and comentario is not None:
+                nota = int(nota)
+                Avaliacao.objects.create(avaliador=usuario, loja=produto.loja, nota=nota, comentario=comentario)
+                return redirect(home)
+            
 
         return render(request, "avaliacao.html", contexto)
