@@ -36,9 +36,9 @@ jobs:
           pip install -r PKolekto/requirements.txt
 
       - name: Install Chromedriver
-      - uses: nanasess/setup-chromedriver@v2
-      - run: |
-          chromedriver --url-base=/wd/hub &
+        uses: nanasess/setup-chromedriver@v2
+        run: |
+            chromedriver --url-base=/wd/hub &
 
       - name: Run local server
         run: |
