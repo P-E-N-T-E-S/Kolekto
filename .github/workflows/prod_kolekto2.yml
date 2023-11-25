@@ -37,7 +37,7 @@ jobs:
 
       - name: Install Chromedriver
         uses: nanasess/setup-chromedriver@v2
-        run: |
+      - run: |
             chromedriver --url-base=/wd/hub &
 
       - name: Run local server
