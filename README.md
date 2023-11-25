@@ -142,11 +142,35 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
   </li>
 </ul>
 
-  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/dedb9388-ddd7-497e-bba9-41bfb486e18c)
-  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/9cc066c0-1f20-4eb2-b912-5e5aaf02fc28)
-  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/e5b9202b-4cac-4053-8d8b-b12543eebe8d)
-  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/aa4df3eb-7a02-4cfe-b595-1881bedc7a61)
-  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/c61f45a9-7844-4574-bafd-a516681bdcc6)
+<p>Entrega 4</p>
+<ul>
+  <li>
+    <a  href=""
+      >Apresentação do Protótipo</a
+    >
+  </li>
+  <li>
+    <a  href="https://www.figma.com/file/jOfywNY7puA1jQq3IbesyK/Kolekto?type=design&mode=design&t=2AXCB4lptkEGHmMU-0"
+      >Protótipo no Figma</a
+    >
+  </li>
+  <li>
+    <a  href="https://docs.google.com/document/d/1zw3Q6Y6QbHdDzpf4Eu1U9jx_Ms4kfT1JEyAKVdMWnt8/edit?usp=sharing"
+      >Programação em par</a
+    >
+  </li>
+    <li>
+    <a  href="https://drive.google.com/file/d/1N920ENkea0Z2DfxY9_b8sYHP0fhKI-kb/view?usp=sharing"
+      >Diagrama de Atividades</a
+    >
+  </li>
+</ul>
+
+  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/cb67d026-1fcd-4b2a-a032-3b62576dde70)
+  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/32c5654d-c2c5-40b8-847d-e729727b0bc7)
+  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/f8142346-a3b1-4578-8b0e-3115e46824bf)
+  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/dbf099d3-8234-4f74-b74f-b357ad21c961)
+  ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/b2c5bad2-0a87-44f7-ba80-62bacb4dd0e6)
 
 ## 👩‍💻 Membros
 
