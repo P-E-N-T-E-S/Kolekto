@@ -37,6 +37,7 @@ jobs:
 
       - uses: nanasess/setup-chromedriver@v2
       - run: |
+            export DISPLAY=:99
             chromedriver --url-base=/wd/hub &
 
       - name: Run local server
