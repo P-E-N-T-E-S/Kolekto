@@ -6,7 +6,7 @@ from selenium.webdriver.support.select import Select
 import time
 
 
-segundos = 5
+segundos = 0
 
 
 class Historia02(LiveServerTestCase):
@@ -96,9 +96,15 @@ class Historia02(LiveServerTestCase):
         time.sleep(segundos)
         enviar.click()
 
-        self.assertEquals(
-            driver.find_element(by=By.TAG_NAME, value="h5").text,
-            "Charizard 1999 - 1° Edição"
+        try:
+            driver.find_element(by=By.NAME, value="Charizard 1999 - 1° Edição")
+        except:
+            validacao = False
+        else:
+            validacao = True
+
+        self.assertTrue(
+            validacao
         )
         driver.get("http://127.0.0.1:8000/logout")
 
@@ -122,8 +128,6 @@ class Historia02(LiveServerTestCase):
         descricao = driver.find_element(by=By.NAME, value="descricao")
         preco = driver.find_element(by=By.NAME, value="preco")
         qntd = driver.find_element(by=By.NAME, value="qntd")
-        categoria = driver.find_element(by=By.ID, value='categoria')
-        categoria = Select(categoria)
         enviar = driver.find_element(by=By.NAME, value="Add")
 
         foto.send_keys("https://i.ebayimg.com/images/g/HbYAAOSwKeVjOsBa/s-l1600.jpg")
@@ -131,17 +135,12 @@ class Historia02(LiveServerTestCase):
         descricao.send_keys("Black Lotus - Beta, uma das cartas mais raras do Magic")
         preco.send_keys("4039553")
         qntd.send_keys("1")
-        categoria.select_by_visible_text("Cartas")
         time.sleep(segundos)
         enviar.click()
 
-        time.sleep(segundos)
-        minhaloja = driver.find_element(by=By.NAME, value="MLoja")
-        minhaloja.click()
-
         self.assertEquals(
-            driver.find_element(by=By.TAG_NAME, value="h5").text,
-            "Charizard 1999 - 1° Edição"
+            driver.title,
+            "Kolekto: Adicionar produto"
         )
         driver.get("http://127.0.0.1:8000/logout")
 

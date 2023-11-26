@@ -153,7 +153,7 @@ class Historia08(LiveServerTestCase):
                 categoria.select_by_visible_text("Arte")
                 foto.send_keys("https://d1o6h00a1h5k7q.cloudfront.net/imagens/img_m/9029/4041864.jpg")
                 prod.send_keys("Mona Lisa Reprodução - Edição Limitada")
-                descricao.send_keys("Mona Lisa Reprodução - Edição Limitada, uma das cartas mais raras do Magic")
+                descricao.send_keys("Mona Lisa Reprodução")
                 preco.send_keys("1000")
                 qntd.send_keys("3")
                 time.sleep(segundos)
@@ -243,7 +243,7 @@ class Historia08(LiveServerTestCase):
         enviar.send_keys(Keys.ENTER)
         time.sleep(segundos)
 
-        idproduto = driver.find_element(by=By.NAME, value="Charizard 1999 - 1° Edição card").get_attribute("id")
+        idproduto = driver.find_element(by=By.NAME, value="Mona Lisa Reprodução - Edição Limitada card").get_attribute("id")
 
         driver.get(f"http://127.0.0.1:8000/Produto/{idproduto}")
         time.sleep(segundos)
@@ -257,7 +257,7 @@ class Historia08(LiveServerTestCase):
         add_qntd = driver.find_element(by=By.ID, value="addQntd")
         add_qntd.send_keys(Keys.ENTER)
 
-        tabeladiv = driver.find_element(by=By.ID, value="Charizard 1999 - 1° Edição")
+        tabeladiv = driver.find_element(by=By.ID, value="Mona Lisa Reprodução - Edição Limitada")
         div = tabeladiv.find_element(by=By.ID, value="divisoria")
         texto = div.find_elements(by=By.TAG_NAME, value="h5")
         valorprod = texto[1].text

@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import time
 
-segundos = 5
+segundos = 0
 
 lojas = ['MagicTreasures', 'TechWonders', 'FashionEmporium']
 produtos = ['X', 'Y', 'Z']
