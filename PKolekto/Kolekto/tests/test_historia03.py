@@ -112,7 +112,7 @@ class Historia03(LiveServerTestCase):
         div = tabela.find_element(by=By.ID, value="Charizard 1999 - 1° Edição")
         texto = div.find_element(by=By.ID, value="nome").text
 
-        self.assertEquals(
+        self.assertEqual(
             texto,
             "Charizard 1999 - 1° Edição"
         )
@@ -127,7 +127,7 @@ class Historia03(LiveServerTestCase):
 
         favorito.send_keys(Keys.ENTER)
         time.sleep(segundos)
-        self.assertEquals(
+        self.assertEqual(
             driver.title,
             "Kolekto: Login"
         )

@@ -134,7 +134,7 @@ class Historia10(LiveServerTestCase):
 
         driver.get("http://127.0.0.1:8000/realizar_compra")
 
-        self.assertEquals(
+        self.assertEqual(
             driver.title,
             "Kolekto: Informações de pedido"
         )
