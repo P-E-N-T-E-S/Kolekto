@@ -164,6 +164,11 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
       >Diagrama de Atividades</a
     >
   </li>
+    <li>
+    <a  href="https://youtu.be/DW4CBjI8xqA"
+      >ScreenCast - Testes</a
+    >
+  </li>
 </ul>
 
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/cb67d026-1fcd-4b2a-a032-3b62576dde70)
