@@ -102,7 +102,7 @@ class Historia04(LiveServerTestCase):
         minhaloja = driver.find_element(by=By.NAME, value="MLoja")
         minhaloja.click()
 
-        self.assertEquals(
+        self.assertEqual(
             driver.find_element(by=By.NAME, value="tituloLoja").text,
             "Minis Recife"
         )
@@ -143,7 +143,7 @@ class Historia04(LiveServerTestCase):
         time.sleep(segundos)
         botao.click()
 
-        self.assertEquals(
+        self.assertEqual(
             driver.find_element(by=By.ID, value="erros").text,
             "Já existe uma loja com esse nome."
         )
@@ -152,7 +152,7 @@ class Historia04(LiveServerTestCase):
     def teste_003_cenario3(self):
         driver = setup_selenium()
         driver.get("http://127.0.0.1:8000/nova_loja")
-        self.assertEquals(
+        self.assertEqual(
             driver.title,
             "Kolekto: Login"
         )
@@ -185,7 +185,7 @@ class Historia04(LiveServerTestCase):
         time.sleep(segundos)
         enviar.click()
 
-        self.assertEquals(
+        self.assertEqual(
             driver.find_element(by=By.NAME, value="tituloLoja").text,
             "Estatuetas 10"
         )

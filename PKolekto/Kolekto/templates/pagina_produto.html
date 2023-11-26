@@ -292,8 +292,9 @@ body{
         <button
         class="btn btn-lg btn-outline-success mx-1"
         style="font-size: 140%"
+        onclick="add_carrinho('{{ id_produto }}')"
         >
-          Comprar
+          <a href="{% url 'carrinho' %}">Comprar</a>
         </button>
       </div>
       <div class="share">

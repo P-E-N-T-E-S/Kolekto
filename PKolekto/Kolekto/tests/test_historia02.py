@@ -6,7 +6,7 @@ from selenium.webdriver.support.select import Select
 import time
 
 
-segundos = 0
+segundos = 3
 
 
 class Historia02(LiveServerTestCase):
@@ -138,7 +138,7 @@ class Historia02(LiveServerTestCase):
         time.sleep(segundos)
         enviar.click()
 
-        self.assertEquals(
+        self.assertEqual(
             driver.title,
             "Kolekto: Adicionar produto"
         )
@@ -159,7 +159,7 @@ class Historia02(LiveServerTestCase):
 
         time.sleep(segundos)
         driver.get("http://127.0.0.1:8000/add_produto")
-        self.assertEquals(
+        self.assertEqual(
             driver.title,
             "Kolekto: Criar Loja"
         )

@@ -105,7 +105,7 @@ class Historia05(LiveServerTestCase):
         barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
         barra_de_pesquisa.send_keys("Teclado gamer")
         barra_de_pesquisa.send_keys(Keys.ENTER)
-        self.assertEquals(
+        self.assertEqual(
             driver.find_element(by=By.ID, value="vazio").text,
             "Nenhum produto disponível."
         )

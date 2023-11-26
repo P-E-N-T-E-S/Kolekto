@@ -197,7 +197,7 @@ class Historia08(LiveServerTestCase):
         driver.get("http://127.0.0.1:8000/carrinho")
 
         time.sleep(segundos)
-        self.assertEquals(
+        self.assertEqual(
             driver.title,
             "Kolekto: Login"
         )
