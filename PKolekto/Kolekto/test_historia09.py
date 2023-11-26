@@ -1,29 +1,30 @@
-from selenium_setup import setup_selenium, finalizar_selenium
+from selenium import webdriver
 from django.test import LiveServerTestCase
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import time
 
+
 segundos = 0
 
-produto_nome = "Carta Pokemon: Charmander"
-produto_preco = "10"
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--disable-browser-side-navigation")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("window-size=1440,1080")
+chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_options.add_argument("--disable-extensions")
 
+driver = webdriver.Chrome(options=chrome_options)
 
-class Historia10(LiveServerTestCase):
+lojas = ['MagicTreasures', 'TechWonders', 'FashionEmporium']
+produtos = ['X', 'Y', 'Z']
 
-    @classmethod
-    def setUpClass(cls):
-        setup_selenium()
-
-    @classmethod
-    def tearDownClass(cls):
-        finalizar_selenium()
+class Historia09(LiveServerTestCase):
 
     def test_000_setup(self):
-        driver = setup_selenium()
-        for i in range(2):
+        for i in range(4):
             driver.get("http://127.0.0.1:8000/registro")
             usuario = driver.find_element(by=By.NAME, value="username")
             nome_usuario = driver.find_element(by=By.NAME, value="nome")
@@ -31,14 +32,14 @@ class Historia10(LiveServerTestCase):
             senha = driver.find_element(by=By.NAME, value="senha")
             botao = driver.find_element(by=By.NAME, value="Logar")
 
-            usuario.send_keys(f"Teste10{i}")
-            nome_usuario.send_keys(f"Marcílio10{i}")
-            email.send_keys(f"hist10{i}@teste.com")
+            usuario.send_keys(f"Teste9{i}")
+            nome_usuario.send_keys(f"Marcílio9{i}")
+            email.send_keys(f"hist9{i}@teste.com")
             senha.send_keys("Teste12345")
             time.sleep(segundos)
             botao.send_keys(Keys.ENTER)
 
-            if i == 0:
+            if i < 3:
                 time.sleep(segundos)
                 driver.get("http://127.0.0.1:8000/nova_loja")
                 perfil = driver.find_element(by=By.ID, value="perfil")
@@ -54,12 +55,12 @@ class Historia10(LiveServerTestCase):
                 nascimento.send_keys("29082003")
                 rua.send_keys("Rua dos bobos")
                 cpf.send_keys("164.718.030-95")
-                nome_loja.send_keys("Lojateste10")
+                nome_loja.send_keys(lojas[i])
                 perfil.send_keys("https://i.imgur.com/FWUCFTF.jpeg")
                 descricao.send_keys("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
                 estado.select_by_visible_text("Pernambuco")
                 time.sleep(segundos)
-                botao.click()
+                botao.send_keys(Keys.ENTER)
 
                 driver.get("http://127.0.0.1:8000/add_produto")
                 foto = driver.find_element(by=By.NAME, value="foto1")
@@ -73,21 +74,46 @@ class Historia10(LiveServerTestCase):
 
                 categoria.select_by_visible_text("Cartas")
                 foto.send_keys("https://i.imgur.com/10WPEMV.jpeg")
-                prod.send_keys(produto_nome)
+                prod.send_keys(produtos[i])
                 descricao.send_keys("Charmander")
-                preco.send_keys(produto_preco)
+                preco.send_keys('2')
                 qntd.send_keys("5")
                 time.sleep(segundos)
                 enviar.send_keys(Keys.ENTER)
 
         else:
-            time.sleep(0.5)
-            idproduto = driver.find_element(by=By.NAME, value=f"{produto_nome} card").get_attribute("id")
-            driver.get(f"http://127.0.0.1:8000/Produto/{idproduto}/")
+            for j in range(3):
+                driver.get("http://127.0.0.1:8000/")
+                idproduto = driver.find_element(by=By.NAME, value=f"{produtos[j]} card").get_attribute("id")
+                driver.get(f"http://127.0.0.1:8000/Produto/{idproduto}")
+                botao = driver.find_element(by=By.ID, value="adicionarCarrinho")
+                botao.send_keys(Keys.ENTER)
+
+                time.sleep(segundos)
+
+            driver.get("http://127.0.0.1:8000/realizar_compra")
+
+            driver.get("http://127.0.0.1:8000/carrinho")
+
+            driver.get("http://127.0.0.1:8000/realizar_compra")
+
+            nome_entrega = driver.find_element(by=By.ID, value="nome")
+            cidade = driver.find_element(by=By.ID, value="cidade")
+            rua = driver.find_element(by=By.ID, value="Rua/Avenida")
+            complemento = driver.find_element(by=By.ID, value="Complemento")
+            cpf = driver.find_element(by=By.ID, value="CPF")
+            senha = driver.find_element(by=By.ID, value="confirmPassword")
+            botao = driver.find_element(by=By.ID, value="Continuar")
+
+            nome_entrega.send_keys("marcilio")
+            cidade.send_keys("cidade dos bobos - BO")
+            rua.send_keys("rua dos bobos")
+            complemento.send_keys("0")
+            cpf.send_keys("164.718.030-95")
+            senha.send_keys("Teste12345")
 
             time.sleep(segundos)
 
-            botao = driver.find_element(by=By.ID, value="adicionarCarrinho")
             botao.send_keys(Keys.ENTER)
 
         self.assertTrue(
@@ -97,88 +123,94 @@ class Historia10(LiveServerTestCase):
 
 
     def test_001_cenario1(self):
-        driver = setup_selenium()
+
         driver.get("http://127.0.0.1:8000/login")
 
         usuario = driver.find_element(by=By.NAME, value="username")
         senha = driver.find_element(by=By.NAME, value="senha")
         enviar = driver.find_element(by=By.NAME, value="Logar")
 
-        usuario.send_keys("Teste101")
+        usuario.send_keys("Teste93")
         senha.send_keys("Teste12345")
         time.sleep(segundos)
         enviar.send_keys(Keys.ENTER)
 
-        driver.get("http://127.0.0.1:8000/carrinho")
-        tabela = driver.find_element(by=By.TAG_NAME, value="tr")
-        nome = tabela.find_element(by=By.TAG_NAME, value="h5").text
-        preco = tabela.find_element(by=By.ID, value="preco").text
+        driver.get("http://127.0.0.1:8000/historico_compra")
+
+        botao = driver.find_element(by=By.ID, value="avaliar X")
+        botao.send_keys(Keys.ENTER)
+
+        comentario = driver.find_element(by=By.ID, value="comentario")
+        botao = driver.find_element(by=By.ID, value="enviar")
+        comentario.send_keys("produto veio com atraso")
+        botao.send_keys(Keys.ENTER)
+
+        time.sleep(1)
+
+        driver.get("http://127.0.0.1:8000/MagicTreasures/")
+        comentario = driver.find_element(by=By.ID, value="comentario Teste93")
         self.assertTrue(
-            nome == produto_nome and preco == "R$10,00"
+            comentario.text == "produto veio com atraso"
         )
 
     def test_002_cenario2(self):
-        driver = setup_selenium()
+
         driver.get("http://127.0.0.1:8000/login")
 
         usuario = driver.find_element(by=By.NAME, value="username")
         senha = driver.find_element(by=By.NAME, value="senha")
         enviar = driver.find_element(by=By.NAME, value="Logar")
 
-        usuario.send_keys("Teste101")
+        usuario.send_keys("Teste93")
         senha.send_keys("Teste12345")
         time.sleep(segundos)
         enviar.send_keys(Keys.ENTER)
 
-        driver.get("http://127.0.0.1:8000/carrinho")
+        driver.get("http://127.0.0.1:8000/historico_compra")
 
-        driver.get("http://127.0.0.1:8000/realizar_compra")
+        botao = driver.find_element(by=By.ID, value="avaliar Y")
+        botao.send_keys(Keys.ENTER)
 
-        self.assertEqual(
-            driver.title,
-            "Kolekto: Informações de pedido"
+        comentario = driver.find_element(by=By.ID, value="comentario")
+        botao = driver.find_element(by=By.ID, value="enviar")
+        comentario.send_keys("produto veio com defeitos")
+        botao.send_keys(Keys.ENTER)
+
+        time.sleep(1)
+
+        driver.get("http://127.0.0.1:8000/TechWonders")
+        comentario = driver.find_element(by=By.ID, value="comentario Teste93")
+        self.assertTrue(
+            comentario.text == "produto veio com defeitos"
         )
 
     def test_003_cenario3(self):
-        driver = setup_selenium()
+
         driver.get("http://127.0.0.1:8000/login")
 
         usuario = driver.find_element(by=By.NAME, value="username")
         senha = driver.find_element(by=By.NAME, value="senha")
         enviar = driver.find_element(by=By.NAME, value="Logar")
 
-        usuario.send_keys("Teste101")
+        usuario.send_keys("Teste93")
         senha.send_keys("Teste12345")
         time.sleep(segundos)
         enviar.send_keys(Keys.ENTER)
 
-        driver.get("http://127.0.0.1:8000/carrinho")
+        driver.get("http://127.0.0.1:8000/historico_compra")
 
-        driver.get("http://127.0.0.1:8000/realizar_compra")
-
-        nome_entrega = driver.find_element(by=By.ID, value="nome")
-        cidade = driver.find_element(by=By.ID, value="cidade")
-        rua = driver.find_element(by=By.ID, value="Rua/Avenida")
-        complemento = driver.find_element(by=By.ID, value="Complemento")
-        cpf = driver.find_element(by=By.ID, value="CPF")
-        senha = driver.find_element(by=By.ID, value="confirmPassword")
-        botao = driver.find_element(by=By.ID, value="Continuar")
-
-        nome_entrega.send_keys("marcilio")
-        cidade.send_keys("cidade dos bobos - BO")
-        rua.send_keys("rua dos bobos")
-        complemento.send_keys("0")
-        cpf.send_keys("164.718.030-95")
-        senha.send_keys("Teste12345")
-
-        time.sleep(segundos)
-
+        botao = driver.find_element(by=By.ID, value="avaliar Z")
         botao.send_keys(Keys.ENTER)
 
-        tabela = driver.find_element(by=By.ID, value=produto_nome)
-        nome = tabela.find_element(by=By.ID, value="nome").text
-        preco = tabela.find_element(by=By.ID, value="preco").text
+        comentario = driver.find_element(by=By.ID, value="comentario")
+        botao = driver.find_element(by=By.ID, value="enviar")
+        comentario.send_keys("produto veio no tempo certo e com tudo ok")
+        botao.send_keys(Keys.ENTER)
 
+        time.sleep(1)
+
+        driver.get("http://127.0.0.1:8000/FashionEmporium/")
+        comentario = driver.find_element(by=By.ID, value="comentario Teste93")
         self.assertTrue(
-            nome == produto_nome and preco == "R$10,00"
+            comentario.text == "produto veio no tempo certo e com tudo ok"
         )

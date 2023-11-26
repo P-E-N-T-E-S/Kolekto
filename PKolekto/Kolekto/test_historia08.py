@@ -1,26 +1,27 @@
-from selenium_setup import setup_selenium, finalizar_selenium
+from selenium import webdriver
 from django.test import LiveServerTestCase
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import time
 
+
 segundos = 0
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--disable-browser-side-navigation")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("window-size=1440,1080")
+chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_options.add_argument("--disable-extensions")
+
+driver = webdriver.Chrome(options=chrome_options)
 
 
 class Historia08(LiveServerTestCase):
 
-    @classmethod
-    def setUpClass(cls):
-        setup_selenium()
-
-    @classmethod
-    def tearDownClass(cls):
-        finalizar_selenium()
-
-
     def test_000_setup(self):
-        driver = setup_selenium()
         for i in range(4):
             driver.get("http://127.0.0.1:8000/registro")
             usuario = driver.find_element(by=By.NAME, value="username")
@@ -160,7 +161,6 @@ class Historia08(LiveServerTestCase):
                 enviar.send_keys(Keys.ENTER)
                 
     def test_001_cenario1(self):
-        driver = setup_selenium()
         driver.get("http://127.0.0.1:8000/login")
         
         usuario = driver.find_element(by=By.NAME, value="username")
@@ -190,7 +190,6 @@ class Historia08(LiveServerTestCase):
         self.assertTrue(validacao)
         
     def test_002_cenario2(self):
-        driver = setup_selenium()
         driver.get("http://127.0.0.1:8000/logout")
         driver.get("http://127.0.0.1:8000")
 
@@ -203,7 +202,6 @@ class Historia08(LiveServerTestCase):
         )
         
     def test_003_cenario3(self):
-        driver = setup_selenium()
         driver.get("http://127.0.0.1:8000/login")
             
         usuario = driver.find_element(by=By.NAME, value="username")
@@ -230,7 +228,6 @@ class Historia08(LiveServerTestCase):
         driver.get("http://127.0.0.1:8000/logout")
         
     def test_004_cenario4(self):
-        driver = setup_selenium()
         driver.get("http://127.0.0.1:8000/login")
             
         usuario = driver.find_element(by=By.NAME, value="username")

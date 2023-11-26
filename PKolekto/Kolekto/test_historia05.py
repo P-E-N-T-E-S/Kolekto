@@ -1,25 +1,26 @@
-from selenium_setup import setup_selenium, finalizar_selenium
+from selenium import webdriver
 from django.test import LiveServerTestCase
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import time
 
+
 segundos = 0
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--disable-browser-side-navigation")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("window-size=1440,1080")
+chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_options.add_argument("--disable-extensions")
+
+driver = webdriver.Chrome(options=chrome_options)
 
 
 class Historia05(LiveServerTestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        setup_selenium()
-
-    @classmethod
-    def tearDownClass(cls):
-        finalizar_selenium()
-
     def test_000_setup(self):
-        driver = setup_selenium()
         for i in range(4):
             driver.get("http://127.0.0.1:8000/registro")
             usuario = driver.find_element(by=By.NAME, value="username")
@@ -100,7 +101,6 @@ class Historia05(LiveServerTestCase):
         driver.get("http://127.0.0.1:8000/logout/")
 
     def teste_001_cenario1(self):
-        driver = setup_selenium()
         driver.get("http://127.0.0.1:8000/")
         barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
         barra_de_pesquisa.send_keys("Teclado gamer")
@@ -111,7 +111,6 @@ class Historia05(LiveServerTestCase):
         )
 
     def teste_002_cenario2(self):
-        driver = setup_selenium()
         driver.get("http://127.0.0.1:8000/")
         barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
         barra_de_pesquisa.send_keys("pokémon")
@@ -119,12 +118,10 @@ class Historia05(LiveServerTestCase):
         self.assertIsNotNone(driver.find_element(by=By.CLASS_NAME, value="card"))
 
     def teste_003_cenario3(self):
-        driver = setup_selenium()
         driver.get("http://127.0.0.1:8000/pesquisa?select=Cartas")
         self.assertIsNotNone(driver.find_element(by=By.CLASS_NAME, value="card"))
 
     def teste_004_cenario4(self):
-        driver = setup_selenium()
         driver.get("http://127.0.0.1:8000/")
         barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
         barra_de_pesquisa.send_keys("Cartas Hype")
