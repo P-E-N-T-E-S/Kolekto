@@ -19,5 +19,5 @@ driver = webdriver.Chrome(options=chrome_options)
 
 class Teste(LiveServerTestCase):
     def test_001(self):
-        driver.get("google.com")
+        driver.get("https://www.google.com.br/?hl=pt-BR")
         self.assertTrue(True)
