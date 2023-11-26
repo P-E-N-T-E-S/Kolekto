@@ -44,7 +44,7 @@ jobs:
           cd PKolekto
           python manage.py runserver &
           sleep 5
-          python manage.py test Kolekto/tests
+          python manage.py test
 
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       - name: Cleaning testing files
