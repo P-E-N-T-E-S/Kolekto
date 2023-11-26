@@ -157,6 +157,8 @@ class Historia03(LiveServerTestCase):
 
         driver.get("http://127.0.0.1:8000/lista_desejos")
 
+        driver.refresh()
+
         try:
             driver.find_element(by=By.ID, value="Charizard 1999 - 1° Edição")
         except:

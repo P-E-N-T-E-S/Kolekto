@@ -140,7 +140,7 @@
                 <textarea cols="30" placeholder="Descreva sua experiência.." id="comentario" name="comentario" required></textarea>
             </div>
  
-                <button class="btn" type="submit">Enviar</button>
+                <button class="btn" type="submit" id="enviar">Enviar</button>
         </div>
     </div>
     </form>
@@ -153,11 +153,9 @@
   const post = document.querySelector(".post");
   const widget = document.querySelector(".star-widget");
   const avaliar = document.querySelector(".avaliar");
-  
-  widget.onclick = ()=>{
+
     widget.style.display = "block";
     avaliar.style.display = "block";
-  }
 
   btn.onclick = ()=>{
     widget.style.display = "none";

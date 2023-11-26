@@ -140,15 +140,12 @@ class Historia09(LiveServerTestCase):
         botao.send_keys(Keys.ENTER)
 
         comentario = driver.find_element(by=By.ID, value="comentario")
-        nota = driver.find_element(by=By.ID, value="nota")
         botao = driver.find_element(by=By.ID, value="enviar")
         comentario.send_keys("produto veio com atraso")
-        nota.send_keys("3")
         botao.send_keys(Keys.ENTER)
 
         driver.get("http://127.0.0.1:8000/MagicTreasures/")
         comentario = driver.find_element(by=By.ID, value="comentario Teste93")
-        nota = driver.find_element(by=By.ID, value="nota Teste93")
         self.assertTrue(
             comentario.text == "produto veio com atraso"
         )
@@ -173,10 +170,8 @@ class Historia09(LiveServerTestCase):
         botao.send_keys(Keys.ENTER)
 
         comentario = driver.find_element(by=By.ID, value="comentario")
-        nota = driver.find_element(by=By.ID, value="nota")
         botao = driver.find_element(by=By.ID, value="enviar")
         comentario.send_keys("produto veio com defeitos")
-        nota.send_keys("1")
         botao.send_keys(Keys.ENTER)
 
         driver.get("http://127.0.0.1:8000/TechWonders")
@@ -205,10 +200,8 @@ class Historia09(LiveServerTestCase):
         botao.send_keys(Keys.ENTER)
 
         comentario = driver.find_element(by=By.ID, value="comentario")
-        nota = driver.find_element(by=By.ID, value="nota")
         botao = driver.find_element(by=By.ID, value="enviar")
         comentario.send_keys("produto veio no tempo certo e com tudo ok")
-        nota.send_keys("5")
         botao.send_keys(Keys.ENTER)
 
         driver.get("http://127.0.0.1:8000/FashionEmporium/")
