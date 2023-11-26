@@ -1,67 +1,327 @@
 {% extends "layout.html" %} {% block title %} {{ nome_produto }} {% endblock %}
 {% block main %}
 
+<style>
 
-<div
-class="d-flex justify-content-center flex-wrap"
-  style="width: 90%; margin: 0 auto"
-  >
-  <div class="image-container" style="width: 100%">
-    <img width="400" height="400" src="{{ foto1 }}" alt="{{ nome_produto }}" />
-  </div>
-  <div
-    class="d-flex justify-content-around flex-column px-5 mx-5 border text-container"
-    style="width: 100%"
-    >
-    <div>
-      <p style="font-size: 410%">{{ nome_produto }}</p>
-      <a href="/{{ nome_loja }}" class="link-primary" style="font-size: 140%"
-        >{{ nome_loja }}</a
-      >
-      <!--kolekto.azurewebsites.net/{{ nome_loja }}-->
-      <hr />
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+body{
+
+    line-height: 1.5;
+}
+.card-wrapper{
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.img-display{
+    overflow: hidden;
+}
+.img-showcase{
+    display: flex;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+.img-showcase img{
+    min-width: 100%;
+}
+.img-select{
+    display: flex;
+}
+.img-item{
+    margin: 0.3rem;
+}
+.img-item:nth-child(1),
+.img-item:nth-child(2),
+.img-item:nth-child(3){
+    margin-right: 0;
+}
+.img-item:hover{
+    opacity: 0.8;
+}
+.product-content{
+    padding: 2rem 1rem;
+}
+.product-title{
+    font-size: 3rem;
+    text-transform: capitalize;
+    font-weight: 700;
+    position: relative;
+    color: #12263a;
+    margin: 1rem 0;
+}
+.product-title::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 80px;
+    background: #12263a;
+}
+.product-link{
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    background: #256eff;
+    color: #fff;
+    padding: 0 0.3rem;
+    transition: all 0.5s ease;
+}
+.product-link:hover{
+    opacity: 0.9;
+}
+.product-rating{
+    color: #ffc107;
+}
+.product-rating span{
+    font-weight: 600;
+    color: #252525;
+}
+.product-price{
+    margin: 1rem 0;
+    font-size: 2rem;
+    font-weight: 700;
+}
+.product-price span{
+    font-weight: 700;
+}
+.last-price{
+  color: #f64749;
+  text-decoration: line-through;
+}
+
+.new-price span{
+    color: #256eff;
+}
+.product-detail h2{
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    color: #12263a;
+    font-weight: bold;
+}
+.product-detail p{
+    font-size: 1rem;
+    padding: 0.3rem;
+}
+.product-detail ul{
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+.product-detail ul li{
+    margin: 0;
+    list-style: none;
+    background-size: 18px;
+    margin: 0.4rem 0;
+    font-weight: 600;
+    opacity: 0.9;
+}
+.product-detail ul li span{
+    font-weight: 400;
+}
+.purchase-info{
+    margin: 1.5rem 0;
+}
+.purchase-info input,
+.purchase-info .btn{
+    border: 1.5px solid #ddd;
+    border-radius: 25px;
+    text-align: center;
+    padding: 0.45rem 0.8rem;
+    outline: 0;
+    margin-right: 0.2rem;
+    margin-bottom: 1rem;
+}
+
+.purchase-info .btn{
+    cursor: pointer;
+}
+.purchase-info .btn:hover{
+    opacity: 0.9;
+}
+.social-links{
+    display: flex;
+    align-items: center;
+}
+.social-links a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: #000;
+    border: 1px solid #000;
+    margin: 0 0.2rem;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.5s ease;
+}
+.social-links a:hover{
+    background: #000;
+    border-color: transparent;
+    color: #fff;
+}
+.share{
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+@media screen and (min-width: 992px){
+    .card{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1.5rem;
+    }
+    .card-wrapper{
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .product-imgs{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .product-content{
+        padding-top: 0;
+    }
+}
+
+.loja {
+  display: flex;
+  font-size: 0.8rem;
+}
+
+.loja a {
+  text-decoration: none;
+  color: #256eff;
+}
+
+.loja a:hover {
+  text-decoration: underline;
+}
+
+.perfil {
+  width: 32px;
+  height: 32px;
+  color: #000;
+  border: 1px solid #000;
+  margin: 0 0.2rem;
+  border-radius: 50%;
+}
+</style>
+  
+<div class = "card-wrapper">
+  <div class = "card">
+    <!-- card left -->
+    <div class = "product-imgs">
+      <div class = "img-display">
+        <div class = "img-showcase">
+          <img style="width: 100%; display: block;" src = "{{ foto1 }}">
+        </div>
+      </div>
     </div>
-    <p style="font-size: 200%; font-weight: bold;">R$ {{ preco }}</p>
-    <p style="font-size: 100%">
-      <strong>Quantidade Disponível:</strong> {{ qntd }}
-    </p>
-    <p style="font-size: 100%"><strong>Categoria:</strong> {{ categoria }}</p>
-    <p style="font-size: 100%"><strong>Descrição:</strong> {{ descricao }}</p>
-    <div>
-      <button
-      class="btn btn-lg  mx-1 {% if carrinho_existente %} btn-success {% else %} btn-outline-success {% endif %}"
-      style="font-size: 140%"
-      id ="adicionarCarrinho" onclick="add_carrinho('{{ id_produto }}')"
-      >
-        <i class="fa-solid fa-cart-shopping"></i>
-      </button>
-      {% if request.user.is_anonymous %}
-      <a
-      href="{% url 'login' %}"
-      id="adicionarListaDesejos"
-      class="btn btn-lg  mx-1 btn-outline-danger"
-      style="font-size: 140%"
-      >
-      <i class="fa-solid fa-heart"></i>
-      </a>
-      {% else %}
-      <button
-      id="adicionarListaDesejos"
-      class="btn btn-lg  mx-1 {% if lista_existente %} btn-danger {% else %} btn-outline-danger {% endif %}"
-      style="font-size: 140%" onclick="add_lista_desejo('{{ id_produto }}')"
-      >
-      <i class="fa-solid fa-heart"></i>
-      </button>
-      {% endif %}
-      <button
-      class="btn btn-lg btn-outline-success mx-1"
-      style="font-size: 140%"
-      >
-        Comprar
-      </button>
+    <!-- card right -->
+    <div class = "product-content">
+      <h2 class = "product-title">{{ nome_produto }}</h2>
+      <div class = "loja">
+        <a href="/{{ nome_loja }}" style="font-size: 140%">{{ nome_loja }}</a>
+      </div>
+      <div class = "product-rating">
+        {% for _ in "12345" %}
+        {% if media_notas >= forloop.counter %}
+            {% if media_notas >= forloop.counter|add:"-0.5" %}
+                <i class="fas fa-star-half-alt"></i>
+            {% else %}
+                <i class="fas fa-star"></i> 
+            {% endif %}
+        {% else %}
+            <i class="far fa-star"></i> 
+        {% endif %}
+        {% endfor %}
+        <span>{{ media }}</span>
+      </div>
+
+      <div class = "product-price">
+        <p class = "last-price"><span></span></p>
+        <p class = "new-price"><span>R${{ preco }}</span></p>
+      </div>
+      <div class = "product-detail">
+        <h2>Detalhes: </h2>
+        <p>{{ descricao }}</p>
+        <ul>
+          <li>Quantidade: <span>{{ qntd }}</span></li>
+          <li>Disponivel: <span>Em Estoque</span></li>
+          <li>Categoria: <span>{{ categoria }}</span></li>
+        </ul>
+      </div>
+
+      <div class = "purchase-info">
+        <button
+        class="btn btn-lg  mx-1 {% if carrinho_existente %} btn-success {% else %} btn-outline-success {% endif %}"
+        style="font-size: 140%"
+        id ="adicionarCarrinho" onclick="add_carrinho('{{ id_produto }}')"
+        >
+          <i class="fa-solid fa-cart-shopping"></i>
+        </button>
+        {% if request.user.is_anonymous %}
+        <a
+        href="{% url 'login' %}"
+        id="adicionarListaDesejos"
+        class="btn btn-lg  mx-1 btn-outline-danger"
+        style="font-size: 140%"
+        >
+        <i class="fa-solid fa-heart"></i>
+        </a>
+        {% else %}
+        <button
+        id="adicionarListaDesejos"
+        class="btn btn-lg  mx-1 {% if lista_existente %} btn-danger {% else %} btn-outline-danger {% endif %}"
+        style="font-size: 140%" onclick="add_lista_desejo('{{ id_produto }}')"
+        >
+        <i class="fa-solid fa-heart"></i>
+        </button>
+        {% endif %}
+        <button
+        class="btn btn-lg btn-outline-success mx-1"
+        style="font-size: 140%"
+        >
+          Comprar
+        </button>
+      </div>
+      <div class="share">
+        <p>Compartilhar:</p>
+      </div>
+      <div class = "social-links">
+        <a href = "#" id="copyButton" title="Copiar">
+          <i class="fa-solid fa-copy"></i>
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:8000/Produto/{{ id_produto }}/" title="Facebook">
+          <i class = "fab fa-facebook-f"></i>
+        </a>
+        <a href="https://twitter.com/intent/tweet?url=http://127.0.0.1:8000/Produto/{{ id_produto }}/&text=Melhor do que isso só dois disso!" title="Twitter">
+          <i class = "fab fa-twitter"></i>
+        </a>
+        <a href="https://www.reddit.com/submit?url=http://127.0.0.1:8000/Produto/{{ id_produto }}/&title=Melhor do que isso só dois disso!" title="Reddit">
+          <i class = "fa-brands fa-reddit"></i>
+        </a>
+        <a href = "https://api.whatsapp.com/send?text=http://127.0.0.1:8000/Produto/{{ id_produto }}/" title="Whatsapp">
+          <i class = "fab fa-whatsapp"></i>
+        </a>
+
+      </div>
     </div>
   </div>
-</div>
+</div><!--cardwrapper-->
+
+
 <script> 
   async function add_lista_desejo(produtoId){
     const produto = document.getElementById("adicionarListaDesejos")
@@ -126,6 +386,25 @@ class="d-flex justify-content-center flex-wrap"
       })
     }
   }
+
+
+  const copyButton = document.getElementById('copyButton');
+
+  copyButton.addEventListener('click', function() {
+    const linkToCopy = "127.0.0.1:8000/Produto/{{id_produto}}/";
+
+    const textArea = document.createElement('textarea');
+    textArea.value = linkToCopy;
+
+    document.body.appendChild(textArea);
+
+    textArea.select();
+
+    document.execCommand('copy');
+
+    document.body.removeChild(textArea);
+
+  });
 
 </script>
 {% endblock %}

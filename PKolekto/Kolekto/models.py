@@ -12,7 +12,6 @@ class Usuario(models.Model):
     
     
 class Loja(models.Model):
-    Banner = models.CharField(max_length=100)
     Perfil = models.CharField(max_length=100)
     NomeLoja = models.CharField(max_length=30)
     Cpf = models.CharField(max_length=14)
@@ -41,7 +40,7 @@ class Produto(models.Model):
             ]
     foto1 = models.CharField(max_length=100)
     nome_produto = models.CharField(max_length=100)
-    descricao = models.CharField(max_length=500)
+    descricao = models.TextField(max_length=500)
     categoria = models.CharField(choices=categorias,default=categorias[0],max_length=50)
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     qntd = models.PositiveSmallIntegerField()
@@ -62,3 +61,27 @@ class Carrinho(models.Model):
 class Denuncia(models.Model):
     motivos = models.CharField
     detalhe = models.CharField
+
+
+class Compra(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    nome_comprador = models.CharField(max_length=50, default="Não Informado")
+    loja = models.ForeignKey(Loja, on_delete=models.CASCADE)
+    data = models.DateField(auto_now_add=True)
+    destinatario = models.CharField(max_length=100, default="padrao")
+    transportadora = models.CharField(max_length=100)
+    itens = models.TextField()
+    valor = models.FloatField()
+
+    def __str__(self):
+        return f"{self.loja} - R${self.valor} - {self.data}"
+
+
+class Avaliacao(models.Model):
+    loja = models.ForeignKey(Loja, on_delete=models.CASCADE, null=True)
+    avaliador = models.ForeignKey(User, on_delete=models.CASCADE)
+    nota = models.IntegerField()
+    comentario = models.TextField()
+
+    def __str__(self):
+        return f"{self.avaliador} - {self.loja}"

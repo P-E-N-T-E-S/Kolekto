@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %} Histórico de compras {% endblock %}
+
+{% block main %}
+
+<style>
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  #wish-container table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  #wish-container table td h5{
+    font-weight: bold;
+  }
+
+  #wish-container table td {
+    padding: 8px;
+    text-align: center;
+  }
+
+  #wish-container table tbody img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+  }
+
+  h1.text-start {
+    margin-left: 200px;
+  }
+
+  #wish-container {
+    margin-top: 20px;
+  }
+
+  .avaliar-btn {
+    width: 10%;
+    height: 45px;
+    background-color: #ff7420;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 010px rgba(0, 0, 0, .1);
+    cursor: #333;
+    font-weight: 600;
+  }
+
+  .avaliar-btn:hover {
+    background-color: #d4631d;
+  }
+
+</style>
+
+<div class="container-fluid py-5 text-center">
+<h1 class="text-start" style="margin-left: 200px;">Minhas compras:</h1>
+
+
+<section id="wish-container" class="container my-5">
+  {% for compra in compras %}
+  <table width="100%">
+    <thead><tr><td>{{ compra.loja }}</td></tr></thead>
+  {% for item  in compra.produtos %}
+          <tbody>
+            <tr>
+              <td style="margin-left: 40px; display: flex; align-items: center;" id="{{ item.produto.nome_produto }}">
+                <img src="{{ item.produto.foto1 }}" alt="{{ item.produto.nome_produto }}">
+                <div style="margin-left: 20px; text-align: left;">
+                  <h5 style="font-size: 26px; margin: 0;" id="nome">{{ item.produto.nome_produto }}</h5>
+                  <p>{{ item.produto.loja }}</p>
+                  <h5 style="font-size: 24px;" class='preco' id="preco">R${{ item.produto.preco }}</h5>
+                  <p >{{ item.produto.categoria }}</p>
+                </div>
+          
+                <button class='avaliar-btn' type="button"><a href="{% url 'avaliacao' item.produto.id%}" id="avaliar {{item.produto.nome_produto}}">Avaliar loja</a></button>
+                
+              </td>
+            </tr>
+    {% endfor %}
+        </tbody>
+      </table>
+
+    {% endfor %}
+      </section>
+    </div>
+
+{% endblock %}

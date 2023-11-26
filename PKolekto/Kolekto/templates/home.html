@@ -1,28 +1,67 @@
-{% extends "layout.html" %} {% block title %} Pagina inicial {% endblock %} 
+{% extends "layout.html" %} {% block title %} Início {% endblock %} 
 {% block main %} 
-{% if erro %}
-<div class="alert alert-primary" role="alert">{{ erro }}</div>
-{% endif %}
+<style>
+  a {
+    color: black;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
 
-<div class="produtos">
+  .card {
+    height: 100%;
+  }
+
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3), 0 12px 32px 0 rgba(0, 0, 0, 0.25);
+    transition: 0.3s;
+  }
+
+  .card .card-body {
+    max-height: 200px;
+    overflow: hidden;
+  }
+
+  .product-image {
+    width: 300px;
+    height: 300px; 
+    object-fit: cover; 
+  }
+</style>
+<link href="/static/home.css" rel="stylesheet"/>
+
+<script src="./static/home.js"  defer></script>
+<div class="container-fluid py-5 text-center">
+  <div class="container-slider">
+    <button id="prev-button"><img src="https://i.imgur.com/LgQ8BaB.png" alt="prev-button"></button>
+    <div class="container-images">
+      <img src="https://i.imgur.com/2IUQbBa.png" alt="magic" class="slider on">
+      <img src="https://i.imgur.com/2luLT8M.png" alt="Ferrari" class="slider">
+      <img src="https://i.imgur.com/xH61khw.png" alt="Pikachu" class="slider">
+      <img src="https://i.imgur.com/yFB6T09.png" alt="Pokemon" class="slider">
+      <img src="https://i.imgur.com/sjddaA9.png" alt="StarWars" class="slider">
+    </div>
+    <button id="next-button"><img src="https://i.imgur.com/LgQ8BaB.png" alt="next-button"></button>
+  </div>
+
+  <div class="produtos">
   {% for produto in produtos %}
+  <a href="{% url 'pagina_produto' produto.id %}" class="card-link">
   <div class="card" style="width: 18rem">
     <img
       width="300"
       height="300"
       src="{{ produto.foto1 }}"
-      class="card-img-top"
+      class="card-img-top product-image"
       alt="{{ produto.nome_produto }}"
       name = "{{ produto.nome_produto }}"
     />
-    <div class="card-body d-flex justify-content-between flex-column" name="{{produto.nome_produto}}">
+    <div class="card-body d-flex justify-content-between flex-column" name="{{produto.nome_produto}} card" id="{{ produto.id }}">
       <h5 class="card-title text-start">{{ produto.nome_produto }}</h5>
       <p class="card-text text-start" style="height: 100px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">{{ produto.descricao }}</p>
       <p class="card-text text-start" style="font-weight: bold; font-size:28px;">R${{ produto.preco }}</p>
-      <a href="{% url 'pagina_produto' produto.id %}" class="btn btn-primary" name="{{ produto.id }}"
-        >Detalhes</a>
     </div>
   </div>
+  </a>
   {% empty %}
   <h1 name="vazio">Nenhum produto disponível.</h1>
   {% endfor %}
@@ -31,4 +70,5 @@
 {% if error_message %}
 <p>{{ error_message }}</p>
 {% endif %} 
+</div>
 {% endblock %}

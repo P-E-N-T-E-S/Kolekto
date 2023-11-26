@@ -1,12 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
-from .models import Produto, Loja, ListaDesejos, Carrinho
+from .models import Produto, Loja, ListaDesejos, Carrinho, Compra, Avaliacao
 from django.http import Http404, JsonResponse
-from django.db.models import Q
+from django.db.models import Q, Avg
 from django.core.mail import send_mail
 import json
+from .utils import *
 
 
 
@@ -25,6 +26,35 @@ categorias = [
                 "Outro"
             ]
 
+estados_brasileiros = [
+    "Acre",
+    "Alagoas",
+    "Amapá",
+    "Amazonas",
+    "Bahia",
+    "Ceará",
+    "Distrito Federal",
+    "Espírito Santo",
+    "Goiás",
+    "Maranhão",
+    "Mato Grosso",
+    "Mato Grosso do Sul",
+    "Minas Gerais",
+    "Pará",
+    "Paraíba",
+    "Paraná",
+    "Pernambuco",
+    "Piauí",
+    "Rio de Janeiro",
+    "Rio Grande do Norte",
+    "Rio Grande do Sul",
+    "Rondônia",
+    "Roraima",
+    "Santa Catarina",
+    "São Paulo",
+    "Sergipe",
+    "Tocantins"
+]
 
 def Registro(request):
     if request.method == 'POST':
@@ -80,55 +110,68 @@ def Cadastro_Loja(request):
         
     contexto = {
         "nome_vendedor": usuario.first_name,
-        "temloja": temloja
+        "temloja": temloja,
+        "estados_brasileiros": estados_brasileiros
     }
     
     if request.method == "POST":
         errado = False
         erros = {}
-
+        cidade = request.POST.get("cidade")
+        estado = request.POST.get("select")
         data_nascimento = request.POST.get("nascimento")
-        Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
+        Localizacao = f"{cidade}, {estado}"
         cpf = request.POST.get("cpf")
         nome_loja = request.POST.get("nome_loja")
-        banner = request.POST.get("banner")
         perfil = request.POST.get("perfil")
         associado = usuario
         descricao = request.POST.get("descricao")
-        
-        if Loja.objects.filter(NomeLoja=nome_loja).exists():
-            erros["nomedaloja"] = "Já existe uma loja com esse nome."
-            errado = True
 
-        if banner[-5:-1] != ".jpe" or perfil[-5:-1] != ".jpe":
-            erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
+        if nomeLojaExiste(nome_loja):
             errado = True
+            erros["nomedaloja"] = "Já existe uma loja com esse nome."
+
+        if validacaoLinks(perfil):
+            errado = True
+            erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
+
+        if validar_cpf(cpf):
+            errado = True
+            erros["cpferrado"] = "digite o cpf corretamente"
+
+        if request.POST.get("select") == None:
+            errado = True
+            erros["selecestado"] = "selecione o seu estado"
 
         if errado:
             contexto["erros"] = erros
             contexto["data_nascimento"] = data_nascimento
             contexto["localizacao"] = request.POST.get("cidade")
             contexto["estado"] = True
+            contexto["selecao"] = {request.POST.get('estado')}
             contexto["cpf"] = cpf
             contexto["nome_loja"] = nome_loja
-            contexto["banner"] = banner
             contexto["perfil"] = perfil
             contexto["descrito"] = descricao
+            contexto["estado_resposta"] = estado
+            contexto["estados_brasileiros"] = estados_brasileiros
             return render(request, "cadastro_loja.html", context=contexto)
         else:
             try:
-                Loja.objects.create(Banner=banner, Perfil=perfil, NomeLoja=nome_loja, associado=associado, Cpf=cpf,
+                Loja.objects.create(Perfil=perfil, NomeLoja=nome_loja, associado=associado, Cpf=cpf,
                             DataNascimento=data_nascimento, Localizacao=Localizacao, descricao=descricao)
             except:
                 contexto["erros"] = "Preencha todos os campos corretamente."
                 contexto["data_nascimento"] = data_nascimento
                 contexto["localizacao"] = request.POST.get("cidade")
                 contexto["estado"] = True
+                contexto["selecao"] = estado
                 contexto["cpf"] = cpf
                 contexto["nome_loja"] = nome_loja
-                contexto["banner"] = banner
                 contexto["perfil"] = perfil
                 contexto["descrito"] = descricao
+                contexto["estado_resposta"] = estado
+                contexto["estados_brasileiros"] = estados_brasileiros
                 return render(request, "cadastro_loja.html", context=contexto)
             else:
                 return redirect(home)
@@ -233,6 +276,14 @@ def pagina_produto(request, id_produto):
     
     loja = id_produto.loja
     nome_loja = loja.NomeLoja
+    foto_loja = loja.Perfil
+    avaliacao = Avaliacao.objects.filter(loja=loja)
+    media_notas = avaliacao.aggregate(media=Avg('nota'))['media']
+    if media_notas is not None:
+        media_notas = float(media_notas)
+    else:
+        media_notas = 0.0
+    produtos = list(loja.produto_set.all())
     if id_produto is not None:
         contexto = {
             "lista_existente":lista_existente,
@@ -245,7 +296,10 @@ def pagina_produto(request, id_produto):
             "categoria": id_produto.categoria,
             "qntd": id_produto.qntd,
             "nome_loja": nome_loja,
-            "temloja": temloja
+            "temloja": temloja,
+            "foto_loja": foto_loja,
+            "media": f'{media_notas} ({avaliacao.count()})',
+            "media_notas": media_notas,
         }
 
         return render(request, "pagina_produto.html", context=contexto)
@@ -327,20 +381,29 @@ def pagina_loja(request, nome_loja):
 
     loja = Loja.objects.get(NomeLoja=nome_loja)
     if loja is not None:
+        avaliacao = Avaliacao.objects.filter(loja=loja)
+        media_notas = avaliacao.aggregate(media=Avg('nota'))['media']
+        if media_notas is not None:
+            media_notas = float(media_notas)
+        else:
+            media_notas = 0.0
         produtos = list(loja.produto_set.all())
         contexto = {
             "minhaloja": False,
-            "banner": loja.Banner,
             "perfil": loja.Perfil,
             "nome_loja": loja.NomeLoja,
             "localizacao": loja.Localizacao,
             "descricao": loja.descricao,
             "produtos": produtos,
             "temloja": temloja,
+            "avaliacoes": list(loja.avaliacao_set.all()),
+            "media": f'{media_notas} ({avaliacao.count()})',
+            "media_notas": media_notas,
         }
         return render(request, "pagina_loja.html", context=contexto)
     else:
         raise Http404("Loja não encontrada")
+
 
 @login_required
 def denuncia(request, nome_loja):
@@ -375,11 +438,7 @@ def denuncia(request, nome_loja):
         "temloja": temloja
     }
 
-
     return render(request, "denuncia.html", context=contexto)
-
-
-
 
 
 @login_required
@@ -395,16 +454,24 @@ def minha_loja(request):
 
     loja = Loja.objects.get(associado_id=usuario.id)
     if loja is not None:
+        avaliacao = Avaliacao.objects.filter(loja=loja)
+        media_notas = avaliacao.aggregate(media=Avg('nota'))['media']
+        if media_notas is not None:
+            media_notas = float(media_notas)
+        else:
+            media_notas = 0.0
         produtos = list(loja.produto_set.all())
         contexto = {
             "minhaloja": True,
-            "banner": loja.Banner,
             "perfil": loja.Perfil,
             "nome_loja": loja.NomeLoja,
             "localizacao": loja.Localizacao,
             "descricao": loja.descricao,
             "produtos": produtos,
-            "temloja": temloja
+            "temloja": temloja,
+            "avaliacoes": list(loja.avaliacao_set.all()),
+            "media": f'{media_notas} ({avaliacao.count()})',
+            "media_notas": media_notas,
         }
         return render(request, "pagina_loja.html", context=contexto)
     else:
@@ -432,6 +499,7 @@ def lista_desejos(request):
     
     return render(request, "lista_desejos.html", {"lista": lista})
 
+
 @login_required
 def add_lista_desejos(request):
     produto_id = json.loads(request.body)["produtoId"]
@@ -449,7 +517,6 @@ def add_lista_desejos(request):
         
     return JsonResponse({'mensagem': 'Requisição inválida.'}, status=400)
     
-        
 
 @login_required
 def rem_lista_desejos(request):
@@ -518,7 +585,7 @@ def carrinho(request):
 
     return render(request, "carrinho.html", {"lista": lista})
 
-
+@login_required
 def editar_loja(request, loja):
     usuario = request.user
 
@@ -535,9 +602,9 @@ def editar_loja(request, loja):
             "estado": localizacao[1],
             "cpf": userloja.Cpf,
             "nome_loja": userloja.NomeLoja,
-            "banner": userloja.Banner,
             "perfil": userloja.Perfil,
-            "descrito": userloja.descricao
+            "descrito": userloja.descricao,
+            "estados_brasileiros": estados_brasileiros
         }
 
         if request.method == "POST":
@@ -548,17 +615,21 @@ def editar_loja(request, loja):
             Localizacao = f"{request.POST.get('cidade')}, {request.POST.get('estado')}"
             cpf = request.POST.get("cpf")
             nome_loja = request.POST.get("nome_loja")
-            banner = request.POST.get("banner")
             perfil = request.POST.get("perfil")
             descricao = request.POST.get("descricao")
 
-            if Loja.objects.filter(NomeLoja=nome_loja).exists():
+            if nomeLojaExiste(nome_loja):
+                errado = True
                 erros["nomedaloja"] = "Já existe uma loja com esse nome."
-                errado = True
 
-            if not ((banner[-5:-1] == ".jpe" or perfil[-5:-1] == ".jpe") or (banner[-5:-1] == ".jp" or perfil[-5:-1] == ".jp")):
-                erros["urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
+            if validacaoLinks(perfil):
                 errado = True
+                erros[
+                    "urlerrado"] = "O url da imagem está com erro, por favor clique com o botão direito e copie o endereço da imagem"
+
+            if validar_cpf(cpf):
+                errado = True
+                erros["cpferrado"] = "digite o cpf corretamente"
 
             if errado:
                 contexto["erros"] = erros
@@ -567,7 +638,6 @@ def editar_loja(request, loja):
                 contexto["estado"] = localizacao[1]
                 contexto["cpf"] = cpf
                 contexto["nome_loja"] = nome_loja
-                contexto["banner"] = banner
                 contexto["perfil"] = perfil
                 contexto["descrito"] = descricao
                 return render(request, "editLoja.html", context=contexto)
@@ -576,7 +646,6 @@ def editar_loja(request, loja):
                     userloja.NomeLoja = nome_loja
                     userloja.Perfil = perfil
                     userloja.Cpf = cpf
-                    userloja.Banner = banner
                     userloja.DataNascimento = data_nascimento
                     userloja.Localizacao = Localizacao
                     userloja.descricao = descricao
@@ -587,10 +656,188 @@ def editar_loja(request, loja):
                     contexto["estado"] = True
                     contexto["cpf"] = cpf
                     contexto["nome_loja"] = nome_loja
-                    contexto["banner"] = banner
                     contexto["perfil"] = perfil
                     contexto["descrito"] = descricao
+                    contexto["estados_brasileiros"] = estados_brasileiros
                     return render(request, "editLoja.html", context=contexto)
                 else:
                     return redirect(minha_loja)
         return render(request, "editLoja.html", context=contexto)
+
+
+@login_required
+def realizar_compra(request):
+    usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
+    usuario = request.user
+    compras = list(usuario.carrinho_set.all())
+    produtos = list()
+    soma = 0
+    for nome in compras:
+        produto = Produto.objects.get(id=nome.produto.id)
+        produtos.append(produto)
+        soma += nome.quantidade * produto.preco
+    oplojas = list()
+    for item in produtos:
+        loja = item.loja
+        oplojas.append(loja.NomeLoja)
+    lojas = list(set(oplojas))
+    sepcompras = list(range(len(lojas)))
+    for i in range(len(lojas)):
+        sepcompras[i] = dict()
+        sepcompras[i]["loja"] = lojas[i]
+        sepcompras[i]["produtos"] = [produto for produto in produtos if produto.loja.NomeLoja == lojas[i]]
+
+    if request.method == "POST":
+        cpf = request.POST.get("CPF")
+        nome_comprador = request.POST.get("nome")
+        cidade = request.POST.get("cidade")
+        endereco = request.POST.get("endereço")
+        complemento = request.POST.get("Complemento")
+        transportadora = request.POST.get("Transportadora")
+        senha = request.POST.get("confirmPassword")
+
+        destino = f"{endereco}, {complemento}, {cidade}"
+        erros = dict()
+
+        errado = False
+
+        if validar_cpf(cpf):
+            errado = True
+            erros["cpferrado"] = "Digite o CPF corretamente"
+
+        if valida_senha(senha, request):
+            errado = True
+            erros["senhaerrada"] = "Insira sua senha corretamente"
+
+
+        if errado:
+            contexto = {
+                "temloja":temloja,
+                "erros": erros,
+                "nome": nome_comprador,
+                "compras": sepcompras,
+                "valormax": soma,
+                "cpf": cpf,
+                "cidade": cidade,
+                "endereco": endereco,
+                "complemento": complemento,
+            }
+            return render(request, "realcompra.html", context=contexto)
+        else:
+            try:
+                for nomeloja in lojas:
+                    loja = Loja.objects.get(NomeLoja=nomeloja)
+                    for opcao in sepcompras:
+                        if opcao["loja"] == loja.NomeLoja:
+                            compra = ''
+                            for itens in opcao["produtos"]:
+                                quantidade = list(usuario.carrinho_set.filter(produto=itens))
+                                if len(quantidade) > 0:
+                                    compra += f"{itens.pk};{quantidade[0].quantidade}/"
+                                    quantidade[0].delete()
+                    Compra.objects.create(usuario=usuario, loja=loja, transportadora=transportadora,
+                                        destinatario=destino, valor=soma, itens=compra, nome_comprador=nome_comprador)
+            except:
+                erros["invalido"] = "Preencha os valores corretamente"
+                contexto = {
+                        "temloja": temloja,
+                        "erros": erros,
+                        "nome": nome_comprador,
+                        "compras": sepcompras,
+                        "valormax": soma,
+                        "cpf": cpf,
+                        "cidade": cidade,
+                        "endereco": endereco,
+                        "complemento": complemento,
+                        "transportadora": transportadora
+                    }
+                return render(request, "realcompra.html", context=contexto)
+            else:
+                return redirect(historico_compras)
+    contexto = {
+        "temloja": temloja,
+        "compras": sepcompras,
+        "valormax": soma
+    }
+    return render(request, "realcompra.html", context=contexto)
+
+
+@login_required
+def historico_compras(request):
+    usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
+
+    compras = list(usuario.compra_set.all())
+    separador = list()
+    for compra in compras:
+        """if Avaliacao.objects.filter(avaliador=usuario, loja=compra.loja).exists():
+            ja_avaliou = True
+        else:
+            ja_avaliou = False"""
+        produtos = list()
+        chaves = [chave.split(";")[0] for chave in compra.itens.split("/") if chave.split(";")[0] != '']
+        quantidades = [chave.split(";")[1] for chave in compra.itens.split("/") if chave.split(";")[0] != '']
+        for chave in range(len(chaves)):
+ 
+            produtos.append({
+                "produto": Produto.objects.get(pk=chaves[chave]),
+                "quantidade": quantidades[chave]
+            })
+        separador.append({
+            "loja": f"{compra.loja} - {compra.data}",
+            "produtos": produtos
+        })
+    contexto = {
+        "temloja": temloja,
+        "compras": separador,
+        "infocompras": compras,
+        #"ja_avaliou": ja_avaliou,
+    }
+    return render(request, "historico.html", contexto)
+
+
+@login_required
+def avaliacao(request, id):
+    usuario = request.user
+    if request.user.is_anonymous:
+        temloja = False
+    else:
+        if Loja.objects.filter(associado_id=usuario).exists():
+            temloja = True
+        else:
+            temloja = False
+            
+    produto = Produto.objects.get(id=id)
+    contexto={
+        "loja": produto.loja,
+        "produto": produto,
+        "temloja": temloja,
+    }
+    
+    if Avaliacao.objects.filter(avaliador=usuario, loja=produto.loja).exists():
+        return redirect(home)
+    else:
+        if request.method == "POST":
+            nota = request.POST.get("nota")
+            comentario = request.POST.get("comentario")
+            
+            if nota is not None and comentario is not None:
+                nota = int(nota)
+                Avaliacao.objects.create(avaliador=usuario, loja=produto.loja, nota=nota, comentario=comentario)
+                return redirect(home)
+            
+
+        return render(request, "avaliacao.html", contexto)

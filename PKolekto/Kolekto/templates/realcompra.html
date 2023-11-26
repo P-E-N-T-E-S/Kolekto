@@ -1,4 +1,7 @@
-{% extends "layout.html" %} {% block title %} Adicionar produto {% endblock %}
+{% extends "layout.html" %}
+
+{% block title %} Informações de pedido {% endblock %}
+
 {% block main %}
 
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -202,69 +205,85 @@
 <div class="corpo">
   <div class="container">
       <div class="form-image">
-          <img src="https://i.imgur.com/mplDxDI.png" alt="Kolekto">
+          <img src="https://i.imgur.com/OkWQ7jF.png" alt="Kolekto">
       </div>
       <div class="form">
           <form
-            action="{% url 'add_produto' %}"
-            method="post"
-            enctype="multipart/form-data">
+              action="{% url 'realizar_compra' %}"
+              method="POST"
+              enctype="multipart/form-data">
               {% csrf_token %}
               <div class="form-header">
                   <div class="title">
-                      <h1>Adicionar produto</h1>
+                      <h1>Como você quer receber a sua compra?</h1>
                   </div>
               </div>
 
-              {% csrf_token %}
               <div class="input-group">
                   <div class="input-box">
-                      <label for="foto1">Fotos <i class='bx bxs-camera'></i></label>
-                      <input id="foto1" type="text" name="foto1" placeholder="Link da Foto" value="{{foto1}}" required>
+                      <label for="nome">Nome para entrega <i class='bx bx-edit-alt'></i></label>
+                      <input id="nome" type="text" name="nome" placeholder="Digite seu nome" value="{{ nome }}" required>
                   </div>
 
                   <div class="input-box">
-                    <label for="nome_produto">Nome do Produto <i class='bx bx-pencil' ></i></label>
-                    <input id="nome_produto" type="text" name="nome_produto" placeholder="Produto" value="{{ nome_produto }}" required>
+                      <label for="Cidade">Cidade <i class='bx bx-map-alt' ></i></label>
+                      <input id="cidade" type="text" name="cidade" placeholder="Cidade-Estado" value="{{ cidade }}" required>
+                  </div>
+                  <div class="input-box">
+                      <label for="Rua/Avenida">Rua/Avenida <i class='bx bx-map-pin' ></i></label>
+                      <input id="Rua/Avenida" type="text" name="endereço" placeholder="Informe seu endereço" value="{{ endereco }}" required>
                   </div>
 
                   <div class="input-box">
-                      <label for="nome_produto">Descrição <i class='bx bx-list-minus' ></i></label>
-                      <input id="descricao" type="text" name="descricao" placeholder="Descrição" value="{{ descricao }}" required>
+                      <label for="Complemento">Numero/Complemento <i class='bx bx-street-view' ></i></label>
+                      <input id="Complemento" type="Complemento" name="Complemento" placeholder="Complemento" value="{{ complemento }}" required>
                   </div>
 
                   <div class="input-box">
-                      <label for="Complemento">Preço <i class='bx bx-money' ></i></label>
-                      <input id="preco" type="text" name="preco" placeholder="XX,YY" value="{{ preco }}" required>
+                      <label for="CPF">CPF <i class='bx bxs-file-doc' ></i></label>
+                      <input id="CPF" type="text" name="CPF" placeholder="Ex: xxx.xxx.xxx-xx" value="{{ cpf }}" required>
                   </div>
 
-                  <div class="input-box">
-                      <label for="qntd">Quantidade <i class='bx bx-game' ></i></label>
-                      <input id="qntd" type="number" name="qntd" placeholder="Quantidade" required>
-                  </div>
 
                   <div class="input-box">
-                    <label for="categoria" class="form-label">Categoria <i class='bx bxs-inbox' ></i></label>
-                    <select
-                      class="form-select"
-                      id="categoria"
-                      name="select"
-                      value="{{ categoria }}"
-                    >
-                      {% for categoria in categorias %}
-                      <option value="{{ categoria }}">{{ categoria }}</option>
-                      {% endfor %}
-                    </select>
+                      <label for="confirmPassword">Confirme sua Senha <i class='bx bxs-lock-alt' ></i></label>
+                      <input id="confirmPassword" type="password" name="confirmPassword" placeholder="Digite sua senha novamente" required>
                   </div>
 
               </div>
 
-              <p class="erros">{{ erros.campos }}</p>
-              <p class="erros">{{ erros.url }}</p>
-              <p class="erros">{{ erros.precos }}</p>
+              <div class="Transportadora-inputs">
+                  <div class="Transportadora-title">
+                      <h6>Transportadora <i class='bx bxs-package' ></i></h6>
+                  </div>
+
+                  <div class="Transportadora-group">
+                      <div class="Transportadora-input">
+                          <input id="PAC" type="radio" name="Transportadora" value="PAC" checked>
+                          <label for="PAC">PAC</label>
+                      </div>
+
+                      <div class="Transportadora-input">
+                          <input id="Sedex" type="radio" name="Transportadora" value="Sedex">
+                          <label for="Sedex">Sedex</label>
+                      </div>
+
+                      <div class="Transportadora-input">
+                          <input id="Fedex" type="radio" name="Transportadora" value="Fedex">
+                          <label for="Fedex">Fedex</label>
+                      </div>
+
+                      <div class="Transportadora-input">
+                          <input id="Bertolini" type="radio" name="Transportadora" value="Bertolini">
+                          <label for="Bertolini">Bertolini</label>
+                      </div>
+                  </div>
+              </div>
+
+              <p class="erros">{{ erros.cpferrado }}{{ erros.senhaerrada }}{{ erros.invalido }}</p>
 
               <div class="continue-button">
-                <button type="submit" name="Add"><a>Anunciar produto</a></button>
+                <button type="submit" id="Continuar"><a>Continuar</a></button>
               </div>
           </form>
       </div>

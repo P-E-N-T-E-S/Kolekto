@@ -6,11 +6,10 @@
     <link
       rel="icon"
       type="image/x-icon"
-      href="https://i.imgur.com/XbZUY01.png"
+      href="https://imgur.com/9RIzwc3.png"
     />
 
     <title>Kolekto: {% block title %}{% endblock %}</title>
-
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -33,11 +32,11 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-    <nav class="navbar navbar-expand-lg" style="background-color: #f9efe8">
+    <nav class="navbar navbar-expand-lg" style="background-color: #dcdcdc">
       <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'index' %}"
-          ><img src="https://i.imgur.com/XbZUY01.png" width="40" height="40" />
-          <img src="https://imgur.com/HHZ8V4q.png" width="100" height="35"
+          >
+          <img src="https://imgur.com/68YglrX.png" width="175" height="40"
         /></a>
         <button
           class="navbar-toggler"
@@ -51,7 +50,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav d-flex mx-auto justify-content-center categories-menu">
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -82,19 +81,7 @@
                 <li><a class="dropdown-item" href="/pesquisa?select=Outro">Outro</a></li>
               </ul>
             </li>
-            {% if temloja %}
-            <li class="nav-item">
-              <a class="nav-link" href="/minha_loja" name="MLoja">Minha Loja</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/add_produto">Adicionar produto</a>
-            </li>
-            {% endif %} {% if user.is_authenticated and not temloja %}
-            <li class="nav-item">
-              <a class="nav-link" href="/nova_loja">Criar loja</a>
-            </li>
-            {% endif %}
-          </ul>
+
           <form
             class="d-flex mx-auto justify-content-center"
             role="search"
@@ -102,44 +89,100 @@
           >
             <input
               class="form-control me-2"
+              style="width: 700px;"
               type="search"
               id="nome_pesquisado"
               name="nome_pesquisado"
-              placeholder="Digite um nome"
+              placeholder="Pesquise por produtos, categorias ou lojas"
               value="{{ nome_pesquisado }}"
             />
-            <button class="btn btn-outline-success" type="submit">
-              Pesquisar
+            <button class="btn btn-secondary" type="submit">
+              <i class="fas fa-search"></i>
             </button>
           </form>
-          {% if user.is_authenticated %}
-          <a class="nav-item">
-            <a style="margin-right: 30px;" class="nav-link" href="{% url 'carrinho' %}"><i class="fa-solid fa-cart-shopping"></i></a>
-          </a>
-          <a class="nav-item">
-            <a style="margin-right: 30px;" class="nav-link" href="{% url 'lista_desejos' %}"><i class="fa-regular fa-heart"></i></a>
-          </a>
-          <a class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Sair</a>
-          </a>
-          {% else %}
-          <a class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Entrar</a>
-          </a>
-          {% endif %}
+        </ul>
         </div>
+          <ul class="navbar-nav ms-auto">
+            {% if temloja %}
+            <li class="nav-item">
+              <a class="nav-link" href="/minha_loja" name="MLoja"><i class="fa-solid fa-shop"></i>  Minha Loja</a>
+            </li>
+            {% endif %} {% if user.is_authenticated and not temloja %}
+            <li class="nav-item">
+              <a class="nav-link" href="/nova_loja"><i class="fa-solid fa-shop"></i>  Criar loja</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'carrinho' %}"><i class="fa-solid fa-cart-shopping"></i>  Carrinho</a>
+            </li>
+            {% if user.is_authenticated  and temloja%}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ user.username }} 
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" id="avatar-dropdown">
+                <li>
+                  <a class="dropdown-item" href="{% url 'lista_desejos' %}"><i class="fa-solid fa-heart"></i>  Lista de Desejos</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" name="Categorias"><i class="fa-solid fa-bookmark"></i>  Suas categorias</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'historico_compra' %}" name="Historico"><i class="fas fa-history"></i>  Histórico de compras</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/add_produto" name="Historico"><i class="fa fa-plus" aria-hidden="true"></i>  Anunciar produto</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" name="Configuracao"><i class="fa-solid fa-gear"></i>  Configurações</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>  Sair</a>
+                </li>
+              </ul>
+            </li>
+            {% elif user.is_authenticated and not temloja %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ user.username }} 
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" id="avatar-dropdown">
+                <li>
+                  <a class="dropdown-item" href="{% url 'lista_desejos' %}"><i class="fa-solid fa-heart"></i>  Lista de Desejos</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" name="Categorias"><i class="fa-solid fa-bookmark"></i>  Suas categorias</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'historico_compra' %}" name="Historico"><i class="fas fa-history"></i>  Histórico de compras</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" name="Configuracao"><i class="fa-solid fa-gear"></i>  Configurações</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>  Sair</a>
+                </li>
+              </ul>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Entrar</a>
+            </li>
+          {% endif %}
+        </ul>
       </div>
     </nav>
-    <main class="container-fluid py-5 text-center">
+    <main style="background-color: f5f5f5">
       {% block main %} {% endblock %}
     </main>
 
-    <footer class="border-top fixed-bottom text-muted" style="background-color: #f9efe8">
-      <div class="container">
-        <div class="row py-1">
-          <div class="text-center">
-            &copy; 2023 - P.E.N.T.E.S. Inc. All rights reserved
-          </div>
+    <footer>
+      <div class="footer-content">
+        <div class="logo">
+          <img src="https://imgur.com/68YglrX.png" alt="Logo da empresa" />
+        </div>
+        <div class="copyright">
+          <p style='margin-top: 15px;'>&copy; P.E.N.T.E.S. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>
