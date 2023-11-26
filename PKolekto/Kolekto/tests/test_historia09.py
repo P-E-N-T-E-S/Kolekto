@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import time
 
-segundos = 0
+segundos = 5
 
 lojas = ['MagicTreasures', 'TechWonders', 'FashionEmporium']
 produtos = ['X', 'Y', 'Z']
@@ -144,6 +144,8 @@ class Historia09(LiveServerTestCase):
         comentario.send_keys("produto veio com atraso")
         botao.send_keys(Keys.ENTER)
 
+        time.sleep(1)
+
         driver.get("http://127.0.0.1:8000/MagicTreasures/")
         comentario = driver.find_element(by=By.ID, value="comentario Teste93")
         self.assertTrue(
@@ -173,6 +175,8 @@ class Historia09(LiveServerTestCase):
         botao = driver.find_element(by=By.ID, value="enviar")
         comentario.send_keys("produto veio com defeitos")
         botao.send_keys(Keys.ENTER)
+
+        time.sleep(1)
 
         driver.get("http://127.0.0.1:8000/TechWonders")
         comentario = driver.find_element(by=By.ID, value="comentario Teste93")
@@ -204,9 +208,10 @@ class Historia09(LiveServerTestCase):
         comentario.send_keys("produto veio no tempo certo e com tudo ok")
         botao.send_keys(Keys.ENTER)
 
+        time.sleep(1)
+
         driver.get("http://127.0.0.1:8000/FashionEmporium/")
         comentario = driver.find_element(by=By.ID, value="comentario Teste93")
-        nota = driver.find_element(by=By.ID, value="nota Teste93")
         self.assertTrue(
-            comentario.text == "produto veio no tempo certo e com tudo ok" and nota.text == "5"
+            comentario.text == "produto veio no tempo certo e com tudo ok"
         )

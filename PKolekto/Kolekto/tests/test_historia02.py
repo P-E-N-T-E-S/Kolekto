@@ -6,7 +6,7 @@ from selenium.webdriver.support.select import Select
 import time
 
 
-segundos = 0
+segundos = 5
 
 
 class Historia02(LiveServerTestCase):
