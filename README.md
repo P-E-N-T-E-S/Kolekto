@@ -170,6 +170,16 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
     >
   </li>
     <li>
+    <a  href="https://youtu.be/XF4Xa3Ddn6o"
+      >ScreenCast - Build (dos testes)</a
+    >
+  </li>
+    <li>
+    <a  href="https://youtu.be/HsqnT3LqI_c"
+      >ScreenCast - Deployment e Build</a
+    >
+  </li>
+    <li>
     <a  href="https://youtu.be/0VUmMAQF3-g"
       >ScreenCast - Uso do Sistema</a
     >
