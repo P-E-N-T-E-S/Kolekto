@@ -162,3 +162,4 @@ class Historia03(LiveServerTestCase):
         self.assertTrue(
             validacao
         )
+        driver.quit()

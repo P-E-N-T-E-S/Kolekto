@@ -260,6 +260,6 @@ class Historia08(LiveServerTestCase):
         self.assertTrue(
             valortot == 2*valorprod
         )
-        
+        driver.quit()
         
         

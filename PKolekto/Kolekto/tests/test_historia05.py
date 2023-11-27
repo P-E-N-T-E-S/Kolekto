@@ -122,5 +122,6 @@ class Historia05(LiveServerTestCase):
         barra_de_pesquisa.send_keys("Cartas Hype")
         barra_de_pesquisa.send_keys(Keys.ENTER)
         self.assertIsNotNone(driver.find_element(by=By.CLASS_NAME, value="card"))
+        driver.quit()
 
 

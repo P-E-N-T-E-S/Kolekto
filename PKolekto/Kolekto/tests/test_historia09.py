@@ -209,3 +209,4 @@ class Historia09(LiveServerTestCase):
         self.assertTrue(
             comentario.text == "produto veio no tempo certo e com tudo ok"
         )
+        driver.quit()

@@ -177,3 +177,4 @@ class Historia10(LiveServerTestCase):
         self.assertTrue(
             nome == produto_nome and preco == "R$10,00"
         )
+        driver.quit()

@@ -180,3 +180,4 @@ class Historia04(LiveServerTestCase):
             driver.find_element(by=By.NAME, value="tituloLoja").text,
             "Estatuetas 10"
         )
+        driver.quit()

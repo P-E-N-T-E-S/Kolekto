@@ -155,3 +155,4 @@ class Historia02(LiveServerTestCase):
             driver.title,
             "Kolekto: Criar Loja"
         )
+        driver.quit()
