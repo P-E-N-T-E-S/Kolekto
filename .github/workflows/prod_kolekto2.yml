@@ -42,6 +42,7 @@ jobs:
       - name: Run local server
         run: |
           cd PKolekto
+          python manage.py migrate
           python manage.py runserver &
           sleep 5
           python manage.py test Kolekto/tests
