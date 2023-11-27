@@ -208,6 +208,14 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
     <a href="https://github.com/evaldocunhaf">Evaldo Galdino</a> - egcf@cesar.school 📩
   </li>
 </ul>
+
+## 😊 Agradecimentos Especiais
+
+<ul>
+  <li>
+    <a href="https://www.linkedin.com/in/gabrielle-k-canalle-04b17240/?originalSubdomain=br">Gabrielle Karine Canalle</a> - Orientações Sobre o HTML do Site
+  </li>
+</ul>
   
 <table>
   <tr>
