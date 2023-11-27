@@ -10,6 +10,7 @@ segundos = 0
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--headless")
+chrome_options.add_argument("--window-size=1920x1080")
 
 driver = webdriver.Chrome(options=chrome_options)
 
@@ -20,6 +21,7 @@ class Historia09(LiveServerTestCase):
 
     def test_000_setup(self):
         for i in range(4):
+            time.sleep(1)
             driver.get("http://127.0.0.1:8000/registro")
             usuario = driver.find_element(by=By.NAME, value="username")
             nome_usuario = driver.find_element(by=By.NAME, value="nome")
@@ -31,11 +33,11 @@ class Historia09(LiveServerTestCase):
             nome_usuario.send_keys(f"Marcílio9{i}")
             email.send_keys(f"hist9{i}@teste.com")
             senha.send_keys("Teste12345")
-            time.sleep(segundos)
+            time.sleep(1)
             botao.send_keys(Keys.ENTER)
 
             if i < 3:
-                time.sleep(segundos)
+                time.sleep(1)
                 driver.get("http://127.0.0.1:8000/nova_loja")
                 perfil = driver.find_element(by=By.ID, value="perfil")
                 nascimento = driver.find_element(by=By.ID, value="nascimento")
@@ -78,17 +80,17 @@ class Historia09(LiveServerTestCase):
 
         else:
             for j in range(3):
+                time.sleep(1)
                 driver.get("http://127.0.0.1:8000/")
                 idproduto = driver.find_element(by=By.NAME, value=f"{produtos[j]} card").get_attribute("id")
+                time.sleep(1)
                 driver.get(f"http://127.0.0.1:8000/Produto/{idproduto}")
                 botao = driver.find_element(by=By.ID, value="adicionarCarrinho")
                 botao.send_keys(Keys.ENTER)
 
                 time.sleep(segundos)
 
-            driver.get("http://127.0.0.1:8000/realizar_compra")
-
-            driver.get("http://127.0.0.1:8000/carrinho")
+            time.sleep(1)
 
             driver.get("http://127.0.0.1:8000/realizar_compra")
 
@@ -107,18 +109,19 @@ class Historia09(LiveServerTestCase):
             cpf.send_keys("164.718.030-95")
             senha.send_keys("Teste12345")
 
-            time.sleep(segundos)
+            time.sleep(1)
 
             botao.send_keys(Keys.ENTER)
 
         self.assertTrue(
             True
         )
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/logout/")
 
 
     def test_001_cenario1(self):
-
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/login")
 
         usuario = driver.find_element(by=By.NAME, value="username")
@@ -129,6 +132,8 @@ class Historia09(LiveServerTestCase):
         senha.send_keys("Teste12345")
         time.sleep(segundos)
         enviar.send_keys(Keys.ENTER)
+
+        time.sleep(1)
 
         driver.get("http://127.0.0.1:8000/historico_compra")
 
@@ -149,6 +154,7 @@ class Historia09(LiveServerTestCase):
         )
 
     def test_002_cenario2(self):
+        time.sleep(1)
 
         driver.get("http://127.0.0.1:8000/login")
 
@@ -160,6 +166,8 @@ class Historia09(LiveServerTestCase):
         senha.send_keys("Teste12345")
         time.sleep(segundos)
         enviar.send_keys(Keys.ENTER)
+
+        time.sleep(1)
 
         driver.get("http://127.0.0.1:8000/historico_compra")
 
@@ -178,9 +186,10 @@ class Historia09(LiveServerTestCase):
         self.assertTrue(
             comentario.text == "produto veio com defeitos"
         )
+        driver.get("http://127.0.0.1:8000/logout")
 
     def test_003_cenario3(self):
-
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/login")
 
         usuario = driver.find_element(by=By.NAME, value="username")
@@ -192,6 +201,7 @@ class Historia09(LiveServerTestCase):
         time.sleep(segundos)
         enviar.send_keys(Keys.ENTER)
 
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/historico_compra")
 
         botao = driver.find_element(by=By.ID, value="avaliar Z")

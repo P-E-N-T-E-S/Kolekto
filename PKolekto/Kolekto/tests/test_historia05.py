@@ -10,6 +10,7 @@ segundos = 0
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--headless")
+chrome_options.add_argument("--window-size=1920x1080")
 
 driver = webdriver.Chrome(options=chrome_options)
 
@@ -17,6 +18,7 @@ driver = webdriver.Chrome(options=chrome_options)
 class Historia05(LiveServerTestCase):
     def test_000_setup(self):
         for i in range(4):
+            time.sleep(1)
             driver.get("http://127.0.0.1:8000/registro")
             usuario = driver.find_element(by=By.NAME, value="username")
             nome_usuario = driver.find_element(by=By.NAME, value="nome")
@@ -31,6 +33,7 @@ class Historia05(LiveServerTestCase):
             botao.send_keys(Keys.ENTER)
 
             if i == 1:
+                time.sleep(1)
                 driver.get("http://127.0.0.1:8000/nova_loja")
                 perfil = driver.find_element(by=By.ID, value="perfil")
                 nascimento = driver.find_element(by=By.ID, value="nascimento")
@@ -52,6 +55,7 @@ class Historia05(LiveServerTestCase):
                 time.sleep(segundos)
                 botao.click()
 
+                time.sleep(1)
                 driver.get("http://127.0.0.1:8000/add_produto")
                 foto = driver.find_element(by=By.NAME, value="foto1")
                 prod = driver.find_element(by=By.NAME, value="nome_produto")
@@ -69,8 +73,9 @@ class Historia05(LiveServerTestCase):
                 preco.send_keys("10")
                 qntd.send_keys("5")
                 time.sleep(segundos)
-                enviar.click()
+                enviar.send_keys(Keys.ENTER)
 
+                time.sleep(1)
                 driver.get("http://127.0.0.1:8000/add_produto")
                 foto = driver.find_element(by=By.NAME, value="foto1")
                 prod = driver.find_element(by=By.NAME, value="nome_produto")
@@ -93,9 +98,11 @@ class Historia05(LiveServerTestCase):
         self.assertTrue(
             True
         )
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/logout/")
 
     def teste_001_cenario1(self):
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/")
         barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
         barra_de_pesquisa.send_keys("Teclado gamer")
@@ -106,6 +113,7 @@ class Historia05(LiveServerTestCase):
         )
 
     def teste_002_cenario2(self):
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/")
         barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
         barra_de_pesquisa.send_keys("pokémon")
@@ -113,10 +121,12 @@ class Historia05(LiveServerTestCase):
         self.assertIsNotNone(driver.find_element(by=By.CLASS_NAME, value="card"))
 
     def teste_003_cenario3(self):
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/pesquisa?select=Cartas")
         self.assertIsNotNone(driver.find_element(by=By.CLASS_NAME, value="card"))
 
     def teste_004_cenario4(self):
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/")
         barra_de_pesquisa = driver.find_element(by=By.NAME, value="nome_pesquisado")
         barra_de_pesquisa.send_keys("Cartas Hype")

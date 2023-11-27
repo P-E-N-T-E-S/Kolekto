@@ -10,6 +10,7 @@ segundos = 0
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--headless")
+chrome_options.add_argument("--window-size=1920x1080")
 
 driver = webdriver.Chrome(options=chrome_options)
 
@@ -19,6 +20,7 @@ class Historia04(LiveServerTestCase):
     def test_000_setup(self):
         listloja = ['', '', 'Gêmeos das Minis', 'Brinquedos do Futuro']
         for i in range(4):
+            time.sleep(1)
             driver.get("http://127.0.0.1:8000/registro")
             usuario = driver.find_element(by=By.NAME, value="username")
             nome_usuario = driver.find_element(by=By.NAME, value="nome")
@@ -33,6 +35,7 @@ class Historia04(LiveServerTestCase):
             botao.send_keys(Keys.ENTER)
 
             if i >= 2:
+                time.sleep(1)
                 driver.get("http://127.0.0.1:8000/nova_loja")
                 perfil = driver.find_element(by=By.ID, value="perfil")
                 nascimento = driver.find_element(by=By.ID, value="nascimento")
@@ -52,13 +55,14 @@ class Historia04(LiveServerTestCase):
                 descricao.send_keys("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
                 estado.select_by_visible_text("Pernambuco")
                 time.sleep(segundos)
-                botao.click()
+                botao.send_keys((Keys.ENTER))
         self.assertTrue(
             True
         )
         driver.get("http://127.0.0.1:8000/logout/")
 
     def test_001_cenario1(self):
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/login")
 
         usuario = driver.find_element(by=By.NAME, value="username")
@@ -103,6 +107,7 @@ class Historia04(LiveServerTestCase):
         driver.get("http://127.0.0.1:8000/logout")
 
     def test_002_cenario2(self):
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/login")
 
         usuario = driver.find_element(by=By.NAME, value="username")
@@ -114,6 +119,7 @@ class Historia04(LiveServerTestCase):
         time.sleep(segundos)
         enviar.send_keys(Keys.ENTER)
 
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/nova_loja")
         perfil = driver.find_element(by=By.ID, value="perfil")
         nascimento = driver.find_element(by=By.ID, value="nascimento")
@@ -134,15 +140,17 @@ class Historia04(LiveServerTestCase):
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
         estado.select_by_visible_text("Pernambuco")
         time.sleep(segundos)
-        botao.click()
+        botao.send_keys(Keys.ENTER)
 
         self.assertEqual(
             driver.find_element(by=By.ID, value="erros").text,
             "Já existe uma loja com esse nome."
         )
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/logout")
 
     def teste_003_cenario3(self):
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/nova_loja")
         self.assertEqual(
             driver.title,
@@ -150,6 +158,7 @@ class Historia04(LiveServerTestCase):
         )
 
     def teste_004_cenario4(self):
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/login")
 
         usuario = driver.find_element(by=By.NAME, value="username")
@@ -161,6 +170,7 @@ class Historia04(LiveServerTestCase):
         time.sleep(segundos)
         enviar.send_keys(Keys.ENTER)
 
+        time.sleep(1)
         driver.get('http://127.0.0.1:8000/minha_loja')
 
         driver.find_element(by=By.ID, value="Editar").click()
@@ -174,7 +184,7 @@ class Historia04(LiveServerTestCase):
         nome_loja.send_keys(Keys.CONTROL + 'a')
         nome_loja.send_keys("Estatuetas 10")
         time.sleep(segundos)
-        enviar.click()
+        enviar.send_keys(Keys.ENTER)
 
         self.assertEqual(
             driver.find_element(by=By.NAME, value="tituloLoja").text,

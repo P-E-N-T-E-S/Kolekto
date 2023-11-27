@@ -10,6 +10,7 @@ segundos = 0
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--headless")
+chrome_options.add_argument("--window-size=1920x1080")
 
 driver = webdriver.Chrome(options=chrome_options)
 
@@ -55,10 +56,12 @@ class Historia02(LiveServerTestCase):
         self.assertTrue(
             True
         )
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/logout/")
 
 
     def test_002_cenario1(self):
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/login")
 
         usuario = driver.find_element(by=By.NAME, value="username")
@@ -70,7 +73,7 @@ class Historia02(LiveServerTestCase):
         time.sleep(segundos)
         enviar.send_keys(Keys.ENTER)
 
-        time.sleep(segundos)
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/add_produto")
         foto = driver.find_element(by=By.NAME, value="foto1")
         prod = driver.find_element(by=By.NAME, value="nome_produto")
@@ -88,7 +91,10 @@ class Historia02(LiveServerTestCase):
         qntd.send_keys("5")
         categoria.select_by_visible_text("Cartas")
         time.sleep(segundos)
-        enviar.click()
+        enviar.send_keys(Keys.ENTER)
+
+        time.sleep(1)
+        driver.get("http://127.0.0.1:8000")
 
         try:
             driver.find_element(by=By.NAME, value="Charizard 1999 - 1° Edição")
@@ -100,9 +106,11 @@ class Historia02(LiveServerTestCase):
         self.assertTrue(
             validacao
         )
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/logout")
 
     def test_003_cenario2(self):
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/login")
 
         usuario = driver.find_element(by=By.NAME, value="username")
@@ -111,10 +119,10 @@ class Historia02(LiveServerTestCase):
 
         usuario.send_keys("Teste21")
         senha.send_keys("Teste12345")
-        time.sleep(segundos)
+        time.sleep(1)
         enviar.send_keys(Keys.ENTER)
 
-        time.sleep(segundos)
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/add_produto")
         foto = driver.find_element(by=By.NAME, value="foto1")
         prod = driver.find_element(by=By.NAME, value="nome_produto")
@@ -128,7 +136,7 @@ class Historia02(LiveServerTestCase):
         descricao.send_keys("Black Lotus - Beta, uma das cartas mais raras do Magic")
         preco.send_keys("4039553")
         qntd.send_keys("1")
-        time.sleep(segundos)
+        time.sleep(1)
         enviar.click()
 
         self.assertEqual(
@@ -138,6 +146,7 @@ class Historia02(LiveServerTestCase):
         driver.get("http://127.0.0.1:8000/logout")
 
     def teste_004_cenario3(self):
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/login")
 
         usuario = driver.find_element(by=By.NAME, value="username")
@@ -146,10 +155,10 @@ class Historia02(LiveServerTestCase):
 
         usuario.send_keys("Teste20")
         senha.send_keys("Teste12345")
-        time.sleep(segundos)
+        time.sleep(1)
         enviar.send_keys(Keys.ENTER)
 
-        time.sleep(segundos)
+        time.sleep(1)
         driver.get("http://127.0.0.1:8000/add_produto")
         self.assertEqual(
             driver.title,
