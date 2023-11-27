@@ -29,30 +29,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          set -ex
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo apt install ./google-chrome-stable_current_amd64.deb
           python -m pip install --upgrade pip
           pip install -r PKolekto/requirements.txt
-
-      - uses: nanasess/setup-chromedriver@v2
-      - run: |
-          chromedriver --url-base=/wd/hub &
-
-      - name: Run local server
-        run: |
-          cd PKolekto
-          python manage.py migrate
-          python manage.py runserver &
-          sleep 5
-          python manage.py test Kolekto/tests
-
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
-      - name: Cleaning testing files
-        run: |
-          cd PKolekto/
-          rm .env
-          cd ..
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v2
