@@ -211,13 +211,13 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
   </li>
 </ul>
 
-</details>
-
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/cb67d026-1fcd-4b2a-a032-3b62576dde70)
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/32c5654d-c2c5-40b8-847d-e729727b0bc7)
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/f8142346-a3b1-4578-8b0e-3115e46824bf)
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/dbf099d3-8234-4f74-b74f-b357ad21c961)
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/b2c5bad2-0a87-44f7-ba80-62bacb4dd0e6)
+
+</details>
 
 ## 👩‍💻 Membros
 
@@ -248,8 +248,8 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 
 <br>
 
-<a href="https://github.com/P-E-N-T-E-S/Kolekto/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=P-E-N-T-E-S/Kolekto" />
+<a href="https://github.com/P-E-N-T-E-S/Pris.ME/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=P-E-N-T-E-S/Pris.ME" />
 </a>
 
 ## 😊 Agradecimentos Especiais
