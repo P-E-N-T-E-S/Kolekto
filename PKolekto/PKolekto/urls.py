@@ -21,5 +21,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("",include("Kolekto.urls"))
+    path("",include("Kolekto.urls")),
+    path("/cypress", include())
 ]+ static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
