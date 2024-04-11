@@ -1,17 +1,31 @@
+<p align="center">
+  <img
+    src="https://img.shields.io/badge/Status-Em%20desenvolvimento-green?style=flat-square"
+    alt="Status"
+  />
+</p>
+
+<p align="center">
+  <img
+    src="https://img.shields.io/github/repo-size/P-E-N-T-E-S/Kolekto?style=flat"
+    alt="Repository Size"
+  />
+  <img
+    src="https://img.shields.io/github/languages/count/P-E-N-T-E-S/Kolekto?style=flat&logo=python"
+    alt="Language Count"
+  />
+  <img
+    src="https://img.shields.io/github/commit-activity/t/P-E-N-T-E-S/Kolekto?style=flat&logo=github"
+    alt="Commit Activity"
+  />
+  <a href="LICENSE.md"
+    ><img
+      src="https://img.shields.io/github/license/P-E-N-T-E-S/Kolekto"
+      alt="License"
+  /></a>
+</p>
+
 # Kolekto 
-
-![GitHub repo size](https://img.shields.io/github/repo-size/P-E-N-T-E-S/Kolekto?style=flat)
-![GitHub language count](https://img.shields.io/github/languages/count/P-E-N-T-E-S/Kolekto?style=flat&logo=python)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/P-E-N-T-E-S/Kolekto?style=flat&logo=github)
-![Commits](https://img.shields.io/github/commit-activity/t/P-E-N-T-E-S/Kolekto?style=flat&logo=github)
-[![GitHub](https://img.shields.io/github/license/P-E-N-T-E-S/Kolekto)](LICENSE.md)
-[![CI](https://github.com/P-E-N-T-E-S/Kolekto/actions/workflows/prod_kolekto.yml/badge.svg)](https://github.com/P-E-N-T-E-S/Kolekto/actions/workflows/ci.yml)
-
-<!--
-Atualizações para o Futuro
-![Site Online](https://img.shields.io/website) 
---> 
-
 
 Bem-vindo ao repositório do projeto Kolekto! Este é um aplicativo desenvolvido como parte da disciplina de Fundamentos de Software (FDS). O objetivo do Kolekto é facilitar a compra e venda de produtos colecionáveis, proporcionando uma plataforma intuitiva e amigável para colecionadores e entusiastas.
 
@@ -25,10 +39,8 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 
 ## 🔧 Funcionalidades Principais
 
-- **Cadastro de Usuário:** Os usuários podem criar contas pessoais, permitindo que eles acessem todas as funcionalidades do aplicativo.
 - **Listagem de Itens:** Os vendedores podem criar anúncios para os itens que desejam vender. Eles podem adicionar imagens, descrições, categorias e preços aos produtos.
 - **Busca Avançada:** Os compradores podem pesquisar itens específicos usando filtros como categoria, marca, estado de conservação e preço.
-- **Chat Integrado:** Compradores e vendedores podem se comunicar por meio de um sistema de chat integrado, facilitando negociações e esclarecimento de dúvidas.
 - **Avaliações e Comentários:** Os usuários podem deixar avaliações e comentários sobre vendedores e produtos, fornecendo informações adicionais para a comunidade.
 - **Gerenciamento de Transações:** O aplicativo suporta um sistema de acompanhamento de transações, ajudando os usuários a manterem o controle de suas compras e vendas.
 
@@ -40,7 +52,11 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
 - **Frontend:** A interface do usuário é desenvolvida utilizando tecnologias como HTML, CSS usando Boostrap.
 - **Organização:** Para nos organizar e seguir os principios de desenvolvimento de software vamos usar o jira
 
-<p>Links Importantes</p>
+## ♟️ Entregas
+
+<details>
+
+<summary>Links Importantes</summary>
 <ul>
   <li>
     <a  href="https://kolekto2.azurewebsites.net"
@@ -74,7 +90,10 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
   </li>
 </ul>
 
-<p>Entrega 2</p>
+</details>
+<details>
+
+<summary>Entrega 2</summary>
 <ul>
   <li>
     <a  href="https://youtu.be/gdpRbjAJmQc"
@@ -103,7 +122,10 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
   </li>
 </ul>
 
-<p>Entrega 3</p>
+</details>
+<details>
+
+<summary>Entrega 3</summary>
 <ul>
   <li>
     <a  href="https://youtu.be/8a6elg7hm6c"
@@ -142,7 +164,10 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
   </li>
 </ul>
 
-<p>Entrega 4</p>
+</details>
+<details>
+
+<summary>Entrega 4</summary>
 <ul>
   <li>
     <a  href="https://youtu.be/JWnpEDVkzqc"
@@ -186,6 +211,8 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
   </li>
 </ul>
 
+</details>
+
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/cb67d026-1fcd-4b2a-a032-3b62576dde70)
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/32c5654d-c2c5-40b8-847d-e729727b0bc7)
   ![image](https://github.com/P-E-N-T-E-S/Kolekto/assets/126795323/f8142346-a3b1-4578-8b0e-3115e46824bf)
@@ -219,6 +246,12 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
   </li>
 </ul>
 
+<br>
+
+<a href="https://github.com/P-E-N-T-E-S/Kolekto/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=P-E-N-T-E-S/Kolekto" />
+</a>
+
 ## 😊 Agradecimentos Especiais
 
 <ul>
@@ -226,109 +259,7 @@ O Kolekto é uma plataforma que conecta compradores e vendedores de produtos col
     <a href="https://www.linkedin.com/in/gabrielle-k-canalle-04b17240/?originalSubdomain=br">Gabrielle Karine Canalle</a> - Orientações Sobre o HTML do Site
   </li>
 </ul>
-  
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/Thomazrlima">
-        <img src="https://avatars3.githubusercontent.com/Thomazrlima" width="100px;" alt="Foto de Thomaz"/><br>
-        <sub>
-          <b>Thomaz R. Lima</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/evaldocunhaf">
-        <img src="https://avatars3.githubusercontent.com/evaldocunhaf" width="100px;" alt="Foto de Evaldo"/><br>
-        <sub>
-          <b>Evaldo G. Filho</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/hsspedro">
-        <img src="https://avatars.githubusercontent.com/hsspedro" width="100px;" alt="Foto de Pedro"/><br>
-        <sub>
-          <b>Pedro S. Souza</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/Luiz-Edu0202">
-        <img src="https://avatars.githubusercontent.com/Luiz-Edu0202" width="100px;" alt="Foto de Dustin"/><br>
-        <sub>
-          <b>Luiz Eduardo Brayner</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/Nerebo">
-        <img src="https://avatars.githubusercontent.com/Nerebo" width="100px;" alt="Foto de André"/><br>
-        <sub>
-          <b>André Fonseca</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
-      <a href="https://github.com/Sofia-Saraiva">
-        <img src="https://avatars.githubusercontent.com/Sofia-Saraiva" width="100px;" alt="Foto de Sofia"/><br>
-        <sub>
-          <b>Sofia Saraiva</b>
-        </sub>
-      </a>
-    </td>
-  </tr>
-</table>
 
 ## License
 
 [MIT](https://github.com/P-E-N-T-E-S/Kolekto/blob/master/LICENSE.md)
-
-<!--
-Atualizações para o Futuro
-
-## 💻 Pré-requisitos
-
-Antes de começar, verifique se você atendeu aos seguintes requisitos:
-
-* Você instalou a versão mais recente de `<linguagem / dependência / requeridos>`
-* Você tem uma máquina `<Windows / Linux / Mac>`. Indique qual sistema operacional é compatível / não compatível.
-* Você leu `<guia / link / documentação_relacionada_ao_projeto>`.
-
-## 🚀 Instalando <nome_do_projeto>
-
-Para instalar o <nome_do_projeto>, siga estas etapas:
-
-Linux e macOS:
-```
-<comando_de_instalação>
-```
-
-Windows:
-```
-<comando_de_instalação>
-```
-## ☕ Usando <nome_do_projeto>
-
-Para usar <nome_do_projeto>, siga estas etapas:
-
-```
-<exemplo_de_uso>
-```
-
-Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Fornece uma referência de opções para pontos de bônus!
-
-## 📫 Contribuindo para <nome_do_projeto>
-
-Para contribuir com <nome_do_projeto>, siga estas etapas:
-
-1. Bifurque este repositório.
-2. Crie um branch: `git checkout -b <nome_branch>`.
-3. Faça suas alterações e confirme-as: `git commit -m '<mensagem_commit>'`
-4. Envie para o branch original: `git push origin <nome_do_projeto> / <local>`
-5. Crie a solicitação de pull.
-
-Como alternativa, consulte a documentação do GitHub em [como criar uma solicitação pull](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
-
-
--->
