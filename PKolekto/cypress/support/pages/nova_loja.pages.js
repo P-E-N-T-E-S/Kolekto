@@ -6,6 +6,7 @@ const INPUT_DESCRICAO = '#descricao'
 const INPUT_CIDADE = '#RuaAvenida'
 const INPUT_ESTADO = '#estado'
 const BUTTON_SUBMIT = '#cadastro'
+const P_TITULO_LOJA = '#erros'
 
 Cypress.Commands.add('registrarLoja', (fotoperfil, datanascimento, cpf, nomeLoja, descricao, cidade, estado) => {
     cy.get(INPUT_FPERFIL).type(fotoperfil)
@@ -16,4 +17,8 @@ Cypress.Commands.add('registrarLoja', (fotoperfil, datanascimento, cpf, nomeLoja
     cy.get(INPUT_CIDADE).type(cidade)
     cy.get(INPUT_ESTADO).select(estado)
     cy.get(BUTTON_SUBMIT).click()
+})
+
+Cypress.Commands.add('verificarNomeIgual', () => {
+    cy.get(P_TITULO_LOJA).should('exist');
 })
