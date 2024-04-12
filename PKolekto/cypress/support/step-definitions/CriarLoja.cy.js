@@ -2,7 +2,7 @@ const { And } = require("cypress-cucumber-preprocessor/lib/resolveStepDefinition
 //Cenario 1
 Given('que eu tenho um perfil comum de usuário no site', () => {
     cy.visit('/registro')
-    cy.cadastrar('teste11', 'Joao', 'teste11@gmail.com', '12345')
+    cy.cadastrar('teste41', 'Joao', 'teste11@gmail.com', '12345')
 })
 When('eu adicionar meus dados e criar um perfil de loja chamado "Minis Recife"', () => {
     cy.visit('/nova_loja')
@@ -15,18 +15,18 @@ Then('devo conseguir entrar na pagina: minha_loja', () =>{
 //Cenario 2
 Given('que eu tenho um perfil de usuario comum', () => {
     cy.visit('/registro')
-    cy.cadastrar('teste12', 'Joao', 'teste12@gmail.com', '12345')
+    cy.cadastrar('teste42', 'Joao', 'teste12@gmail.com', '12345')
 })
 And('exista uma loja chamada "Gêmeos das Minis"', () => {
     cy.visit('/registro')
-    cy.cadastrar('figurante121', 'Joao', 'teste121@gmail.com', '12345')
+    cy.cadastrar('figurante421', 'Joao', 'teste121@gmail.com', '12345')
     cy.visit('/nova_loja')
     cy.registrarLoja('https://i.imgur.com/stU4wdD.jpeg', '2003-08-29', '695.295.840-16', 'Gêmeos das Minis', 'Descricao', 'Recife', 'Pernambuco')
     cy.visit('/logout')
 })
 When('eu tentar criar uma loja chamado "Gêmeos das Minis"', () => {
     cy.visit('/login')
-    cy.entrar('teste12', '12345')
+    cy.entrar('teste42', '12345')
     cy.visit('/nova_loja')
     cy.registrarLoja('https://i.imgur.com/stU4wdD.jpeg', '2003-08-29', '695.295.840-16', 'Gêmeos das Minis', 'Descricao', 'Recife', 'Pernambuco')
 })
@@ -46,7 +46,7 @@ Then('eu devo ser direcionado para pagina de login', () =>{
 //Cenario 4
 Given('que eu tenho um perfil de loja criado chamado "Brinquedos do Futuro"',() => {
     cy.visit('/registro')
-    cy.cadastrar('teste13', 'Joao', 'teste13@gmail.com', '12345')
+    cy.cadastrar('teste43', 'Joao', 'teste13@gmail.com', '12345')
     cy.visit('/nova_loja')
     cy.registrarLoja('https://i.imgur.com/stU4wdD.jpeg', '2003-08-29', '695.295.840-16', 'Brinquedos do Futuro', 'Descricao', 'Recife', 'Pernambuco')
 })
