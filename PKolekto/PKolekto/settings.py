@@ -80,7 +80,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "Kolekto.apps.KolektoConfig",
     "whitenoise.runserver_nostatic",
-    "django_cypress",
 ]
 
 MIDDLEWARE = [
