@@ -32,6 +32,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r PKolekto/requirements.txt
 
+      - name: Checkout
+        uses: actions/checkout@v4
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          run: cd Pkolekto
+          build: npm run build
+          start: npm start
+
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v2
         with:
