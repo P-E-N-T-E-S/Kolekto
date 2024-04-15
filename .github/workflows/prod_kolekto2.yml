@@ -32,8 +32,7 @@ jobs:
           python -m pip install --upgrade pip
           cd PKolekto
           pip install -r requirements.txt
-          npm install
-          npm fund
+          npm ci
           cd ..
 
       - name: Run local server
