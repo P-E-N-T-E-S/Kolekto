@@ -32,18 +32,21 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r PKolekto/requirements.txt
 
-      - name: Find Cypress
-        run: cd PKolekto
+      - name: Run local server
+        run: |
+          cd PKolekto
+          python manage.py migrate
+          python manage.py runserver &
+          sleep 5
+          npx cypress run
 
-      - name: Checkout
-        uses: actions/checkout@v4
-      # Install npm dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          build: npm run build
-          start: npm start
+      - name: Cleaning testing files
+        run: |
+          cd PKolekto/
+          rm .env
+          rm db.sqlite3
+          cd ..
+
 
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v2
@@ -52,6 +55,12 @@ jobs:
           path: |
             PKolekto
             !venv/
+            !node_modules/
+            !cypress/
+            !package.json
+            !package-lock.json
+            !cypress.config.js
+            
 
   deploy:
     runs-on: ubuntu-latest
