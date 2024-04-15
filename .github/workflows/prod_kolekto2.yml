@@ -39,8 +39,9 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          run: cd Pkolekto
-          build: npm run build
+          build: |
+            cd PKolekto
+            npm run build
           start: npm start
 
       - name: Upload artifact for deployment jobs
