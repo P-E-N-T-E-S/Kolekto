@@ -33,6 +33,7 @@ jobs:
           cd PKolekto
           pip install -r requirements.txt
           npm install
+          npm fund
           cd ..
 
       - name: Run local server
