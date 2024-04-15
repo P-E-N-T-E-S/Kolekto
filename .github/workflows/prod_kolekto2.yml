@@ -32,6 +32,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r PKolekto/requirements.txt
 
+      - name: Find Cypress
+        run: cd PKolekto
+
       - name: Checkout
         uses: actions/checkout@v4
       # Install npm dependencies, cache them correctly
@@ -39,9 +42,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          build: |
-            cd PKolekto
-            npm run build
+          build: npm run build
           start: npm start
 
       - name: Upload artifact for deployment jobs
