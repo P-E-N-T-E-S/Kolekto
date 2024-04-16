@@ -38,7 +38,8 @@ jobs:
       - name: Run local server
         run: |
           cd PKolekto
-          python manage.py testserver &
+          python manage.py migrate
+          python manage.py runserver &
           sleep 5
           npx cypress run
 
