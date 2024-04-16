@@ -48,6 +48,11 @@ jobs:
           cd PKolekto/
           rm .env
           rm db.sqlite3
+          rm cypress.config.js
+          rm package-lock.json
+          rm package.json
+          rm -rf cypress
+          rm -rf node_modules
           cd ..
 
 
@@ -58,12 +63,6 @@ jobs:
           path: |
             PKolekto
             !venv/
-            !node_modules/
-            !cypress/
-            !package.json
-            !package-lock.json
-            !cypress.config.js
-            
 
   deploy:
     runs-on: ubuntu-latest
