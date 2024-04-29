@@ -9,7 +9,14 @@ class Historia1(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = webdriver.Chrome()
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--disable-browser-side-navigation")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("window-size=1440,1080")
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument("--disable-extensions")
+        cls.selenium = webdriver.Chrome(options=chrome_options)
         cls.selenium.implicitly_wait(10)
 
     @classmethod
