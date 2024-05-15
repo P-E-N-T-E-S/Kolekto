@@ -14,7 +14,6 @@ chrome_options.add_argument("window-size=1440,1080")
 chrome_options.add_argument('--disable-dev-shm-usage')
 chrome_options.add_argument("--disable-extensions")
 
-
 driver = webdriver.Chrome(options=chrome_options)
 
 class Historia1(LiveServerTestCase):
