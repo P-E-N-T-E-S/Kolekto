@@ -52,7 +52,7 @@ class Historia1(LiveServerTestCase):
         descricao.send_keys(
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
         estado.select_by_visible_text("Pernambuco")
-        botao.send_keys(Keys.ENTER)
+        botao.click()
         #Entao
         
         driver.get("http://127.0.0.1:8000/minha_loja")
@@ -76,7 +76,7 @@ class Historia1(LiveServerTestCase):
         nome_usuario.send_keys(f"João")
         email.send_keys(f"hist41@teste.com")
         senha.send_keys("Teste12345")
-        botao.send_keys(Keys.ENTER)
+        botao.click()
         
         driver.get("http://127.0.0.1:8000/nova_loja")
         perfil = driver.find_element(by=By.ID, value="perfil")
@@ -97,7 +97,7 @@ class Historia1(LiveServerTestCase):
         descricao.send_keys(
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
         estado.select_by_visible_text("Pernambuco")
-        botao.send_keys(Keys.ENTER)
+        botao.click()
         
         driver.get("http://127.0.0.1:8000/logout")
         
@@ -112,7 +112,7 @@ class Historia1(LiveServerTestCase):
         nome_usuario.send_keys(f"João")
         email.send_keys(f"hist42@teste.com")
         senha.send_keys("Teste12345")
-        botao.send_keys(Keys.ENTER)
+        botao.click()
 
         #Quando
 
@@ -135,7 +135,7 @@ class Historia1(LiveServerTestCase):
         descricao.send_keys(
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.")
         estado.select_by_visible_text("Pernambuco")
-        botao.send_keys(Keys.ENTER)
+        botao.click()
 
         #Entao
 
