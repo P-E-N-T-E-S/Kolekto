@@ -5,7 +5,11 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.select import Select
 import time
 
-driver = webdriver.Chrome()
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--headless")
+
+driver = webdriver.Chrome(options=chrome_options)
 
 class Historia1(LiveServerTestCase):
 
